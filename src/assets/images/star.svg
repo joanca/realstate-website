@@ -1,0 +1,23 @@
+<svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.9" filter="url(#filter0_n_143_83)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.96951 7.14957C7.61359 7.06816 8.14535 6.6848 8.42257 6.09635L10.967 0.680931C11.3936 -0.226977 12.6653 -0.226977 13.093 0.680931L15.6374 6.09635C16.1516 7.19181 17.1276 7.1578 18.1437 7.28559V7.2825L22.0938 7.77922V7.78231L23.0265 7.8998C24.0375 8.02655 24.4012 9.24981 23.6871 9.9207L19.3227 14.012C18.8466 14.4582 18.6436 15.0817 18.7662 15.7227L19.8905 21.5998C20.0791 22.585 19.0403 23.3291 18.1706 22.8509L12.9293 19.9653C12.3583 19.6509 11.7009 19.6509 11.1299 19.9653L5.88864 22.8509C5.01885 23.3301 3.98006 22.585 4.16867 21.5998L5.29299 15.7227C5.41562 15.0817 5.21364 14.4582 4.73752 14.012L0.373154 9.91859C0.0340935 9.60119 -0.0833852 9.14054 0.0598687 8.69946C0.342234 7.82967 1.14607 7.88431 1.96536 7.78123V7.77814L6.96951 7.14957Z" fill="#87343A"/>
+</g>
+<defs>
+<filter id="filter0_n_143_83" x="0" y="0" width="24.0586" height="23" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="2 2" stitchTiles="stitch" numOctaves="3" result="noise" seed="8624" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+<feFlood flood-color="rgba(254, 247, 236, 0.5)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feMerge result="effect1_noise_143_83">
+<feMergeNode in="shape" />
+<feMergeNode in="color1" />
+</feMerge>
+</filter>
+</defs>
+</svg>

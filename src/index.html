@@ -118,6 +118,28 @@
       font-weight: 600;
       font-style: italic;
     }
+    .house-dot-i {
+      position: relative;
+      display: inline-block;
+    }
+    .house-dot-i::before {
+      content: '';
+      position: absolute;
+      top: -0.1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0.2em;
+      height: 0.2em;
+      background-image: url('assets/images/house-icon.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    @media (min-width: 1024px) {
+      .house-dot-i::before {
+        top: -0.2rem;
+      }
+    }
   </style>
 </head>
 <body class="bg-white min-h-screen">
@@ -128,14 +150,13 @@
           <div class="w-full lg:w-2/3 lg:pt-16 lg:pr-16">
             <div class="flex flex-row lg:flex-col items-center lg:items-start">
               <div class="flex-[0.8] lg:flex-1">
-                <div class="flex items-center gap-2 mb-1 lg:mb-0">
+                <div class="flex items-center gap-2">
                   <h1 class="font-archivo-condensed font-bold text-text-dark text-xl lg:text-[50px] lg:leading-none">
                     I'm EMILY,
                   </h1>
-                  <img src="assets/images/house-icon.svg" alt="" class="hidden lg:block w-4 h-4" />
                 </div>
                 <h1 class="font-archivo-condensed font-extrabold text-text-dark text-[35px] leading-[30px] lg:text-[80px] lg:leading-[65px] tracking-[-0.175px] lg:tracking-none lg:max-w-none">
-                  your real estate advisor and Portland area expert.
+                  your real estate <span class="whitespace-nowrap" aria-label="advisor">adv<span class="house-dot-i" aria-hidden="true">ı</span>sor</span> and Portland area expert.
                 </h1>
               </div>
               <div class="flex-[1.2] lg:flex-1 flex-shrink-0 lg:hidden ml-4">

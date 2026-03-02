@@ -28,13 +28,23 @@
       },
     }
   </script>
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18",
+        "react-dom/client": "https://esm.sh/react-dom@18/client",
+        "react/jsx-runtime": "https://esm.sh/react@18/jsx-runtime"
+      }
+    }
+  </script>
 </head>
-<body className="bg-white min-h-screen">
-  <main id="emily-realestate" className="relative"></main>
-  <script type="module">
-    const isDev = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    const devParam = isDev ? '&dev' : '';
-    import(`https://esm.sh/gh/joanca/realstate-website@main/src/main.jsx?jsx${devParam}`);
+<body class="bg-white min-h-screen">
+  <main id="emily-realestate" class="relative"></main>
+  <script type="module" src="https://esm.sh/tsx"></script>
+  <script type="text/jsx">
+    import { createRoot } from "react-dom/client"
+    import App from "./App.jsx"
+    createRoot(document.getElementById('emily-realestate')).render(<App />)
   </script>
 </body>
 </html>

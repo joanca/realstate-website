@@ -1,4 +1,4 @@
-import React, { useEffect } from 'https://esm.sh/react@18';
+import { useEffect } from 'react';
 
 export default function App() {
   useEffect(() => {

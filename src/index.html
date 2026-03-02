@@ -32,7 +32,9 @@
 <body className="bg-white min-h-screen">
   <main id="emily-realestate" className="relative"></main>
   <script type="module">
-    import 'https://esm.sh/gh/joanca/realstate-website@main/src/main.jsx?jsx';
+    const isDev = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    const devParam = isDev ? '&dev' : '';
+    import(`https://esm.sh/gh/joanca/realstate-website@main/src/main.jsx?jsx${devParam}`);
   </script>
 </body>
 </html>

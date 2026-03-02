@@ -1,0 +1,11 @@
+{
+  "name": "realstate-website",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "NODE_ENV=dev npx serve src",
+    "start": "NODE_ENV=production npx serve src"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

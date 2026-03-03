@@ -34,7 +34,7 @@ export default function App() {
                   </h1>
                 </div>
                 <div className="flex-[1.2] lg:flex-1 flex-shrink-0 lg:hidden ml-4">
-                  <img src="assets/images/emily-circle.png" alt="Emily B" className="object-cover" />
+                  <img src="https://emilybrealty.com/files/2026/03/emily-circle.png" alt="Emily B" className="object-cover" />
                 </div>
               </div>
               <p className="font-work-sans text-text-green lg:text-text-dark text-lg lg:text-2xl mt-6 lg:mt-10 max-w-[520px] opacity-90">
@@ -44,7 +44,7 @@ export default function App() {
               <div className="my-6 lg:my-8">
                 <a href="#" className="flex items-center gap-3 font-work-sans font-medium text-brand-orange text-lg lg:text-2xl">
                   My Philosophy &amp; Methods
-                  <img src="assets/images/arrow.png" alt="" className="w-[9px] h-4 mt-[1px]" />
+                  <img src="https://emilybrealty.com/files/2026/03/arrow.png" alt="" className="w-[9px] h-4 mt-[1px]" />
                 </a>
               </div>
               <a
@@ -52,7 +52,7 @@ export default function App() {
                 className="inline-block border-2 border-text-dark rounded-[36px] px-8 lg:px-8 py-3 lg:py-5"
                 style={{
                   backgroundColor: '#bd760c',
-                  backgroundImage: "url('assets/images/button-large.png')",
+                  backgroundImage: "url('https://emilybrealty.com/files/2026/03/button-large.png')",
                   backgroundRepeat: 'round',
                 }}
               >
@@ -62,7 +62,7 @@ export default function App() {
               </a>
             </div>
             <div className="hidden lg:flex justify-end w-1/3">
-              <img src="assets/images/emily-circle.png" alt="Emily B" className="object-cover" />
+              <img src="https://emilybrealty.com/files/2026/03/emily-circle.png" alt="Emily B" className="object-cover" />
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function App() {
               What sets Emily apart is her unique blend of calm and determination.
             </p>
             <div className="flex items-center gap-4 mt-2 lg:mt-4">
-              <img src="assets/images/stars-group.png" alt="5 stars" className="h-5" />
+              <img src="https://emilybrealty.com/files/2026/03/stars-group.png" alt="5 stars" className="h-5" />
               <p className="font-work-sans italic text-text-dark text-base lg:text-[22px] opacity-80">Philip O.</p>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function App() {
               I've worked with a number of realtors. Emily is by far the most superior.
             </p>
             <div className="flex items-center gap-4 mt-2 lg:mt-4">
-              <img src="assets/images/stars-group.png" alt="5 stars" className="h-5" />
+              <img src="https://emilybrealty.com/files/2026/03/stars-group.png" alt="5 stars" className="h-5" />
               <p className="font-work-sans italic text-text-dark text-base lg:text-[22px] opacity-80">Kris P.</p>
             </div>
           </div>
@@ -102,7 +102,7 @@ export default function App() {
               Emily has your back, is totally on your side. I cannot recommend her enough.
             </p>
             <div className="flex items-center gap-4 mt-2 lg:mt-4">
-              <img src="assets/images/stars-group.png" alt="5 stars" className="h-5" />
+              <img src="https://emilybrealty.com/files/2026/03/stars-group.png" alt="5 stars" className="h-5" />
               <p className="font-work-sans italic text-text-dark text-base lg:text-[22px] opacity-80">Nicole E.</p>
             </div>
           </div>

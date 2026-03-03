@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { getShadowStylesheetHref } from './getShadowStylesheetHref';
+import { CSS_VERSION } from './generated/cssVersion';
 
 describe('getShadowStylesheetHref', () => {
   it('returns local output.css URL in vite dev mode', () => {
@@ -29,6 +30,6 @@ describe('getShadowStylesheetHref', () => {
       baseUrl: 'https://example.com/src/getShadowStylesheetHref.ts',
     });
 
-    expect(href).toBe('https://cdn.jsdelivr.net/gh/joanca/realstate-website@main/src/output.css');
+    expect(href).toBe(`https://cdn.jsdelivr.net/gh/joanca/realstate-website@main/src/output.css?v=${encodeURIComponent(CSS_VERSION)}`);
   });
 });

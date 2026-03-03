@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "pnpm css:build && vite",
     "build": "vite build",
-    "css:build": "rm src/output.css || true && pnpm build && mv src/dist/assets/index-*.css src/output.css && rm -rf src/dist",
+    "css:build": "rm src/output.css || true && pnpm build && node scripts/finalize-css-build.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

@@ -1,3 +1,5 @@
+import { CSS_VERSION } from './generated/cssVersion'
+
 const PROD_SHADOW_STYLESHEET_HREF = 'https://cdn.jsdelivr.net/gh/joanca/realstate-website@main/src/output.css'
 
 interface GetShadowStylesheetHrefOptions {
@@ -19,5 +21,5 @@ export function getShadowStylesheetHref(options: GetShadowStylesheetHrefOptions 
     return new URL('./output.css', baseUrl).href
   }
 
-  return PROD_SHADOW_STYLESHEET_HREF
+  return `${PROD_SHADOW_STYLESHEET_HREF}?v=${encodeURIComponent(CSS_VERSION)}`
 }

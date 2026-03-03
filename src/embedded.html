@@ -257,33 +257,12 @@ Description: Default template used for wordpress pages.
       
                           <div class="entry-content">
               <p>  <main id="emily-realestate" class="relative"></main><br />
-  <script type="module">
-    import 'https://esm.sh/gh/joanca/realstate-website@main/src/main.jsx?jsx'
+    <script type="module">
+    import './main.jsx'
   </script></p>
-<p>  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/joanca/realstate-website@main/src/styles.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'brand-orange': '#bd760c',
-            'brand-blue': '#b6cce4',
-            'brand-cream-light': '#fffaf3',
-            'brand-cream-dark': '#ffeed4',
-            'text-dark': '#3a3a3a',
-            'text-green': '#032b21',
-          },
-          fontFamily: {
-            'archivo': ['"Archivo"', 'sans-serif'],
-            'archivo-condensed': ['"Archivo Condensed"', 'sans-serif'],
-            'archivo-semi-expanded': ['"Archivo SemiExpanded"', 'sans-serif'],
-            'work-sans': ['"Work Sans"', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script></p>
+<p>
+  <link rel="stylesheet" href="./src/output.css">
+</p>
                         </div>
                 
   </div><!-- #post-## -->

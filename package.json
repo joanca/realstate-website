@@ -5,14 +5,20 @@
   "scripts": {
     "dev": "vite",
     "css:build": "vite build && mv src/dist/assets/*.css src/output.css && rm -rf src/dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepare": "node -e \"if(require('fs').existsSync('.git/hooks')){require('fs').chmodSync('.git/hooks/pre-commit', '755')}\""
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "*",
+    "@testing-library/react": "*",
     "@tailwindcss/vite": "*",
     "@vitejs/plugin-react-swc": "*",
+    "jsdom": "*",
     "react": "*",
     "react-dom": "*",
     "tailwindcss": "*",
-    "vite": "*"
+    "vite": "*",
+    "vitest": "*"
   }
 }

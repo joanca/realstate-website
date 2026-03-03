@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import './output.css';
 
 export default function App() {
   useEffect(() => {
@@ -11,6 +10,7 @@ export default function App() {
         parent = parent.parentElement;
       }
     }
+
   }, []);
 
   return (

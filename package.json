@@ -1,11 +1,20 @@
 {
   "name": "realstate-website",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "NODE_ENV=dev serve src",
-    "start": "NODE_ENV=production serve src"
+    "start": "NODE_ENV=production serve src",
+    "css:build": "postcss src/styles.css -o src/output.css",
+    "css:watch": "postcss src/styles.css -o src/output.css --watch",
+    "prepare": "node -e \"if(require('fs').existsSync('.git/hooks')){require('fs').chmodSync('.git/hooks/pre-commit', '755')}\""
   },
   "devDependencies": {
-    "serve": "^14.2.0"
+    "@tailwindcss/postcss": "^4.2.1",
+    "autoprefixer": "*",
+    "postcss": "*",
+    "postcss-cli": "*",
+    "serve": "*",
+    "tailwindcss": "*"
   }
 }

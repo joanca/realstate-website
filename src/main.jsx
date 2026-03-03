@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client"
 import App from "./App.jsx"
+import "./styles.css"
 
 const GLOBAL_FONT_FACE_CSS = `
 @font-face {
@@ -149,8 +150,17 @@ if (!shadowRoot.querySelector('#emily-shadow-base')) {
       contain: layout style paint;
       font-family: "Work Sans", sans-serif;
       color: #3a3a3a;
+      font-weight: 400;
+      font-style: normal;
       line-height: 1.5;
       font-size: 16px;
+      letter-spacing: normal;
+      text-transform: none;
+      text-indent: 0;
+      word-spacing: normal;
+      text-align: left;
+      direction: ltr;
+      writing-mode: horizontal-tb;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;

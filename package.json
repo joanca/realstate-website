@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "css:build": "vite build && mv src/dist/assets/*.css src/output.css && rm -rf src/dist",
+    "dev": "pnpm css:build && vite",
+    "build": "vite build",
+    "css:build": "rm src/output.css || true && pnpm build && mv src/dist/assets/index-*.css src/output.css && rm -rf src/dist",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepare": "node -e \"if(require('fs').existsSync('.git/hooks')){require('fs').chmodSync('.git/hooks/pre-commit', '755')}\""

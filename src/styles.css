@@ -1,6 +1,17 @@
 @import "tailwindcss" source("./");
 
 @theme {
+  /* Keep Tailwind utility sizing independent from host page rem scale. */
+  --spacing: 4px;
+  --text-base: 16px;
+  --text-base--line-height: 1.5;
+  --text-lg: 18px;
+  --text-lg--line-height: 1.5556;
+  --text-xl: 20px;
+  --text-xl--line-height: 1.4;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 1.3333;
+
   --color-brand-orange: #bd760c;
   --color-brand-blue: #b6cce4;
   --color-brand-cream-light: #fffaf3;

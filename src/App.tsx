@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { normalizeEmbeddedDom } from './utils/normalizeEmbeddedDom.js';
+import { normalizeEmbeddedDom } from './utils/normalizeEmbeddedDom';
 
 export default function App() {
   useEffect(() => {

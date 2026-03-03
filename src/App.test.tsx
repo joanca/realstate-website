@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import App from './App.jsx';
-import { setupEmbeddedFixture } from './test/utils/embeddedFixture.js';
+import App from './App';
+import { setupEmbeddedFixture } from './test/utils/embeddedFixture';
 
 describe('App embedded integration', () => {
   it('normalizes embedded wrapper structure after hydration', async () => {

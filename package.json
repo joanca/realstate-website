@@ -6,6 +6,7 @@
     "dev": "pnpm css:build && vite",
     "build": "vite build",
     "css:build": "rm src/output.css || true && pnpm build && mv src/dist/assets/index-*.css src/output.css && rm -rf src/dist",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepare": "node -e \"if(require('fs').existsSync('.git/hooks')){require('fs').chmodSync('.git/hooks/pre-commit', '755')}\""
@@ -19,6 +20,10 @@
     "react": "*",
     "react-dom": "*",
     "tailwindcss": "*",
+    "typescript": "*",
+    "@types/node": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
     "vite": "*",
     "vitest": "*"
   }

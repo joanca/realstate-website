@@ -1,12 +1,12 @@
 import { waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { setupEmbeddedFixture } from './test/utils/embeddedFixture.js';
+import { setupEmbeddedFixture } from './test/utils/embeddedFixture';
 
 describe('main shadow mount', () => {
   it('renders app in shadow root and keeps host stylesheets intact', async () => {
     const { mountNode } = setupEmbeddedFixture();
 
-    await import('./main.jsx');
+    await import('./main');
 
     const shadowRoot = mountNode.shadowRoot;
     expect(shadowRoot).toBeTruthy();

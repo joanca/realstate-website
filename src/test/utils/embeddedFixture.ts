@@ -29,7 +29,13 @@ export function setupEmbeddedFixture() {
   document.head.innerHTML = EMBEDDED_HEAD;
   document.body.innerHTML = EMBEDDED_BODY;
 
+  const mountNode = document.getElementById('emily-realestate');
+
+  if (!mountNode) {
+    throw new Error('Missing #emily-realestate mount element in fixture');
+  }
+
   return {
-    mountNode: document.getElementById('emily-realestate'),
+    mountNode,
   };
 }

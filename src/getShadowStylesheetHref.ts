@@ -1,6 +1,12 @@
 const PROD_SHADOW_STYLESHEET_HREF = 'https://cdn.jsdelivr.net/gh/joanca/realstate-website@main/src/output.css'
 
-export function getShadowStylesheetHref(options = {}) {
+interface GetShadowStylesheetHrefOptions {
+  isViteDev?: boolean
+  hostname?: string
+  baseUrl?: string
+}
+
+export function getShadowStylesheetHref(options: GetShadowStylesheetHrefOptions = {}) {
   const {
     isViteDev = Boolean(import.meta?.env?.DEV),
     hostname = typeof window !== 'undefined' ? window.location.hostname : '',

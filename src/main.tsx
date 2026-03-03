@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client"
-import App from "./App.jsx"
+import App from "./App"
 import "./styles.css"
-import { getShadowStylesheetHref } from './getShadowStylesheetHref.js'
+import { getShadowStylesheetHref } from './getShadowStylesheetHref'
 
 const GLOBAL_FONT_FACE_CSS = `
 @font-face {
@@ -194,7 +194,7 @@ if (!shadowRoot.querySelector('#emily-shadow-stylesheet')) {
   shadowRoot.append(appStylesheet)
 }
 
-let mountNode = shadowRoot.querySelector('#emily-shadow-app')
+let mountNode = shadowRoot.querySelector<HTMLElement>('#emily-shadow-app')
 
 if (!mountNode) {
   mountNode = document.createElement('div')

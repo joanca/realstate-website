@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client"
 import App from "./App.jsx"
 import "./styles.css"
+import { getShadowStylesheetHref } from './getShadowStylesheetHref.js'
 
 const GLOBAL_FONT_FACE_CSS = `
 @font-face {
@@ -189,7 +190,7 @@ if (!shadowRoot.querySelector('#emily-shadow-stylesheet')) {
   appStylesheet.id = 'emily-shadow-stylesheet'
   appStylesheet.rel = 'stylesheet'
   appStylesheet.setAttribute('data-keep-stylesheet', '')
-  appStylesheet.href = new URL('./output.css', import.meta.url).href
+  appStylesheet.href = getShadowStylesheetHref()
   shadowRoot.append(appStylesheet)
 }
 

@@ -1,6 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" source("./");
+
+@theme {
+  --color-brand-orange: #bd760c;
+  --color-brand-blue: #b6cce4;
+  --color-brand-cream-light: #fffaf3;
+  --color-brand-cream-dark: #ffeed4;
+  --color-text-dark: #3a3a3a;
+  --color-text-green: #032b21;
+
+  --font-archivo: "Archivo", sans-serif;
+  --font-archivo-condensed: "Archivo Condensed", sans-serif;
+  --font-archivo-semi-expanded: "Archivo SemiExpanded", sans-serif;
+  --font-work-sans: "Work Sans", sans-serif;
+}
 
 @font-face {
   font-family: 'Archivo';

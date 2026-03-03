@@ -2,14 +2,14 @@
 
 ## 1. Overview
 
-React single-page application for Emily B real estate website. Uses esm.sh CDN for JSX transformation with PostCSS/Tailwind CSS build process for optimized styles.
+React single-page application for Emily B real estate website. Uses Vite for local development with SWC-based JSX transformation, and Tailwind CSS v4 via `@tailwindcss/vite` plugin.
 
 ## 2. Project Agent Workflow
 
 This project uses a hybrid workflow:
-- **JSX**: esm.sh transforms JSX on-the-fly (no bundler)
-- **CSS**: PostCSS + Tailwind CSS v4 build process
-- **GitHub-backed**: esm.sh fetches directly from GitHub
+- **Development**: Vite dev server with @vitejs/plugin-react-swc for JSX transformation and HMR
+- **CSS**: Tailwind CSS v4 via `@tailwindcss/vite` plugin
+- **Production**: esm.sh CDN serves files from GitHub (separate deployment)
 - **Pre-commit hook**: Automatically builds CSS before commits
 
 ## 3. Project CLI Commands
@@ -17,10 +17,8 @@ This project uses a hybrid workflow:
 ### Development
 
 ```bash
-pnpm dev           # Start dev server (NODE_ENV=dev, port 3000)
-pnpm start         # Start production server (NODE_ENV=production, port 3000)
-pnpm css:build     # Build Tailwind CSS once
-pnpm css:watch     # Watch and rebuild CSS on changes
+pnpm dev           # Start Vite dev server (port 3000, HMR enabled)
+pnpm css:build     # Build Tailwind CSS to src/output.css
 ```
 
 ### Git Commands
@@ -40,52 +38,42 @@ git log --oneline --decorate --graph --all      # Commit history
 
 ## 4. Architecture Notes
 
-### Entry Point Flow
+### Entry Point Flow (Development)
 
 ```
 index.html
-  └─ imports main.jsx via esm.sh ?jsx
+  └─ imports main.jsx (Vite transforms JSX via SWC)
        └─ imports App.jsx (relative)
             └─ imports output.css (built Tailwind)
-            └─ imports react (via import map)
+            └─ imports react (from node_modules)
 ```
 
-### Import Map
+### Production (esm.sh)
 
-```json
-{
-  "imports": {
-    "react": "https://esm.sh/react@18",
-    "react-dom/client": "https://esm.sh/react-dom@18/client",
-    "react/jsx-runtime": "https://esm.sh/react@18/jsx-runtime",
-    "@src/": "https://esm.sh/gh/joanca/realstate-website@main/src/"
-  }
-}
-```
+Production deployment uses a separate `index.html` that imports via esm.sh CDN with `?jsx` parameter for JSX transformation.
 
 ### Key Patterns
 
-1. **JSX Transformation**: esm.sh `?jsx` parameter transforms JSX server-side
-2. **Import Resolution**: Import maps handle bare imports
-3. **GitHub Integration**: esm.sh/gh/ loads files directly from GitHub repo
-4. **CSS Build**: PostCSS compiles Tailwind directives to optimized CSS
+1. **JSX Transformation (Dev)**: Vite + @vitejs/plugin-react-swc transforms JSX locally
+2. **JSX Transformation (Prod)**: esm.sh `?jsx` parameter transforms JSX server-side
+3. **Import Resolution**: Vite resolves bare imports from node_modules
+4. **CSS Build**: Vite build extracts CSS to `src/output.css`
 
 ## 5. File Structure
 
 ```
 src/
-├── index.html        # Entry point with import maps
+├── index.html        # Entry point for development
 ├── main.jsx          # React root mount
 ├── App.jsx           # Main component (all content), imports output.css
-├── styles.css        # Tailwind directives + custom CSS (source)
+├── styles.css        # Tailwind v4 config + @font-face declarations
 ├── output.css        # Compiled Tailwind CSS (generated, tracked in git)
 └── assets/
     └── images/       # Static image assets
 
+vite.config.js        # Vite configuration
 package.json          # npm scripts + dev dependencies
 pnpm-lock.yaml        # Lock file
-tailwind.config.js    # Tailwind configuration
-postcss.config.js     # PostCSS configuration
 .git/hooks/pre-commit # Auto-builds CSS before commits
 ```
 
@@ -101,49 +89,50 @@ import App from "./App.jsx"  // Relative import works here
 
 ```jsx
 import './output.css'              // Compiled Tailwind CSS
-import { useEffect } from "react"  // Import map resolves to esm.sh
+import { useEffect } from "react"  // Vite resolves from node_modules
 ```
 
-### Using @src Alias (in index.html or other contexts)
+## 7. Development Workflow
 
-```jsx
-import App from "@src/App.jsx"
-```
+### Local Development
 
-## 7. Deployment Workflow
-
-### Development Cycle
-
-1. Edit files locally
-2. Run `pnpm dev` to start local server
-3. View at http://localhost:3000
-4. For CSS changes, run `pnpm css:watch` in another terminal (or let pre-commit hook build)
+1. Run `pnpm dev` to start Vite dev server
+2. View at http://localhost:3000
+3. Edit files - Vite provides hot module replacement (HMR)
+4. CSS is compiled on-the-fly by `@tailwindcss/vite`
 5. Commit changes - pre-commit hook auto-builds CSS
-6. Push to GitHub for esm.sh to pick up
 
 ### Production Deployment
 
 1. Push to `main` branch: `git push origin main`
 2. esm.sh automatically serves latest from GitHub
 3. Pre-commit hook ensures CSS is always built before commit
-4. No CI/CD pipeline needed
 
 ### GitHub Repository
 
 - **Repo**: `github.com/joanca/realstate-website`
 - **Branch**: `main`
-- **esm.sh URL**: `https://esm.sh/gh/joanca/realstate-website@main/src/...`
 
 ## 8. Styling
 
-### Tailwind CSS
+### Tailwind CSS v4
 
-- Built with PostCSS + Tailwind CSS v4
-- Configuration in `tailwind.config.js`
-- Source file: `src/styles.css` (contains Tailwind directives)
-- Output file: `src/output.css` (compiled, imported by App.jsx)
-- Custom colors: brand-orange, brand-blue, brand-cream-*, text-dark, text-green
+- Integrated via `@tailwindcss/vite` plugin
+- Configuration in `src/styles.css` using `@theme {}` block
+- Custom colors: brand-orange, brand-blue, text-dark, text-green
 - Custom fonts: archivo, archivo-condensed, archivo-semi-expanded, work-sans
+
+### CSS Configuration (src/styles.css)
+
+```css
+@import "tailwindcss" source("./");
+
+@theme {
+  --color-brand-orange: #bd760c;
+  --color-brand-blue: #b6cce4;
+  /* ... */
+}
+```
 
 ### Custom CSS
 
@@ -154,28 +143,26 @@ import App from "@src/App.jsx"
 ### CSS Build Process
 
 ```bash
-# One-time build
+# Build CSS for production
 pnpm css:build
-
-# Watch mode (recommended during development)
-pnpm css:watch
 ```
+
+This runs `vite build` and extracts the CSS to `src/output.css`.
 
 ## 9. Dependencies
 
-### Runtime (via CDN)
-
-- React 18.x
-- ReactDOM 18.x
-
 ### Dev Dependencies
 
-- `serve` - Static file server for local development
+- `vite` - Development server and build tool
+- `@vitejs/plugin-react-swc` - SWC-based React plugin for Vite
+- `@tailwindcss/vite` - Tailwind CSS v4 Vite plugin
+- `react` - React library (for development)
+- `react-dom` - React DOM (for development)
 - `tailwindcss` - Tailwind CSS framework
-- `@tailwindcss/postcss` - Tailwind CSS v4 PostCSS plugin
-- `postcss` - CSS transformer
-- `postcss-cli` - CLI for PostCSS
-- `autoprefixer` - Adds vendor prefixes
+
+### Production Dependencies
+
+- None - React loaded via esm.sh CDN in production
 
 ## 10. Common Tasks
 
@@ -189,55 +176,54 @@ pnpm css:watch
 
 ### Add New Tailwind Color/Font
 
-1. Edit `tailwind.config.js` to add custom colors/fonts
+1. Edit `src/styles.css` to add variables in `@theme {}` block
 2. Run `pnpm css:build` or commit (auto-builds)
 3. Push to GitHub
 
 ### Add New Font
 
 1. Add @font-face to `src/styles.css`
-2. Add to Tailwind config fontFamily in `tailwind.config.js`
+2. Add font variable in `@theme {}` block
 3. Run `pnpm css:build` or commit (auto-builds)
 4. Push to GitHub
 
 ### Update React Version
 
-1. Edit import map in `index.html`
-2. Change `react@18` to desired version
-3. Push to GitHub
+1. Run `pnpm add -D react react-dom` to update dev dependencies
+2. Push to GitHub
 
 ## 11. Troubleshooting
 
-### "Minified React error #31"
+### Vite Dev Server Not Starting
 
-- **Cause**: Importing React element instead of component
-- **Fix**: Ensure `main.jsx` uses `?jsx` parameter in import URL
-
-### Module Not Found
-
-- **Cause**: esm.sh cache or GitHub not updated
-- **Fix**: Wait a few seconds after push, or clear browser cache
+- **Cause**: Missing dependencies or port in use
+- **Fix**: Run `pnpm install` or kill process on port 3000
 
 ### Styles Not Loading
 
-- **Cause**: CSS not built or output.css missing
-- **Fix**: Run `pnpm css:build` then commit the updated output.css
+- **Cause**: CSS not built
+- **Fix**: Run `pnpm css:build`
 
 ### Tailwind Classes Not Working
 
-- **Cause**: CSS not rebuilt after changes
-- **Fix**: Run `pnpm css:build` or let pre-commit hook handle it
+- **Cause**: Classes not being detected
+- **Fix**: Ensure `source("./")` is in `styles.css` import
 
 ### Pre-commit Hook Not Running
 
 - **Cause**: Hook not executable
 - **Fix**: Run `chmod +x .git/hooks/pre-commit`
 
+### SWC Build Scripts Warning
+
+- **Cause**: pnpm requires explicit approval for build scripts
+- **Fix**: Run `pnpm approve-builds` and select @swc/core and esbuild
+
 ## 12. Agent Restrictions
 
-- **Do not** add bundlers (webpack, vite, etc.) - keep JSX via esm.sh
 - **Do not** modify `src/output.css` directly - it's generated from `styles.css`
-- **Do not** modify import map without updating all related imports
-- **Always** run `pnpm css:build` if you modify Tailwind config or styles.css before committing
+- **Do not** create `tailwind.config.js` - Tailwind v4 uses CSS-first configuration
+- **Do not** add runtime dependencies - keep React as dev dependency only
+- **Always** run `pnpm css:build` if you modify styles.css before committing
 - **Always** commit `src/output.css` after CSS changes
 - **Always** test with `pnpm dev` locally before pushing

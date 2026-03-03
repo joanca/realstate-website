@@ -3,18 +3,16 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=dev serve src",
-    "start": "NODE_ENV=production serve src",
-    "css:build": "postcss src/styles.css -o src/output.css",
-    "css:watch": "postcss src/styles.css -o src/output.css --watch",
+    "dev": "vite",
+    "css:build": "vite build && mv src/dist/assets/*.css src/output.css && rm -rf src/dist",
     "prepare": "node -e \"if(require('fs').existsSync('.git/hooks')){require('fs').chmodSync('.git/hooks/pre-commit', '755')}\""
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.1",
-    "autoprefixer": "*",
-    "postcss": "*",
-    "postcss-cli": "*",
-    "serve": "*",
-    "tailwindcss": "*"
+    "@tailwindcss/vite": "*",
+    "@vitejs/plugin-react-swc": "*",
+    "react": "*",
+    "react-dom": "*",
+    "tailwindcss": "*",
+    "vite": "*"
   }
 }

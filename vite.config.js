@@ -1,0 +1,28 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react-swc'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  root: 'src',
+  plugins: [
+    tailwindcss(),
+    react()
+  ],
+  server: {
+    port: 3000
+  },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.extension === 'css') {
+            return 'output.css'
+          }
+          return 'assets/[name]-[hash][extname]'
+        }
+      }
+    }
+  }
+})

@@ -1,146 +1,78 @@
 # Emily B - Real Estate Website
 
-A React single-page application for Emily B, a Portland real estate advisor. Built with modern web technologies using esm.sh CDN for zero-build development.
+React single-page application for Emily B, a Portland real estate advisor.
 
 ## Tech Stack
 
-- **React 18** - UI framework (via esm.sh CDN)
-- **Tailwind CSS** - Utility-first CSS (via CDN)
-- **esm.sh** - CDN that transforms JSX on-the-fly from GitHub
-- **No build tools** - Everything runs directly in the browser
+- React 19
+- TypeScript
+- Vite + `@vitejs/plugin-react-swc`
+- Tailwind CSS v4 via `@tailwindcss/vite`
+- Vitest + Testing Library
 
 ## Development
 
 ```bash
-pnpm dev    # Start development server (NODE_ENV=dev)
-pnpm start  # Start production server (NODE_ENV=production)
+pnpm dev         # Start Vite dev server on :3000
+pnpm css:build   # Build and extract Tailwind CSS to src/output.css
+pnpm test        # Run tests
+pnpm typecheck   # Run TypeScript checks
 ```
-
-The site will be available at `http://localhost:3000`
 
 ## Architecture
 
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│  index.html │────▶│   main.jsx  │────▶│   App.jsx   │
-│  (entry)    │     │  (mount)    │     │  (content)  │
-└─────────────┘     └─────────────┘     └─────────────┘
-       │                   │                   │
-       │                   │                   │
-       ▼                   ▼                   ▼
-  Tailwind CDN      esm.sh ?jsx          esm.sh CDN
-  styles.css        transforms JSX       from GitHub
+Entry flow:
+
+```text
+src/index.html -> src/main.tsx -> src/App.tsx
 ```
 
-### How It Works
-
-1. `index.html` is the entry point
-2. It imports `main.jsx` via esm.sh with `?jsx` parameter
-3. esm.sh fetches the file from GitHub and transforms JSX to JS
-4. `main.jsx` mounts the React app and renders `App.jsx`
-5. All imports use esm.sh CDN for dependency resolution
+- `src/main.tsx` mounts React into `#emily-realestate` and renders inside a Shadow DOM root.
+- Global font-face rules are injected into `document.head`.
+- `src/getShadowStylesheetHref.ts` picks local `output.css` in dev/localhost and jsDelivr in production.
+- `src/utils/normalizeEmbeddedDom.ts` normalizes host-page wrappers after hydration when embedded.
 
 ## File Structure
 
-```
+```text
 src/
-├── index.html        # Entry point HTML
-├── main.jsx          # React root mount
-├── App.jsx           # Main application component
-├── styles.css        # Custom fonts and styles
-└── assets/
-    └── images/       # Static images
+├── index.html
+├── embedded.html
+├── main.tsx
+├── App.tsx
+├── styles.css
+├── output.css
+├── getShadowStylesheetHref.ts
+├── utils/
+│   └── normalizeEmbeddedDom.ts
+├── test/
+│   ├── setup.ts
+│   └── utils/embeddedFixture.ts
+└── *.test.ts(x)
+
+vite.config.ts
+tsconfig.json
+tsconfig.node.json
+package.json
 ```
 
-## Import Patterns
+## Styling
 
-### Using @src alias
+- Tailwind v4 is configured in `src/styles.css` using CSS-first `@theme` tokens.
+- `src/output.css` is generated and committed.
+- Do not edit `src/output.css` directly.
 
-```jsx
-// From anywhere in the app
-import Component from "@src/components/Component.jsx"
-```
+## Testing
 
-The `@src/` alias is defined in the import map and resolves to:
-`https://esm.sh/gh/joanca/realstate-website@main/src/`
+- Test runner: Vitest (`pnpm test`)
+- Environment: jsdom
+- Setup file: `src/test/setup.ts`
 
-### Direct esm.sh imports
+## Deployment Notes
 
-```jsx
-import { useState } from "react"
-import { createRoot } from "react-dom/client"
-```
-
-Import maps resolve these to esm.sh URLs automatically.
-
-## Deployment
-
-### GitHub-backed deployment
-
-This project uses a GitHub-backed workflow:
-
-1. **Edit locally** - Make changes to files
-2. **Push to GitHub** - `git push origin main`
-3. **esm.sh serves** - esm.sh fetches from GitHub and transforms JSX
-
-No build step, no CI/CD pipeline needed.
-
-### Production URL
-
-The site is served directly from:
-```
-https://esm.sh/gh/joanca/realstate-website@main/src/index.html
-```
-
-Or use a static file server like `pnpm start`.
-
-## Key Files
-
-| File | Purpose |
-|------|---------|
-| `index.html` | HTML shell with Tailwind config, import maps |
-| `main.jsx` | React initialization and root mount |
-| `App.jsx` | Main component with all page content |
-| `styles.css` | @font-face declarations for custom fonts |
-| `package.json` | Project metadata and npm scripts |
-
-## Custom Fonts
-
-The site uses custom web fonts loaded via CDN:
-
-- **Archivo** - Primary font family
-- **Archivo Condensed** - Headings
-- **Archivo SemiExpanded** - Accents
-- **Work Sans** - Body text
-
-All fonts are loaded from jsDelivr CDN in `styles.css`.
-
-## Tailwind Configuration
-
-Custom theme extensions in `index.html`:
-
-```javascript
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        'brand-orange': '#bd760c',
-        'brand-blue': '#b6cce4',
-        'brand-cream-light': '#fffaf3',
-        'brand-cream-dark': '#ffeed4',
-        'text-dark': '#3a3a3a',
-        'text-green': '#032b21',
-      },
-      fontFamily: {
-        'archivo': ['"Archivo"', 'sans-serif'],
-        'archivo-condensed': ['"Archivo Condensed"', 'sans-serif'],
-        'archivo-semi-expanded': ['"Archivo SemiExpanded"', 'sans-serif'],
-        'work-sans': ['"Work Sans"', 'sans-serif'],
-      },
-    },
-  },
-}
-```
+- The repository keeps source in TypeScript/TSX.
+- Embedded usage imports `./main.tsx` from HTML entrypoints in `src/index.html` and `src/embedded.html`.
+- No `@src` import alias is configured; local imports are relative.
 
 ## License
 

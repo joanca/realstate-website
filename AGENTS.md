@@ -2,12 +2,12 @@
 
 ## 1. Overview
 
-React single-page application for Emily B real estate website. Uses Vite for local development with SWC-based JSX transformation, and Tailwind CSS v4 via `@tailwindcss/vite` plugin.
+React single-page application for Emily B real estate website. Uses Vite for local development with SWC-based TSX transformation, and Tailwind CSS v4 via `@tailwindcss/vite` plugin.
 
 ## 2. Project Agent Workflow
 
 This project uses a hybrid workflow:
-- **Development**: Vite dev server with @vitejs/plugin-react-swc for JSX transformation and HMR
+- **Development**: Vite dev server with @vitejs/plugin-react-swc for TypeScript/TSX transformation and HMR
 - **CSS**: Tailwind CSS v4 via `@tailwindcss/vite` plugin
 - **Production**: esm.sh CDN serves files from GitHub (separate deployment)
 - **Pre-commit hook**: Automatically builds CSS before commits
@@ -19,6 +19,8 @@ This project uses a hybrid workflow:
 ```bash
 pnpm dev           # Start Vite dev server (port 3000, HMR enabled)
 pnpm css:build     # Build Tailwind CSS to src/output.css
+pnpm typecheck     # Run TypeScript compiler checks (no emit)
+pnpm test          # Run Vitest test suite
 ```
 
 ### Git Commands
@@ -31,9 +33,8 @@ git ls-files --others --exclude-standard        # List untracked files
 git log --oneline --decorate --graph --all      # Commit history
 ```
 
-### No Test/Lint
+### No Lint
 
-- **No test command** - No tests configured
 - **No lint command** - No linter configured
 
 ## 4. Architecture Notes
@@ -42,20 +43,20 @@ git log --oneline --decorate --graph --all      # Commit history
 
 ```
 index.html
-  └─ imports main.jsx (Vite transforms JSX via SWC)
-       └─ imports App.jsx (relative)
+  └─ imports main.tsx (Vite transforms TSX via SWC)
+       └─ imports App.tsx (relative)
             └─ imports output.css (built Tailwind)
             └─ imports react (from node_modules)
 ```
 
 ### Production (esm.sh)
 
-Production deployment uses a separate `index.html` that imports via esm.sh CDN with `?jsx` parameter for JSX transformation.
+Production deployment uses HTML entrypoints that import `main.tsx` and serve compiled CSS from `src/output.css`.
 
 ### Key Patterns
 
-1. **JSX Transformation (Dev)**: Vite + @vitejs/plugin-react-swc transforms JSX locally
-2. **JSX Transformation (Prod)**: esm.sh `?jsx` parameter transforms JSX server-side
+1. **TSX Transformation (Dev)**: Vite + @vitejs/plugin-react-swc transforms TS/TSX locally
+2. **Entry Imports (Prod/Embed)**: HTML entrypoints import `main.tsx`
 3. **Import Resolution**: Vite resolves bare imports from node_modules
 4. **CSS Build**: Vite build extracts CSS to `src/output.css`
 
@@ -64,14 +65,18 @@ Production deployment uses a separate `index.html` that imports via esm.sh CDN w
 ```
 src/
 ├── index.html        # Entry point for development
-├── main.jsx          # React root mount
-├── App.jsx           # Main component (all content), imports output.css
+├── main.tsx          # React root mount
+├── App.tsx           # Main component (all content)
 ├── styles.css        # Tailwind v4 config + @font-face declarations
 ├── output.css        # Compiled Tailwind CSS (generated, tracked in git)
+├── test/             # Vitest setup + fixtures
+├── *.test.ts(x)      # Test files
 └── assets/
     └── images/       # Static image assets
 
-vite.config.js        # Vite configuration
+vite.config.ts        # Vite configuration
+tsconfig.json         # TypeScript config (app)
+tsconfig.node.json    # TypeScript config (tooling)
 package.json          # npm scripts + dev dependencies
 pnpm-lock.yaml        # Lock file
 .git/hooks/pre-commit # Auto-builds CSS before commits
@@ -79,16 +84,15 @@ pnpm-lock.yaml        # Lock file
 
 ## 6. Import Conventions
 
-### Within main.jsx
+### Within main.tsx
 
-```jsx
-import App from "./App.jsx"  // Relative import works here
+```tsx
+import App from "./App"  // Relative import works here
 ```
 
-### Within App.jsx
+### Within App.tsx
 
-```jsx
-import './output.css'              // Compiled Tailwind CSS
+```tsx
 import { useEffect } from "react"  // Vite resolves from node_modules
 ```
 
@@ -168,8 +172,8 @@ This runs `vite build` and extracts the CSS to `src/output.css`.
 
 ### Add New Component
 
-1. Create `src/components/NewComponent.jsx`
-2. Import in `App.jsx`: `import NewComponent from "./components/NewComponent.jsx"`
+1. Create `src/components/NewComponent.tsx`
+2. Import in `App.tsx`: `import NewComponent from "./components/NewComponent"`
 3. Use Tailwind classes as needed
 4. Commit changes (CSS auto-rebuilds via pre-commit hook)
 5. Push to GitHub
@@ -224,6 +228,7 @@ This runs `vite build` and extracts the CSS to `src/output.css`.
 - **Do not** modify `src/output.css` directly - it's generated from `styles.css`
 - **Do not** create `tailwind.config.js` - Tailwind v4 uses CSS-first configuration
 - **Do not** add runtime dependencies - keep React as dev dependency only
+- **Do not** add `@src` path aliases unless runtime import maps are updated to match
 - **Always** run `pnpm css:build` if you modify styles.css before committing
 - **Always** commit `src/output.css` after CSS changes
 - **Always** test with `pnpm dev` locally before pushing

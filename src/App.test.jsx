@@ -4,13 +4,25 @@ import App from './App.jsx';
 import { setupEmbeddedFixture } from './test/utils/embeddedFixture.js';
 
 describe('App embedded integration', () => {
-  it('removes container classes from parent wrappers', async () => {
+  it('normalizes embedded wrapper structure after hydration', async () => {
     const { mountNode } = setupEmbeddedFixture();
 
     render(<App />, { container: mountNode });
 
     await waitFor(() => {
-      expect(document.querySelectorAll('.container')).toHaveLength(0);
+      const wrapper = document.getElementById('wrapper');
+      const reactRoot = document.getElementById('react-root');
+      const main = document.querySelector('main#emily-realestate');
+      const pushFooter = document.querySelector('.push-footer');
+      const customFooter = document.querySelector('.custom-footer');
+
+      expect(wrapper).toBeInTheDocument();
+      expect(wrapper).not.toHaveAttribute('class');
+      expect(reactRoot).toBeInTheDocument();
+      expect(reactRoot).not.toHaveAttribute('class');
+      expect(main?.parentElement).toBe(reactRoot);
+      expect(reactRoot?.children).toHaveLength(1);
+      expect(customFooter?.previousElementSibling).toBe(pushFooter);
     });
   });
 

@@ -1,16 +1,9 @@
 import { useEffect } from 'react';
+import { normalizeEmbeddedDom } from './utils/normalizeEmbeddedDom.js';
 
 export default function App() {
   useEffect(() => {
-    const main = document.querySelector('main#emily-realestate');
-    if (main) {
-      let parent = main.parentElement;
-      while (parent) {
-        parent.classList.remove('container');
-        parent = parent.parentElement;
-      }
-    }
-
+    normalizeEmbeddedDom();
   }, []);
 
   return (

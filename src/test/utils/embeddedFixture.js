@@ -9,6 +9,7 @@ const EMBEDDED_HEAD = `
 const EMBEDDED_BODY = `
   <div id="wrapper" class="container container-fluid">
     <div class="wrapper responsive page-wrapper">
+      <div class="nav-bar"></div>
       <div class="wrapper responsive">
         <div class="container">
           <div class="row clearfix">
@@ -18,8 +19,10 @@ const EMBEDDED_BODY = `
           </div>
         </div>
       </div>
+      <div class="push-footer"></div>
     </div>
   </div>
+  <div class="row footer custom-footer"></div>
 `;
 
 export function setupEmbeddedFixture() {

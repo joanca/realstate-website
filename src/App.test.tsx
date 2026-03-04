@@ -55,10 +55,16 @@ describe('App embedded integration', () => {
     const { mountNode } = setupEmbeddedFixture();
     const triggerSpy = vi.fn();
     const jqueryMock = vi.fn(() => ({ trigger: triggerSpy }));
-    (jqueryMock as typeof jqueryMock & { fn: object }).fn = {};
+    (jqueryMock as typeof jqueryMock & { fn: { CreatePanelSlider: () => void } }).fn = {
+      CreatePanelSlider: () => {},
+    };
 
     (window as Window & { jQuery?: typeof jqueryMock }).jQuery = jqueryMock;
-    (window as Window & { WMS?: object }).WMS = {};
+    (window as Window & { WMS?: { propertycards?: { SearchCardProcess?: () => void } } }).WMS = {
+      propertycards: {
+        SearchCardProcess: () => {},
+      },
+    };
 
     const { unmount } = render(<App />, { container: mountNode });
 
@@ -92,12 +98,18 @@ describe('App embedded integration', () => {
     const { mountNode } = setupEmbeddedFixture();
     const triggerSpy = vi.fn();
     const jqueryMock = vi.fn(() => ({ trigger: triggerSpy }));
-    (jqueryMock as typeof jqueryMock & { fn: object }).fn = {};
+    (jqueryMock as typeof jqueryMock & { fn: { CreatePanelSlider: () => void } }).fn = {
+      CreatePanelSlider: () => {},
+    };
 
     const originalSiteBaseLang = 'https://emilybrealty.com';
     document.body.setAttribute('data-sitebase-lang', originalSiteBaseLang);
     (window as Window & { jQuery?: typeof jqueryMock }).jQuery = jqueryMock;
-    (window as Window & { WMS?: object }).WMS = {};
+    (window as Window & { WMS?: { propertycards?: { SearchCardProcess?: () => void } } }).WMS = {
+      propertycards: {
+        SearchCardProcess: () => {},
+      },
+    };
 
     const { unmount } = render(<App />, { container: mountNode });
 

@@ -43,7 +43,7 @@ export default function App() {
               </div>
               <a
                 href="#"
-                className="inline-block border-2 border-text-dark rounded-[36px] px-8 lg:px-8 py-3"
+                className="inline-block border-2 border-solid border-text-dark rounded-[36px] px-8 lg:px-8 py-3"
                 style={{
                   backgroundColor: '#bd760c',
                   backgroundImage: "url('https://emilybrealty.com/files/2026/03/button-large.png')",
@@ -62,7 +62,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="bg-brand-blue border-y-2 border-text-dark tracking-[2px]">
+      <section className="bg-brand-blue border-y-2 border-solid border-text-dark tracking-[2px]">
         <div className="text-center">
           <span className="font-archivo-semi-expanded font-bold text-text-dark text-[14px] lg:text-[20px] opacity-80">12+</span>
           <span className="font-archivo-semi-expanded font-medium text-text-dark text-[14px] lg:text-[18px] opacity-70">  YEARS OF EXPERIENCE</span>

@@ -8,7 +8,7 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ testimonials, starsImageUrl, allTestimonialsHref }: TestimonialsSectionProps) {
   return (
-    <section className="py-8 lg:py-12 px-4 lg:px-0 max-w-7xl mx-auto">
+    <section className="py-8 lg:py-12 px-4 lg:px-20 max-w-[1440px] mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-x-12 lg:gap-y-0">
         {testimonials.map((testimonial) => (
           <div key={testimonial.author} className="flex flex-col">

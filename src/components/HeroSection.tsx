@@ -40,7 +40,7 @@ export function HeroSection({ imageUrl, arrowUrl, ctaBackgroundUrl }: HeroSectio
             </div>
             <a
               href="#"
-              className="inline-block border-2 border-text-dark rounded-[36px] px-8 lg:px-8 py-3 lg:py-5"
+              className="inline-block border-2 border-text-dark border-solid rounded-[36px] px-8 lg:px-8 py-3"
               style={{
                 backgroundColor: '#bd760c',
                 backgroundImage: `url('${ctaBackgroundUrl}')`,

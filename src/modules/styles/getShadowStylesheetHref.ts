@@ -16,7 +16,7 @@ export function getShadowStylesheetHref(options: GetShadowStylesheetHrefOptions 
   const isLocalhost = ['localhost', '127.0.0.1'].includes(hostname)
 
   if (isViteDev || isLocalhost) {
-    return new URL('/src/output.css', baseUrl).href
+    return new URL('/output.css', baseUrl).href
   }
 
   return PROD_SHADOW_STYLESHEET_HREF

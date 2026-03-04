@@ -43,7 +43,7 @@ export default function App() {
               </div>
               <a
                 href="#"
-                className="inline-block border-2 border-text-dark rounded-[36px] px-8 lg:px-8 py-3 lg:py-5"
+                className="inline-block border-2 border-text-dark rounded-[36px] px-8 lg:px-8 py-3"
                 style={{
                   backgroundColor: '#bd760c',
                   backgroundImage: "url('https://emilybrealty.com/files/2026/03/button-large.png')",
@@ -69,7 +69,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="py-8 lg:py-12 px-4 lg:px-0 max-w-7xl mx-auto">
+      <section className="py-8 lg:py-12 px-4 lg:px-20 mx-auto max-w-[1440px]">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-x-12 lg:gap-y-0">
           <div className="flex flex-col">
             <p className="font-archivo italic text-text-dark text-[17px] lg:text-[22px] leading-[23px] lg:leading-7 opacity-90" style={{ fontVariationSettings: "'wdth' 100" }}>

@@ -1,6 +1,4 @@
-import { CSS_VERSION } from './generated/cssVersion'
-
-const PROD_SHADOW_STYLESHEET_HREF = 'https://cdn.jsdelivr.net/gh/joanca/realstate-website@main/src/output.css'
+const PROD_SHADOW_STYLESHEET_HREF = 'https://esm.sh/gh/joanca/realstate-website@main/src/output.css'
 
 interface GetShadowStylesheetHrefOptions {
   isViteDev?: boolean
@@ -21,5 +19,5 @@ export function getShadowStylesheetHref(options: GetShadowStylesheetHrefOptions 
     return new URL('./output.css', baseUrl).href
   }
 
-  return `${PROD_SHADOW_STYLESHEET_HREF}?v=${encodeURIComponent(CSS_VERSION)}`
+  return PROD_SHADOW_STYLESHEET_HREF
 }

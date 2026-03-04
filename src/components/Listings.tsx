@@ -5,6 +5,7 @@ const PORTAL_ID = 'emily-realestate-listings'
 const WIDGET_CHECK_SELECTOR = '[data-propcard-listing-id]'
 const WIDGET_SHELL_SELECTOR = '.searchcard-listing[data-raw-listing-obj]'
 const DEBUG_PREFIX = '[ListingsWidget]'
+const DEBUG_COOKIE_NAME = 'emily_listings_debug'
 const AJAX_DEBUG_NS = '.listingsWidgetDebug'
 const QUICKTAGS_L10N_FALLBACK = {
   closeAllOpenTags: 'Close all open tags',
@@ -48,6 +49,47 @@ function isLocalhostRuntime() {
   return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '[::1]'
 }
 
+function readCookie(name: string) {
+  const escapedName = name.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+  const match = document.cookie.match(new RegExp(`(?:^|; )${escapedName}=([^;]*)`))
+  return match ? decodeURIComponent(match[1]) : null
+}
+
+function isListingsDebugEnabled() {
+  const value = readCookie(DEBUG_COOKIE_NAME)
+  if (!value) {
+    return false
+  }
+
+  return ['1', 'true', 'on'].includes(value.toLowerCase())
+}
+
+function debugInfo(enabled: boolean, message: string, metadata?: unknown) {
+  if (!enabled) {
+    return
+  }
+
+  if (metadata === undefined) {
+    console.info(DEBUG_PREFIX, message)
+    return
+  }
+
+  console.info(DEBUG_PREFIX, message, metadata)
+}
+
+function debugWarn(enabled: boolean, message: string, metadata?: unknown) {
+  if (!enabled) {
+    return
+  }
+
+  if (metadata === undefined) {
+    console.warn(DEBUG_PREFIX, message)
+    return
+  }
+
+  console.warn(DEBUG_PREFIX, message, metadata)
+}
+
 function shouldUseLocalServicesProxy(siteBaseLang: string | null) {
   if (!siteBaseLang || !isLocalhostRuntime()) {
     return false
@@ -76,7 +118,6 @@ function ensureQuicktagsL10nForFallback() {
   }
 
   legacyWindow.quicktagsL10n = { ...QUICKTAGS_L10N_FALLBACK }
-  console.info(DEBUG_PREFIX, 'applied quicktagsL10n fallback shim')
 }
 
 function getLegacyHydrationReadiness() {
@@ -142,65 +183,25 @@ const WIDGET_CONFIG = JSON.stringify({
   },
 })
 
-function triggerLegacyWidgetLoad() {
+function triggerLegacyWidgetLoad(debugEnabled: boolean) {
   const legacyWindow = window as LegacyWindow
   const jquery = legacyWindow.jQuery
-  const siteBaseLang = document.body.getAttribute('data-sitebase-lang')
   const readiness = getLegacyHydrationReadiness()
 
   const portalNode = document.getElementById(PORTAL_ID)
-  const placeholderNode = portalNode?.querySelector('[data-get-widget]')
-  const processedNode = portalNode?.querySelector('[data-get-widget].get-widget-processed')
   const cardsCount = portalNode?.querySelectorAll(WIDGET_CHECK_SELECTOR).length ?? 0
-  const shellCardsCount = portalNode?.querySelectorAll(WIDGET_SHELL_SELECTOR).length ?? 0
-  const placeholderRawConfig = placeholderNode?.getAttribute('data-get-widget') ?? null
 
-  let placeholderConfigSummary: Record<string, string> | null = null
-  if (placeholderRawConfig) {
-    try {
-      const parsed = JSON.parse(placeholderRawConfig) as {
-        class?: string
-        folder?: string
-        status?: string
-        data?: { title?: string; list?: string; numblocks?: string }
-      }
-      placeholderConfigSummary = {
-        class: parsed.class ?? '',
-        folder: parsed.folder ?? '',
-        status: parsed.status ?? '',
-        title: parsed.data?.title ?? '',
-        list: parsed.data?.list ?? '',
-        numblocks: parsed.data?.numblocks ?? '',
-      }
-    } catch (_error) {
-      placeholderConfigSummary = { parseError: 'invalid-json' }
-    }
-  }
-
-  console.info(DEBUG_PREFIX, 'trigger start', {
-    jqueryPresent: Boolean(jquery),
-    jqueryFnPresent: Boolean(jquery?.fn),
-    createPanelSliderPresent: readiness.hasCreatePanelSlider,
-    wmsPresent: Boolean(legacyWindow.WMS),
-    searchCardProcessPresent: readiness.hasSearchCardProcess,
-    wpHooksPresent: Boolean(legacyWindow.wp?.hooks),
-    siteBaseLangPresent: Boolean(siteBaseLang),
-    siteBaseLang,
-    portalPresent: Boolean(portalNode),
-    placeholderPresent: Boolean(placeholderNode),
-    processedPlaceholderPresent: Boolean(processedNode),
+  debugInfo(debugEnabled, 'trigger start', {
+    hasJQueryFn: readiness.hasJQueryFn,
+    hasCreatePanelSlider: readiness.hasCreatePanelSlider,
+    hasSearchCardProcess: readiness.hasSearchCardProcess,
     cardsCount,
-    shellCardsCount,
-    placeholderClass: placeholderNode?.getAttribute('class') ?? '',
-    placeholderConfigSummary,
   })
 
   if (readiness.isReady && jquery?.fn) {
-    console.info(DEBUG_PREFIX, 'triggering flbuilder-render-updated', jquery)
     jquery(document).trigger('flbuilder-render-updated')
-    console.info(DEBUG_PREFIX, 'triggered flbuilder-render-updated')
   } else {
-    console.warn(DEBUG_PREFIX, 'legacy hydration dependencies not ready; skipped flbuilder-render-updated', {
+    debugWarn(debugEnabled, 'legacy hydration dependencies not ready; skipped flbuilder-render-updated', {
       hasJQueryFn: readiness.hasJQueryFn,
       hasCreatePanelSlider: readiness.hasCreatePanelSlider,
       hasSearchCardProcess: readiness.hasSearchCardProcess,
@@ -208,11 +209,8 @@ function triggerLegacyWidgetLoad() {
   }
 
   const postCardsCount = portalNode?.querySelectorAll(WIDGET_CHECK_SELECTOR).length ?? 0
-  const postShellCardsCount = portalNode?.querySelectorAll(WIDGET_SHELL_SELECTOR).length ?? 0
-  console.info(DEBUG_PREFIX, 'trigger end', {
-    processedPlaceholderPresent: Boolean(portalNode?.querySelector('[data-get-widget].get-widget-processed')),
+  debugInfo(debugEnabled, 'trigger end', {
     cardsCount: postCardsCount,
-    shellCardsCount: postShellCardsCount,
   })
 
   return {
@@ -308,105 +306,129 @@ function attachWidgetAjaxDebugHandlers() {
   }
 }
 
-export function Listings() {
-  const [portalNode, setPortalNode] = useState<HTMLElement | null>(null)
+function setupLocalServicesProxy(debugEnabled: boolean) {
+  const originalSiteBaseLang = document.body.getAttribute('data-sitebase-lang')
 
-  useEffect(() => {
-    console.info(DEBUG_PREFIX, 'mount')
+  if (!shouldUseLocalServicesProxy(originalSiteBaseLang)) {
+    return () => {}
+  }
 
-    const originalSiteBaseLang = document.body.getAttribute('data-sitebase-lang')
-    const useLocalServicesProxy = shouldUseLocalServicesProxy(originalSiteBaseLang)
-    let siteBaseLangOverridden = false
+  document.body.setAttribute('data-sitebase-lang', window.location.origin)
+  debugInfo(debugEnabled, 'overrode data-sitebase-lang for localhost proxy', {
+    previous: originalSiteBaseLang,
+    next: window.location.origin,
+  })
 
-    if (useLocalServicesProxy) {
-      document.body.setAttribute('data-sitebase-lang', window.location.origin)
-      siteBaseLangOverridden = true
-      console.info(DEBUG_PREFIX, 'overrode data-sitebase-lang for localhost proxy', {
-        previous: originalSiteBaseLang,
-        next: window.location.origin,
-      })
+  return () => {
+    if (originalSiteBaseLang === null) {
+      document.body.removeAttribute('data-sitebase-lang')
+    } else {
+      document.body.setAttribute('data-sitebase-lang', originalSiteBaseLang)
     }
 
-    let node: HTMLElement | null = null
-    let createdNode = false
-    let fallbackScriptsInjected = false
-    let detachAjaxDebugHandlers = () => {}
-    let hasAttachedAjaxDebugHandlers = false
+    debugInfo(debugEnabled, 'restored original data-sitebase-lang', {
+      restored: originalSiteBaseLang,
+    })
+  }
+}
 
-    const ensurePortalNode = () => {
-      if (node?.isConnected) {
-        return true
-      }
+function createPortalNodeManager(setPortalNode: (node: HTMLElement | null) => void, debugEnabled: boolean) {
+  let node: HTMLElement | null = null
+  let createdNode = false
 
-      node = null
-
-      const mountNode = document.getElementById('emily-realestate')
-      if (!mountNode || mountNode.parentElement?.id !== 'react-root') {
-        console.info(DEBUG_PREFIX, 'portal wait', {
-          mountNodePresent: Boolean(mountNode),
-          mountParentId: mountNode?.parentElement?.id ?? null,
-        })
-        return false
-      }
-
-      node = document.getElementById(PORTAL_ID)
-
-      if (!node) {
-        node = document.createElement('div')
-        node.id = PORTAL_ID
-        mountNode.insertAdjacentElement('afterend', node)
-        createdNode = true
-        console.info(DEBUG_PREFIX, 'created portal node', { portalId: PORTAL_ID })
-      } else {
-        console.info(DEBUG_PREFIX, 'reusing existing portal node', { portalId: PORTAL_ID })
-      }
-
-      setPortalNode(node)
+  const ensurePortalNode = () => {
+    if (node?.isConnected) {
       return true
     }
 
-    ensurePortalNode()
+    node = null
 
-    const injectFallbackLegacyScriptsIfNeeded = () => {
-      if (fallbackScriptsInjected) {
-        return
-      }
-
-      const readiness = getLegacyHydrationReadiness()
-      if (readiness.isReady) {
-        return
-      }
-
-      fallbackScriptsInjected = true
-
-      console.info(DEBUG_PREFIX, 'injecting fallback legacy scripts', {
-        host: window.location.host,
-        hasJQueryFn: readiness.hasJQueryFn,
-        hasCreatePanelSlider: readiness.hasCreatePanelSlider,
-        hasSearchCardProcess: readiness.hasSearchCardProcess,
+    const mountNode = document.getElementById('emily-realestate')
+    if (!mountNode || mountNode.parentElement?.id !== 'react-root') {
+      debugInfo(debugEnabled, 'portal wait', {
+        mountNodePresent: Boolean(mountNode),
+        mountParentId: mountNode?.parentElement?.id ?? null,
       })
-
-      ensureQuicktagsL10nForFallback()
-
-      void injectFallbackLegacyScripts()
-        .then(() => {
-          const nextReadiness = getLegacyHydrationReadiness()
-          console.info(DEBUG_PREFIX, 'fallback legacy scripts loaded', {
-            hasCreatePanelSlider: nextReadiness.hasCreatePanelSlider,
-            hasSearchCardProcess: nextReadiness.hasSearchCardProcess,
-          })
-        })
-        .catch((error: unknown) => {
-          console.error(DEBUG_PREFIX, 'failed to load fallback legacy scripts', {
-            error: error instanceof Error ? error.message : String(error),
-          })
-        })
+      return false
     }
 
-    injectFallbackLegacyScriptsIfNeeded()
+    node = document.getElementById(PORTAL_ID)
 
-    const attachAjaxDebugHandlersIfReady = () => {
-      if (hasAttachedAjaxDebugHandlers) {
+    if (!node) {
+      node = document.createElement('div')
+      node.id = PORTAL_ID
+      mountNode.insertAdjacentElement('afterend', node)
+      createdNode = true
+      debugInfo(debugEnabled, 'created portal node', { portalId: PORTAL_ID })
+    } else {
+      debugInfo(debugEnabled, 'reusing existing portal node', { portalId: PORTAL_ID })
+    }
+
+    setPortalNode(node)
+    return true
+  }
+
+  const cleanup = () => {
+    setPortalNode(null)
+
+    if (createdNode) {
+      node?.remove()
+    }
+  }
+
+  return {
+    ensurePortalNode,
+    cleanup,
+  }
+}
+
+function createFallbackScriptsLoader(debugEnabled: boolean) {
+  let fallbackScriptsInjected = false
+
+  return () => {
+    if (fallbackScriptsInjected) {
+      return
+    }
+
+    const readiness = getLegacyHydrationReadiness()
+    if (readiness.isReady) {
+      return
+    }
+
+    fallbackScriptsInjected = true
+
+    debugInfo(debugEnabled, 'injecting fallback legacy scripts', {
+      host: window.location.host,
+      hasJQueryFn: readiness.hasJQueryFn,
+      hasCreatePanelSlider: readiness.hasCreatePanelSlider,
+      hasSearchCardProcess: readiness.hasSearchCardProcess,
+    })
+
+    ensureQuicktagsL10nForFallback()
+
+    void injectFallbackLegacyScripts()
+      .then(() => {
+        const nextReadiness = getLegacyHydrationReadiness()
+        debugInfo(debugEnabled, 'fallback legacy scripts loaded', {
+          hasCreatePanelSlider: nextReadiness.hasCreatePanelSlider,
+          hasSearchCardProcess: nextReadiness.hasSearchCardProcess,
+        })
+      })
+      .catch((error: unknown) => {
+        console.error(DEBUG_PREFIX, 'failed to load fallback legacy scripts', {
+          error: error instanceof Error ? error.message : String(error),
+        })
+      })
+  }
+}
+
+function createAjaxDebugManager(debugEnabled: boolean) {
+  let hasAttached = false
+  let detach = () => {}
+
+  return {
+    attachIfReady() {
+      if (!debugEnabled || hasAttached) {
         return
       }
 
@@ -415,27 +437,46 @@ export function Listings() {
         return
       }
 
-      detachAjaxDebugHandlers = attachWidgetAjaxDebugHandlers()
-      hasAttachedAjaxDebugHandlers = true
-    }
+      detach = attachWidgetAjaxDebugHandlers()
+      hasAttached = true
+    },
+    cleanup() {
+      detach()
+    },
+  }
+}
 
-    attachAjaxDebugHandlersIfReady()
+export function Listings() {
+  const [portalNode, setPortalNode] = useState<HTMLElement | null>(null)
 
-    let triggerResult = triggerLegacyWidgetLoad()
+  useEffect(() => {
+    const debugEnabled = isListingsDebugEnabled()
+    debugInfo(debugEnabled, 'mount')
+
+    const restoreSiteBaseLang = setupLocalServicesProxy(debugEnabled)
+    const portalNodeManager = createPortalNodeManager(setPortalNode, debugEnabled)
+    const injectFallbackScriptsIfNeeded = createFallbackScriptsLoader(debugEnabled)
+    const ajaxDebugManager = createAjaxDebugManager(debugEnabled)
+
+    portalNodeManager.ensurePortalNode()
+    injectFallbackScriptsIfNeeded()
+    ajaxDebugManager.attachIfReady()
+
+    let triggerResult = triggerLegacyWidgetLoad(debugEnabled)
 
     let attempts = 0
     const maxAttempts = 40
     const intervalHandle = window.setInterval(() => {
-      ensurePortalNode()
-      injectFallbackLegacyScriptsIfNeeded()
-      attachAjaxDebugHandlersIfReady()
-      triggerResult = triggerLegacyWidgetLoad()
+      portalNodeManager.ensurePortalNode()
+      injectFallbackScriptsIfNeeded()
+      ajaxDebugManager.attachIfReady()
+      triggerResult = triggerLegacyWidgetLoad(debugEnabled)
       attempts += 1
 
       const shouldStop = (triggerResult.hasLoadedCards && triggerResult.hydrationReady) || attempts >= maxAttempts
 
       if (shouldStop) {
-        console.info(DEBUG_PREFIX, 'stopping retry loop', {
+        debugInfo(debugEnabled, 'stopping retry loop', {
           attempts,
           hasLegacyGlobals: triggerResult.hasLegacyGlobals,
           hasProcessedPlaceholder: triggerResult.hasProcessedPlaceholder,
@@ -447,26 +488,11 @@ export function Listings() {
     }, 150)
 
     return () => {
-      console.info(DEBUG_PREFIX, 'unmount')
+      debugInfo(debugEnabled, 'unmount')
       window.clearInterval(intervalHandle)
-      setPortalNode(null)
-      detachAjaxDebugHandlers()
-
-      if (siteBaseLangOverridden) {
-        if (originalSiteBaseLang === null) {
-          document.body.removeAttribute('data-sitebase-lang')
-        } else {
-          document.body.setAttribute('data-sitebase-lang', originalSiteBaseLang)
-        }
-
-        console.info(DEBUG_PREFIX, 'restored original data-sitebase-lang', {
-          restored: originalSiteBaseLang,
-        })
-      }
-
-      if (createdNode) {
-        node?.remove()
-      }
+      ajaxDebugManager.cleanup()
+      restoreSiteBaseLang()
+      portalNodeManager.cleanup()
     }
   }, [])
 

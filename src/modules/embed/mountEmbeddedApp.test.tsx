@@ -21,6 +21,10 @@ describe('mountEmbeddedApp', () => {
     expect(shadowRoot?.querySelectorAll('#emily-shadow-stylesheet')).toHaveLength(1)
     expect(shadowRoot?.querySelectorAll('#emily-shadow-app')).toHaveLength(1)
 
+    const stylesheet = shadowRoot?.querySelector<HTMLLinkElement>('#emily-shadow-stylesheet')
+    expect(stylesheet).toBeTruthy()
+    stylesheet?.dispatchEvent(new Event('load'))
+
     await waitFor(() => {
       const appNode = shadowRoot?.querySelector('#emily-shadow-app')
       expect(appNode?.textContent).toContain('Embedded app mounted')

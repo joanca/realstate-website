@@ -57,14 +57,20 @@ export function ensureShadowBaseStyles(shadowRoot: ShadowRoot) {
 }
 
 export function ensureShadowStylesheet(shadowRoot: ShadowRoot, href: string) {
-  if (!shadowRoot.querySelector(`#${SHADOW_STYLESHEET_ID}`)) {
-    const appStylesheet = document.createElement('link')
-    appStylesheet.id = SHADOW_STYLESHEET_ID
-    appStylesheet.rel = 'stylesheet'
-    appStylesheet.setAttribute('data-keep-stylesheet', '')
-    appStylesheet.href = href
-    shadowRoot.append(appStylesheet)
+  const existingStylesheet = shadowRoot.querySelector<HTMLLinkElement>(`#${SHADOW_STYLESHEET_ID}`)
+
+  if (existingStylesheet) {
+    return existingStylesheet
   }
+
+  const appStylesheet = document.createElement('link')
+  appStylesheet.id = SHADOW_STYLESHEET_ID
+  appStylesheet.rel = 'stylesheet'
+  appStylesheet.setAttribute('data-keep-stylesheet', '')
+  appStylesheet.href = href
+  shadowRoot.append(appStylesheet)
+
+  return appStylesheet
 }
 
 export function ensureShadowMountNode(shadowRoot: ShadowRoot) {

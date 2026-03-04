@@ -20,6 +20,10 @@ describe('main shadow mount', () => {
     expect(shadowRoot.querySelector('#emily-shadow-stylesheet')).toBeInTheDocument();
     expect(shadowRoot.querySelector('#emily-shadow-app')).toBeInTheDocument();
 
+    const stylesheet = shadowRoot.querySelector<HTMLLinkElement>('#emily-shadow-stylesheet');
+    expect(stylesheet).toBeInTheDocument();
+    stylesheet?.dispatchEvent(new Event('load'));
+
     const baseStyleText = shadowRoot.querySelector('#emily-shadow-base')?.textContent ?? '';
     expect(baseStyleText).toContain('all: initial;');
     expect(baseStyleText).toContain('contain: layout style paint;');

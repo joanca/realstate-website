@@ -16,7 +16,8 @@ The listings block is not a React-native data source. It is a legacy Moxi/WordPr
 Component: `src/components/Listings.tsx`
 
 1. `Listings` creates a light-DOM portal node right after `#emily-realestate`.
-2. It renders a legacy-compatible placeholder:
+2. It renders a legacy-compatible container + placeholder:
+   - wrapper context (`.subbody.row#two > .container`) to satisfy legacy CSS selector scope
    - `data-get-widget="{...}"`
    - `data-target-parent="yes"`
    - `data-widget-check="[data-propcard-listing-id]"`
@@ -87,16 +88,21 @@ Production includes inline `quicktags-js-extra` before that bundle. Local did no
      - `WMS.propertycards.SearchCardProcess`
 
 2. Fallback legacy script injection
-   - If readiness is missing, inject:
-     - `minify-b-utils-308272f61f1dd2c74483441c316e3a30.js`
-     - `minify-b-helpers-1ee421ddc2805789a72e4793e539f2d7.js`
-     - `minify-b-jquery-ui-core-b9fa3ca169d8baa2628ab7f9ca4c6e50.js`
+    - If readiness is missing, inject:
+      - `minify-b-utils-308272f61f1dd2c74483441c316e3a30.js`
+      - `minify-b-helpers-1ee421ddc2805789a72e4793e539f2d7.js`
+      - `minify-b-jquery-ui-core-b9fa3ca169d8baa2628ab7f9ca4c6e50.js`
 
-3. `quicktagsL10n` shim
-   - If `window.quicktagsL10n` is missing, apply fallback object before injecting script bundle.
+3. Fallback listings stylesheet injection
+   - Ensure latest widget CSS is present:
+     - `minify-b-imgmap_style-8e47fd8087f71df34cbff31f8a6b51df.css`
+   - This prevents partial card styling when `embedded.html` points at a stale hashed CSS URL.
 
-4. Retry loop stop condition improved
-   - Stop only when cards are present and hydration readiness is true, or max attempts reached.
+4. `quicktagsL10n` shim
+    - If `window.quicktagsL10n` is missing, apply fallback object before injecting script bundle.
+
+5. Retry loop stop condition improved
+    - Stop only when cards are present and hydration readiness is true, or max attempts reached.
 
 This avoids stopping early on shell-only DOM state.
 

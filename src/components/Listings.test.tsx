@@ -9,6 +9,8 @@ const FALLBACK_SCRIPT_URLS = [
   'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-helpers-1ee421ddc2805789a72e4793e539f2d7.js?ver=A.4f324b31b2.B3ZXYAOYAO',
   'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-jquery-ui-core-b9fa3ca169d8baa2628ab7f9ca4c6e50.js?ver=A.4f324b31b2.B3ZXYAOYAO',
 ]
+const FALLBACK_STYLESHEET_URL =
+  'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-imgmap_style-8e47fd8087f71df34cbff31f8a6b51df.css?ver=A.4f324b31b2.B3ZXYAOYAO'
 
 type JQueryMock = ((target: unknown) => { trigger: (eventName: string) => void; on?: (...args: unknown[]) => unknown; off?: (...args: unknown[]) => unknown; find?: (selector: string) => { length: number } }) & {
   fn?: { CreatePanelSlider?: () => void }
@@ -84,8 +86,11 @@ describe('Listings', () => {
     await waitFor(() => {
       const mountNode = document.getElementById('emily-realestate')
       const portalNode = document.getElementById('emily-realestate-listings')
+      const listingsSection = portalNode?.querySelector('.subbody.row#two')
       expect(portalNode).toBeInTheDocument()
       expect(mountNode?.nextElementSibling).toBe(portalNode)
+      expect(listingsSection).toBeInTheDocument()
+      expect(listingsSection?.querySelector('.container')).toBeInTheDocument()
       expect(portalNode?.querySelector('[data-get-widget]')).toBeInTheDocument()
       expect(portalNode?.querySelector('#home-featured-properties')).toHaveAttribute('data-listings-ready', 'false')
       expect(document.getElementById(LIGHT_DOM_STYLE_ID)).toBeInTheDocument()
@@ -213,6 +218,23 @@ describe('Listings', () => {
     })
 
     unmount()
+  })
+
+  it('injects fallback listings stylesheet and removes it on unmount', async () => {
+    setupListingsHost()
+    setupLegacyReadyMocks()
+
+    const { unmount } = render(<Listings />)
+
+    await waitFor(() => {
+      expect(document.querySelector(`link[href="${FALLBACK_STYLESHEET_URL}"]`)).toBeInTheDocument()
+    })
+
+    unmount()
+
+    await waitFor(() => {
+      expect(document.querySelector(`link[href="${FALLBACK_STYLESHEET_URL}"]`)).not.toBeInTheDocument()
+    })
   })
 
   it('does not attach ajax debug handlers without debug cookie', async () => {

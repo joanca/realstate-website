@@ -43,6 +43,8 @@ const FALLBACK_LEGACY_SCRIPT_URLS = [
   'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-helpers-1ee421ddc2805789a72e4793e539f2d7.js?ver=A.4f324b31b2.B3ZXYAOYAO',
   'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-jquery-ui-core-b9fa3ca169d8baa2628ab7f9ca4c6e50.js?ver=A.4f324b31b2.B3ZXYAOYAO',
 ]
+const FALLBACK_LEGACY_STYLESHEET_URL =
+  'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-imgmap_style-8e47fd8087f71df34cbff31f8a6b51df.css?ver=A.4f324b31b2.B3ZXYAOYAO'
 
 const LIGHT_DOM_HIDE_TITLE_CSS =
   "#home-featured-properties[data-listings-ready='false'] h3, #home-featured-properties[data-listings-ready='false'] .featuredpropertynav { display: none; }"
@@ -442,6 +444,33 @@ function createFallbackScriptsLoader(debugEnabled: boolean) {
   }
 }
 
+function createFallbackStylesheetLoader(debugEnabled: boolean) {
+  let injectedLink: HTMLLinkElement | null = null
+
+  return {
+    ensureLoaded() {
+      const existing = document.querySelector(`link[rel="stylesheet"][href*="${FALLBACK_LEGACY_STYLESHEET_URL}"]`)
+      if (existing) {
+        return
+      }
+
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = FALLBACK_LEGACY_STYLESHEET_URL
+      link.dataset.listingsWidgetFallback = 'true'
+      document.head.append(link)
+      injectedLink = link
+
+      debugInfo(debugEnabled, 'injected fallback listings stylesheet', {
+        href: FALLBACK_LEGACY_STYLESHEET_URL,
+      })
+    },
+    cleanup() {
+      injectedLink?.remove()
+    },
+  }
+}
+
 function createAjaxDebugManager(debugEnabled: boolean) {
   let hasAttached = false
   let detach = () => {}
@@ -498,10 +527,12 @@ export function useListingsWidget() {
     const lightDomStyleManager = ensureLightDomListingsStyle()
     const portalNodeManager = createPortalNodeManager(setPortalNode, debugEnabled)
     const injectFallbackScriptsIfNeeded = createFallbackScriptsLoader(debugEnabled)
+    const fallbackStylesheetLoader = createFallbackStylesheetLoader(debugEnabled)
     const ajaxDebugManager = createAjaxDebugManager(debugEnabled)
 
     portalNodeManager.ensurePortalNode()
     injectFallbackScriptsIfNeeded()
+    fallbackStylesheetLoader.ensureLoaded()
     ajaxDebugManager.attachIfReady()
 
     let triggerResult = triggerLegacyWidgetLoad(debugEnabled)
@@ -512,6 +543,7 @@ export function useListingsWidget() {
     const intervalHandle = window.setInterval(() => {
       portalNodeManager.ensurePortalNode()
       injectFallbackScriptsIfNeeded()
+      fallbackStylesheetLoader.ensureLoaded()
       ajaxDebugManager.attachIfReady()
       triggerResult = triggerLegacyWidgetLoad(debugEnabled)
       setIsListingsReady(triggerResult.hasVisibleListingCards)
@@ -536,6 +568,7 @@ export function useListingsWidget() {
       debugInfo(debugEnabled, 'unmount')
       window.clearInterval(intervalHandle)
       ajaxDebugManager.cleanup()
+      fallbackStylesheetLoader.cleanup()
       restoreSiteBaseLang()
       lightDomStyleManager.cleanup()
       portalNodeManager.cleanup()

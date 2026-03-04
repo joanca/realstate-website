@@ -60,6 +60,12 @@ Production deployment uses HTML entrypoints that import `main.tsx` and serve com
 3. **Import Resolution**: Vite resolves bare imports from node_modules
 4. **CSS Build**: Vite build extracts CSS to `src/output.css`
 
+### Component Design Pattern
+
+- Prefer separating non-visual and side-effect logic into custom hooks
+- Keep React components focused on JSX composition and props wiring
+- When component behavior grows beyond simple rendering, extract functional code into `use*` hooks
+
 ## 5. File Structure
 
 ```

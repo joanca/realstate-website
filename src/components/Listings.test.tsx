@@ -2,6 +2,8 @@ import { render, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Listings } from './Listings'
 
+const LIGHT_DOM_STYLE_ID = 'emily-listings-lightdom-style'
+
 const FALLBACK_SCRIPT_URLS = [
   'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-utils-308272f61f1dd2c74483441c316e3a30.js?ver=A.4f324b31b2.B3ZXYAOYAO',
   'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-helpers-1ee421ddc2805789a72e4793e539f2d7.js?ver=A.4f324b31b2.B3ZXYAOYAO',
@@ -85,6 +87,8 @@ describe('Listings', () => {
       expect(portalNode).toBeInTheDocument()
       expect(mountNode?.nextElementSibling).toBe(portalNode)
       expect(portalNode?.querySelector('[data-get-widget]')).toBeInTheDocument()
+      expect(portalNode?.querySelector('#home-featured-properties')).toHaveAttribute('data-listings-ready', 'false')
+      expect(document.getElementById(LIGHT_DOM_STYLE_ID)).toBeInTheDocument()
     })
 
     await waitFor(() => {
@@ -95,7 +99,32 @@ describe('Listings', () => {
 
     await waitFor(() => {
       expect(document.getElementById('emily-realestate-listings')).not.toBeInTheDocument()
+      expect(document.getElementById(LIGHT_DOM_STYLE_ID)).not.toBeInTheDocument()
     })
+  })
+
+  it('marks listings as ready after cards are rendered', async () => {
+    setupListingsHost()
+    setupLegacyReadyMocks()
+
+    const { unmount } = render(<Listings />)
+
+    await waitFor(() => {
+      const container = document.querySelector('#home-featured-properties')
+      expect(container).toHaveAttribute('data-listings-ready', 'false')
+    })
+
+    const portalNode = document.getElementById('emily-realestate-listings')
+    const cardNode = document.createElement('article')
+    cardNode.setAttribute('data-propcard-listing-id', 'mock-card-id')
+    portalNode?.append(cardNode)
+
+    await waitFor(() => {
+      const container = document.querySelector('#home-featured-properties')
+      expect(container).toHaveAttribute('data-listings-ready', 'true')
+    })
+
+    unmount()
   })
 
   it('overrides localhost data-sitebase-lang for services proxy and restores on unmount', async () => {
@@ -195,6 +224,28 @@ describe('Listings', () => {
 
     await waitFor(() => {
       expect(document.getElementById('emily-realestate-listings')).toBe(existingPortalNode)
+    })
+  })
+
+  it('keeps pre-existing light dom style on cleanup', async () => {
+    setupListingsHost()
+    setupLegacyReadyMocks()
+
+    const existingStyle = document.createElement('style')
+    existingStyle.id = LIGHT_DOM_STYLE_ID
+    existingStyle.textContent = 'body { color: inherit; }'
+    document.head.append(existingStyle)
+
+    const { unmount } = render(<Listings />)
+
+    await waitFor(() => {
+      expect(document.getElementById(LIGHT_DOM_STYLE_ID)).toBe(existingStyle)
+    })
+
+    unmount()
+
+    await waitFor(() => {
+      expect(document.getElementById(LIGHT_DOM_STYLE_ID)).toBe(existingStyle)
     })
   })
 })

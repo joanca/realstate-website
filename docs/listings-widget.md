@@ -1,6 +1,6 @@
 # Listings Widget Technical Notes
 
-This document explains how the legacy WordPress listings widget is integrated into the React app and how to debug it.
+This document explains how the legacy WordPress listings widget is integrated into the React app, what failed locally, and the fixes now in place.
 
 ## What the Widget Is
 
@@ -20,15 +20,15 @@ Component: `src/components/Listings.tsx`
    - `data-get-widget="{...}"`
    - `data-target-parent="yes"`
    - `data-widget-check="[data-propcard-listing-id]"`
-3. It triggers legacy processing by firing:
+3. It triggers legacy processing via:
 
 ```js
 jQuery(document).trigger('flbuilder-render-updated')
 ```
 
-4. The Moxi utils bundle (`minify-b-utils-...js`) listens for that event and runs its internal `ProcessGetWidgets` function.
+4. Legacy bundles listen for that event and run widget processing (`ProcessGetWidgets` and downstream handlers).
 
-Important: `ProcessGetWidgets` is inside a closure in the legacy script and is not reliably available on `window`.
+Important: `ProcessGetWidgets` is inside legacy closures and is not a stable global API.
 
 ## Why Localhost Needed a Proxy
 
@@ -36,87 +36,119 @@ Legacy code builds widget URL from:
 
 - `document.body.getAttribute('data-sitebase-lang') + '/services/get-widget/'`
 
-When app origin is `http://localhost:3000`, cross-origin requests to `https://emilybrealty.com/services/get-widget/` fail in browser XHR (`status: 0`) due to CORS restrictions.
+When app origin is `http://localhost:3000`, direct XHR to `https://emilybrealty.com/services/get-widget/` fails due to CORS.
 
 ### Dev Fix Implemented
 
-1. `vite.config.ts` defines a proxy:
+1. `vite.config.ts` proxy:
    - `/services/*` -> `https://emilybrealty.com/services/*`
-2. `Listings` detects localhost and temporarily overrides:
-   - `data-sitebase-lang` from `https://emilybrealty.com` to `http://localhost:3000`
-3. On unmount, it restores the original `data-sitebase-lang` value.
+2. `Listings` detects localhost + cross-origin `data-sitebase-lang` and temporarily sets:
+   - `data-sitebase-lang = window.location.origin`
+3. On unmount, original `data-sitebase-lang` is restored.
 
-This keeps production behavior unchanged and enables local development.
+## What We Learned During Debugging
 
-## Current Symptoms and Meaning
+### 1) `cardsCount > 0` can still mean "not actually hydrated"
 
-If logs show:
+The response and DOM can contain listing shells while visible card rendering is still incomplete. We now track both:
 
-- `processedPlaceholderPresent: true`
-- `cardsCount: 0`
+- Hydrated card selector: `[data-propcard-listing-id]`
+- Shell selector: `.searchcard-listing[data-raw-listing-obj]`
 
-then the placeholder was processed but cards were not materialized in the DOM.
+### 2) `get-widget-processed` is not a reliable stop signal
 
-This usually means one of these states:
+`processedPlaceholderPresent` can stay false even when the pipeline progresses. We no longer rely on it to stop retries.
 
-1. AJAX returned HTML but no matching `[data-propcard-listing-id]` entries.
-2. Returned HTML has card payload shells (`.searchcard-listing`) but the follow-up processor (`WMS.propertycards.SearchCardProcess`) did not fully hydrate visible content.
-3. A required legacy dependency loaded late or failed before card rendering stage.
+### 3) Missing legacy deps were the real blocker
 
-## Debugging Signals (Already Added)
+Local embed initially failed with:
 
-`Listings` currently logs:
+- `WMS.propertycards.SearchCardProcess` undefined
+- `jQuery.fn.CreatePanelSlider` not a function
 
-- trigger context (`jQuery`, `WMS`, `wp.hooks`, `siteBaseLang`, placeholder state)
-- AJAX success/error for `/services/get-widget/`
-- response length and number of listing cards in response
-- portal lifecycle and retry-stop reason
+Root cause: stale embedded script URLs in `embedded.html` versus current production-minified bundles.
+
+### 4) Additional hidden dependency: `quicktagsL10n`
+
+After loading newer `jquery-ui-core` fallback bundle, local hit:
+
+- `ReferenceError: quicktagsL10n is not defined`
+
+Production includes inline `quicktags-js-extra` before that bundle. Local did not, so a shim was required.
+
+## Current Localhost Robustness (Now Implemented)
+
+`Listings.tsx` now includes localhost fallback behavior (only when local proxy mode is active):
+
+1. Readiness gate before triggering
+   - `flbuilder-render-updated` fires only when all are ready:
+     - `jQuery.fn`
+     - `jQuery.fn.CreatePanelSlider`
+     - `WMS.propertycards.SearchCardProcess`
+
+2. Fallback legacy script injection
+   - If readiness is missing on localhost, inject:
+     - `minify-b-utils-308272f61f1dd2c74483441c316e3a30.js`
+     - `minify-b-helpers-1ee421ddc2805789a72e4793e539f2d7.js`
+     - `minify-b-jquery-ui-core-b9fa3ca169d8baa2628ab7f9ca4c6e50.js`
+
+3. `quicktagsL10n` shim
+   - If `window.quicktagsL10n` is missing, apply fallback object before injecting script bundle.
+
+4. Retry loop stop condition improved
+   - Stop only when cards are present and hydration readiness is true, or max attempts reached.
+
+This avoids stopping early on shell-only DOM state.
+
+## Debugging Signals Available
 
 Console prefix:
 
 - `[ListingsWidget]`
 
-## Known Issue: Empty Listing Card Shells
+Current logs include:
 
-Symptom:
+- trigger context (`jquery`, `CreatePanelSlider`, `WMS`, `SearchCardProcess`, `wp.hooks`, `siteBaseLang`)
+- placeholder and portal state
+- pre/post counts for hydrated cards and shell cards
+- ajax success/error for `/services/get-widget/`
+- `cardsInResponse` and `shellCardsInResponse`
+- `search-cards-processed` event log
+- fallback injection lifecycle (start/success/failure)
+- retry stop reason including `hydrationReady`
 
-- Widget request succeeds.
-- Container markup appears.
-- Individual listing blocks exist, but visible card content is empty.
+## Interpreting Common Log Patterns
 
-Likely cause:
+### Healthy local progression
 
-- The server response includes card payload placeholders, but a later legacy hydration stage does not complete (`WMS.propertycards.SearchCardProcess` / related downstream handlers).
+- `ajax success` with non-trivial `responseLength`
+- `cardsInResponse > 0`
+- readiness flags eventually true (`CreatePanelSlider`, `SearchCardProcess`)
+- `trigger end` with non-zero card/shell counts
+- retry loop stops with `hydrationReady: true`
 
-Practical verification checklist:
+### Shell-only/incomplete hydration
 
-1. Confirm response quality
-   - Check `[ListingsWidget] ajax success` log.
-   - Verify `cardsInResponse > 0` and non-trivial `responseLength`.
-2. Confirm processing stage
-   - In DOM, inspect for `.searchcard-listing[data-raw-listing-obj]`.
-   - Verify whether child content is still empty after retries.
-3. Confirm required globals at processing time
-   - `window.WMS`
-   - `window.WMS.propertycards`
-   - `window.WMS.propertycards.SearchCardProcess`
-4. Confirm event lifecycle
-   - Ensure `flbuilder-render-updated` is fired after placeholder exists.
-   - Verify no script errors are thrown before hydration stage.
-5. Confirm CSS/display constraints
-   - Ensure card nodes are not present but hidden by host styles.
+- `shellCardsCount > 0` but visible content missing
+- readiness still false for `SearchCardProcess` and/or other deps
+- script error appears before card processing completes
 
-Recommended next debugging step:
+### Script-pack drift after WP deploy/minify cache rotate
 
-- Add temporary logs around `search-cards-processed` and check whether it fires after widget injection. If not, the issue is likely in the legacy processing chain rather than the fetch layer.
+If localhost breaks again after upstream deploy:
+
+- likely fallback URL hash drifted
+- refresh fallback script URLs from current production page source
 
 ## Production Behavior
 
-On the real WordPress host (`https://emilybrealty.com`), no localhost override is applied.
+On real host (`https://emilybrealty.com`):
 
-- Requests go to same-origin `/services/get-widget/`
-- Existing global scripts from WP are used
-- React only provides the placeholder + trigger bridge
+- no localhost `data-sitebase-lang` override
+- no fallback script injection
+- no `quicktagsL10n` shim
+- existing WP script chain is used directly
+- React continues to act as placeholder + trigger bridge only
 
 ## Related Files
 
@@ -124,3 +156,4 @@ On the real WordPress host (`https://emilybrealty.com`), no localhost override i
 - `src/App.tsx`
 - `vite.config.ts`
 - `src/App.test.tsx`
+- `docs/listings-widget.md`

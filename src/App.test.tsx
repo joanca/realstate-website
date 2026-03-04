@@ -9,6 +9,35 @@ function isLocalhostRuntime() {
 }
 
 describe('App embedded integration', () => {
+  it('reveals the full page on first mount by clearing preload lock markers', async () => {
+    const { mountNode } = setupEmbeddedFixture();
+
+    document.documentElement.setAttribute('data-emily-loading', 'true');
+    const preloadStyle = document.createElement('style');
+    preloadStyle.id = 'emily-preload-hide';
+    preloadStyle.textContent = 'html[data-emily-loading="true"] body { visibility: hidden; }';
+    document.head.appendChild(preloadStyle);
+
+    render(<App />, { container: mountNode });
+
+    await waitFor(() => {
+      expect(document.documentElement).not.toHaveAttribute('data-emily-loading');
+      expect(document.getElementById('emily-preload-hide')).not.toBeInTheDocument();
+    });
+  });
+
+  it('mounts safely when preload lock markers are not present', async () => {
+    const { mountNode } = setupEmbeddedFixture();
+
+    render(<App />, { container: mountNode });
+
+    await waitFor(() => {
+      expect(document.documentElement).not.toHaveAttribute('data-emily-loading');
+      expect(document.getElementById('emily-preload-hide')).not.toBeInTheDocument();
+      expect(document.getElementById('react-root')).toBeInTheDocument();
+    });
+  });
+
   it('normalizes embedded wrapper structure after hydration', async () => {
     const { mountNode } = setupEmbeddedFixture();
 

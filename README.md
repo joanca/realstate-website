@@ -74,6 +74,34 @@ package.json
 - Embedded usage imports `./main.tsx` from HTML entrypoints in `src/index.html` and `src/embedded.html`.
 - No `@src` import alias is configured; local imports are relative.
 
+## WordPress Embed
+
+Use this snippet in WordPress to embed the app from esm.sh and keep the page hidden until React finishes first mount:
+
+```html
+<script>
+  document.documentElement.setAttribute("data-emily-loading", "true");
+
+  const style = document.createElement("style");
+  style.id = "emily-preload-hide";
+  style.textContent =
+    'html[data-emily-loading="true"] body, html[data-emily-loading="true"] body * { visibility: hidden !important; }';
+  document.head.appendChild(style);
+
+  window.setTimeout(() => {
+    document.documentElement.removeAttribute("data-emily-loading");
+    document.getElementById("emily-preload-hide")?.remove();
+  }, 7000);
+</script>
+
+<main id="emily-realestate"></main>
+<script type="module">
+  import "https://esm.sh/gh/joanca/realstate-website@main/src/main.tsx?jsx";
+</script>
+```
+
+At runtime, `src/App.tsx` removes `data-emily-loading` and the temporary style in a `useLayoutEffect`, so the full page appears at once after the app mounts.
+
 ## Listings Widget
 
 - Technical documentation for the legacy listings integration is in `docs/listings-widget.md`.

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { ExperienceBar } from './components/ExperienceBar'
 import { HeroSection } from './components/HeroSection'
 import { Listings } from './components/Listings'
@@ -7,6 +7,11 @@ import { normalizeEmbeddedDom } from './modules/embed/normalizeEmbeddedDom'
 import { experienceContent, heroContent, testimonials, testimonialsContent } from './modules/app/appContent'
 
 export default function App() {
+  useLayoutEffect(() => {
+    document.documentElement.removeAttribute('data-emily-loading')
+    document.getElementById('emily-preload-hide')?.remove()
+  }, [])
+
   useEffect(() => {
     normalizeEmbeddedDom()
   }, [])

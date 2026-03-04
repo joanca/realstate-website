@@ -256,7 +256,21 @@ Description: Default template used for wordpress pages.
     
       
                           <div class="entry-content">
-              <p>  <main id="emily-realestate"></main><br />
+              <p>
+    <script>
+      document.documentElement.setAttribute('data-emily-loading', 'true')
+
+      const style = document.createElement('style')
+      style.id = 'emily-preload-hide'
+      style.textContent = 'html[data-emily-loading="true"] body, html[data-emily-loading="true"] body * { visibility: hidden !important; }'
+      document.head.appendChild(style)
+
+      window.setTimeout(() => {
+        document.documentElement.removeAttribute('data-emily-loading')
+        document.getElementById('emily-preload-hide')?.remove()
+      }, 7000)
+    </script>
+    <main id="emily-realestate"></main><br />
     <script type="module">
     import './main.tsx'
   </script></p>

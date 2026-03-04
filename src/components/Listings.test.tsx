@@ -89,6 +89,7 @@ describe('Listings', () => {
       expect(portalNode?.querySelector('[data-get-widget]')).toBeInTheDocument()
       expect(portalNode?.querySelector('#home-featured-properties')).toHaveAttribute('data-listings-ready', 'false')
       expect(document.getElementById(LIGHT_DOM_STYLE_ID)).toBeInTheDocument()
+      expect(document.getElementById(LIGHT_DOM_STYLE_ID)?.textContent).toContain('.featuredpropertynav')
     })
 
     await waitFor(() => {
@@ -116,12 +117,60 @@ describe('Listings', () => {
 
     const portalNode = document.getElementById('emily-realestate-listings')
     const cardNode = document.createElement('article')
+    cardNode.className = 'listing-card'
     cardNode.setAttribute('data-propcard-listing-id', 'mock-card-id')
+    vi.spyOn(cardNode, 'getBoundingClientRect').mockReturnValue({
+      x: 0,
+      y: 0,
+      width: 320,
+      height: 160,
+      top: 0,
+      left: 0,
+      right: 320,
+      bottom: 160,
+      toJSON: () => ({}),
+    })
     portalNode?.append(cardNode)
 
     await waitFor(() => {
       const container = document.querySelector('#home-featured-properties')
       expect(container).toHaveAttribute('data-listings-ready', 'true')
+    })
+
+    unmount()
+  })
+
+  it('keeps listings as not ready when listing-card height is zero', async () => {
+    setupListingsHost()
+    setupLegacyReadyMocks()
+
+    const { unmount } = render(<Listings />)
+
+    await waitFor(() => {
+      const container = document.querySelector('#home-featured-properties')
+      expect(container).toHaveAttribute('data-listings-ready', 'false')
+    })
+
+    const portalNode = document.getElementById('emily-realestate-listings')
+    const cardNode = document.createElement('article')
+    cardNode.className = 'listing-card'
+    cardNode.setAttribute('data-propcard-listing-id', 'mock-card-id')
+    vi.spyOn(cardNode, 'getBoundingClientRect').mockReturnValue({
+      x: 0,
+      y: 0,
+      width: 320,
+      height: 0,
+      top: 0,
+      left: 0,
+      right: 320,
+      bottom: 0,
+      toJSON: () => ({}),
+    })
+    portalNode?.append(cardNode)
+
+    await waitFor(() => {
+      const container = document.querySelector('#home-featured-properties')
+      expect(container).toHaveAttribute('data-listings-ready', 'false')
     })
 
     unmount()

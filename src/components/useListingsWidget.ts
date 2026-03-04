@@ -44,7 +44,8 @@ const FALLBACK_LEGACY_SCRIPT_URLS = [
   'https://emilybrealty.com/wp-content/plugins/bwp-minify/cache/minify-b-jquery-ui-core-b9fa3ca169d8baa2628ab7f9ca4c6e50.js?ver=A.4f324b31b2.B3ZXYAOYAO',
 ]
 
-const LIGHT_DOM_HIDE_TITLE_CSS = "#home-featured-properties[data-listings-ready='false'] h3 { display: none; }"
+const LIGHT_DOM_HIDE_TITLE_CSS =
+  "#home-featured-properties[data-listings-ready='false'] h3, #home-featured-properties[data-listings-ready='false'] .featuredpropertynav { display: none; }"
 
 export const WIDGET_CONFIG = JSON.stringify({
   partialName: ' Featured Properties',
@@ -192,12 +193,20 @@ function triggerLegacyWidgetLoad(debugEnabled: boolean) {
 
   const portalNode = document.getElementById(PORTAL_ID)
   const cardsCount = portalNode?.querySelectorAll(WIDGET_CHECK_SELECTOR).length ?? 0
+  const visibleListingCardsCount =
+    portalNode?.querySelectorAll('.listing-card').length
+      ? Array.from(portalNode.querySelectorAll<HTMLElement>('.listing-card')).filter((cardNode) => {
+          const height = cardNode.getBoundingClientRect().height
+          return height > 0
+        }).length
+      : 0
 
   debugInfo(debugEnabled, 'trigger start', {
     hasJQueryFn: readiness.hasJQueryFn,
     hasCreatePanelSlider: readiness.hasCreatePanelSlider,
     hasSearchCardProcess: readiness.hasSearchCardProcess,
     cardsCount,
+    visibleListingCardsCount,
   })
 
   if (readiness.isReady && jquery?.fn) {
@@ -211,13 +220,22 @@ function triggerLegacyWidgetLoad(debugEnabled: boolean) {
   }
 
   const postCardsCount = portalNode?.querySelectorAll(WIDGET_CHECK_SELECTOR).length ?? 0
+  const postVisibleListingCardsCount =
+    portalNode?.querySelectorAll('.listing-card').length
+      ? Array.from(portalNode.querySelectorAll<HTMLElement>('.listing-card')).filter((cardNode) => {
+          const height = cardNode.getBoundingClientRect().height
+          return height > 0
+        }).length
+      : 0
   debugInfo(debugEnabled, 'trigger end', {
     cardsCount: postCardsCount,
+    visibleListingCardsCount: postVisibleListingCardsCount,
   })
 
   return {
     hasLegacyGlobals: Boolean(jquery?.fn) && Boolean(legacyWindow.WMS),
     hasLoadedCards: postCardsCount > 0,
+    hasVisibleListingCards: postVisibleListingCardsCount > 0,
     hasProcessedPlaceholder: Boolean(portalNode?.querySelector('[data-get-widget].get-widget-processed')),
     hydrationReady: readiness.isReady,
   }
@@ -487,7 +505,7 @@ export function useListingsWidget() {
     ajaxDebugManager.attachIfReady()
 
     let triggerResult = triggerLegacyWidgetLoad(debugEnabled)
-    setIsListingsReady(triggerResult.hasLoadedCards)
+    setIsListingsReady(triggerResult.hasVisibleListingCards)
 
     let attempts = 0
     const maxAttempts = 40
@@ -496,10 +514,10 @@ export function useListingsWidget() {
       injectFallbackScriptsIfNeeded()
       ajaxDebugManager.attachIfReady()
       triggerResult = triggerLegacyWidgetLoad(debugEnabled)
-      setIsListingsReady(triggerResult.hasLoadedCards)
+      setIsListingsReady(triggerResult.hasVisibleListingCards)
       attempts += 1
 
-      const shouldStop = (triggerResult.hasLoadedCards && triggerResult.hydrationReady) || attempts >= maxAttempts
+      const shouldStop = (triggerResult.hasVisibleListingCards && triggerResult.hydrationReady) || attempts >= maxAttempts
 
       if (shouldStop) {
         debugInfo(debugEnabled, 'stopping retry loop', {
@@ -507,6 +525,7 @@ export function useListingsWidget() {
           hasLegacyGlobals: triggerResult.hasLegacyGlobals,
           hasProcessedPlaceholder: triggerResult.hasProcessedPlaceholder,
           hasLoadedCards: triggerResult.hasLoadedCards,
+          hasVisibleListingCards: triggerResult.hasVisibleListingCards,
           hydrationReady: triggerResult.hydrationReady,
         })
         window.clearInterval(intervalHandle)

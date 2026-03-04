@@ -74,6 +74,10 @@ package.json
 - Embedded usage imports `./main.tsx` from HTML entrypoints in `src/index.html` and `src/embedded.html`.
 - No `@src` import alias is configured; local imports are relative.
 
+## Listings Widget
+
+- Technical documentation for the legacy listings integration is in `docs/listings-widget.md`.
+
 ## License
 
 Private project for Emily B Realty.

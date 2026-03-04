@@ -9,7 +9,7 @@ describe('getShadowStylesheetHref', () => {
       baseUrl: 'https://example.com/src/getShadowStylesheetHref.ts',
     });
 
-    expect(href).toBe('https://example.com/src/output.css');
+    expect(href).toBe('https://example.com/output.css');
   });
 
   it('returns local output.css URL on localhost', () => {
@@ -19,7 +19,7 @@ describe('getShadowStylesheetHref', () => {
       baseUrl: 'https://example.com/src/getShadowStylesheetHref.ts',
     });
 
-    expect(href).toBe('https://example.com/src/output.css');
+    expect(href).toBe('https://example.com/output.css');
   });
 
   it('returns esm.sh URL in production', () => {

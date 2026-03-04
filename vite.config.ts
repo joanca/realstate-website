@@ -13,7 +13,14 @@ export default defineConfig({
     setupFiles: './test/setup.js'
   },
   server: {
-    port: 3000
+    port: 3000,
+    proxy: {
+      '/services': {
+        target: 'https://emilybrealty.com',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
   build: {
     outDir: 'dist',

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { ExperienceBar } from './components/ExperienceBar'
 import { HeroSection } from './components/HeroSection'
+import { Listings } from './components/Listings'
 import { TestimonialsSection } from './components/TestimonialsSection'
 import { normalizeEmbeddedDom } from './modules/embed/normalizeEmbeddedDom'
 import { experienceContent, heroContent, testimonials, testimonialsContent } from './modules/app/appContent'
@@ -19,6 +20,7 @@ export default function App() {
         starsImageUrl={testimonialsContent.starsImageUrl}
         allTestimonialsHref={testimonialsContent.allTestimonialsHref}
       />
+      <Listings />
     </div>
   )
 }

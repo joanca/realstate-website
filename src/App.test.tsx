@@ -1,7 +1,12 @@
 import { render, waitFor } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { setupEmbeddedFixture } from './test/utils/embeddedFixture';
+
+function isLocalhostRuntime() {
+  const hostname = window.location.hostname;
+  return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '[::1]';
+}
 
 describe('App embedded integration', () => {
   it('normalizes embedded wrapper structure after hydration', async () => {
@@ -43,6 +48,68 @@ describe('App embedded integration', () => {
       expect(document.getElementById('mx_0-css')).toBeInTheDocument();
       expect(document.getElementById('mx_1-css')).toBeInTheDocument();
       expect(document.getElementById('app-styles')).toBeInTheDocument();
+    });
+  });
+
+  it('creates a light-DOM listings portal after #emily-realestate and triggers legacy widget loader', async () => {
+    const { mountNode } = setupEmbeddedFixture();
+    const triggerSpy = vi.fn();
+    const jqueryMock = vi.fn(() => ({ trigger: triggerSpy }));
+    (jqueryMock as typeof jqueryMock & { fn: object }).fn = {};
+
+    (window as Window & { jQuery?: typeof jqueryMock }).jQuery = jqueryMock;
+    (window as Window & { WMS?: object }).WMS = {};
+
+    const { unmount } = render(<App />, { container: mountNode });
+
+    await waitFor(() => {
+      const portalNode = document.getElementById('emily-realestate-listings');
+      expect(portalNode).toBeInTheDocument();
+      expect(mountNode.nextElementSibling).toBe(portalNode);
+
+      const widgetNode = portalNode?.querySelector('[data-get-widget]');
+      expect(widgetNode).toBeInTheDocument();
+      expect(widgetNode).toHaveAttribute('data-target-parent', 'yes');
+      expect(widgetNode).toHaveAttribute('data-widget-check', '[data-propcard-listing-id]');
+
+      const widgetConfig = JSON.parse(widgetNode?.getAttribute('data-get-widget') ?? '{}');
+      expect(widgetConfig.class).toBe('featuredproperties');
+      expect(widgetConfig.data?.list).toBe('1175939');
+    });
+
+    await waitFor(() => {
+      expect(triggerSpy).toHaveBeenCalledWith('flbuilder-render-updated');
+    });
+
+    unmount();
+
+    await waitFor(() => {
+      expect(document.getElementById('emily-realestate-listings')).not.toBeInTheDocument();
+    });
+  });
+
+  it('uses localhost services proxy base in dev and restores body site base on unmount', async () => {
+    const { mountNode } = setupEmbeddedFixture();
+    const triggerSpy = vi.fn();
+    const jqueryMock = vi.fn(() => ({ trigger: triggerSpy }));
+    (jqueryMock as typeof jqueryMock & { fn: object }).fn = {};
+
+    const originalSiteBaseLang = 'https://emilybrealty.com';
+    document.body.setAttribute('data-sitebase-lang', originalSiteBaseLang);
+    (window as Window & { jQuery?: typeof jqueryMock }).jQuery = jqueryMock;
+    (window as Window & { WMS?: object }).WMS = {};
+
+    const { unmount } = render(<App />, { container: mountNode });
+
+    await waitFor(() => {
+      const expectedSiteBaseLang = isLocalhostRuntime() ? window.location.origin : originalSiteBaseLang;
+      expect(document.body.getAttribute('data-sitebase-lang')).toBe(expectedSiteBaseLang);
+    });
+
+    unmount();
+
+    await waitFor(() => {
+      expect(document.body.getAttribute('data-sitebase-lang')).toBe(originalSiteBaseLang);
     });
   });
 });

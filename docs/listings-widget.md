@@ -76,9 +76,9 @@ After loading newer `jquery-ui-core` fallback bundle, local hit:
 
 Production includes inline `quicktags-js-extra` before that bundle. Local did not, so a shim was required.
 
-## Current Localhost Robustness (Now Implemented)
+## Current Runtime Robustness (Now Implemented)
 
-`Listings.tsx` now includes localhost fallback behavior (only when local proxy mode is active):
+`Listings.tsx` now includes dependency-driven fallback behavior in all environments:
 
 1. Readiness gate before triggering
    - `flbuilder-render-updated` fires only when all are ready:
@@ -87,7 +87,7 @@ Production includes inline `quicktags-js-extra` before that bundle. Local did no
      - `WMS.propertycards.SearchCardProcess`
 
 2. Fallback legacy script injection
-   - If readiness is missing on localhost, inject:
+   - If readiness is missing, inject:
      - `minify-b-utils-308272f61f1dd2c74483441c316e3a30.js`
      - `minify-b-helpers-1ee421ddc2805789a72e4793e539f2d7.js`
      - `minify-b-jquery-ui-core-b9fa3ca169d8baa2628ab7f9ca4c6e50.js`
@@ -145,7 +145,7 @@ If localhost breaks again after upstream deploy:
 On real host (`https://emilybrealty.com`):
 
 - no localhost `data-sitebase-lang` override
-- no fallback script injection
+- fallback script injection runs only if required hydration dependencies are missing
 - no `quicktagsL10n` shim
 - existing WP script chain is used directly
 - React continues to act as placeholder + trigger bridge only

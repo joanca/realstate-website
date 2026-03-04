@@ -368,7 +368,7 @@ export function Listings() {
     ensurePortalNode()
 
     const injectFallbackLegacyScriptsIfNeeded = () => {
-      if (!useLocalServicesProxy || fallbackScriptsInjected) {
+      if (fallbackScriptsInjected) {
         return
       }
 
@@ -380,6 +380,7 @@ export function Listings() {
       fallbackScriptsInjected = true
 
       console.info(DEBUG_PREFIX, 'injecting fallback legacy scripts', {
+        host: window.location.host,
         hasJQueryFn: readiness.hasJQueryFn,
         hasCreatePanelSlider: readiness.hasCreatePanelSlider,
         hasSearchCardProcess: readiness.hasSearchCardProcess,

@@ -12,19 +12,19 @@
     "prepare": "node -e \"if(require('fs').existsSync('.git/hooks')){require('fs').chmodSync('.git/hooks/pre-commit', '755')}\""
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "*",
-    "@testing-library/react": "*",
-    "@tailwindcss/vite": "*",
-    "@vitejs/plugin-react-swc": "*",
-    "jsdom": "*",
-    "react": "*",
-    "react-dom": "*",
-    "tailwindcss": "*",
-    "typescript": "*",
-    "@types/node": "*",
-    "@types/react": "*",
-    "@types/react-dom": "*",
-    "vite": "*",
-    "vitest": "*"
+    "@tailwindcss/vite": "4.2.1",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
+    "@types/node": "25.3.3",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react-swc": "4.2.3",
+    "jsdom": "28.1.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "vite": "7.3.1",
+    "vitest": "4.0.18"
   }
 }

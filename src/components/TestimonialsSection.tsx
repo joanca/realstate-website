@@ -1,18 +1,21 @@
-import type { Testimonial } from '../modules/app/appContent'
+import { useTestimonials } from '../hooks/useTestimonials'
+import { testimonialsContent } from '../modules/app/appContent'
+import { TestimonialsLoading } from './TestimonialsLoading'
 
-interface TestimonialsSectionProps {
-  testimonials: Testimonial[]
-  starsImageUrl: string
-  allTestimonialsHref: string
-}
+export function TestimonialsSection() {
+  const { testimonials, loading } = useTestimonials()
+  const { starsImageUrl, allTestimonialsHref } = testimonialsContent
 
-export function TestimonialsSection({ testimonials, starsImageUrl, allTestimonialsHref }: TestimonialsSectionProps) {
+  if (loading) {
+    return <TestimonialsLoading />
+  }
+
   return (
     <section className="py-8 lg:py-12 px-4 lg:px-20 max-w-[1440px] mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-x-12 lg:gap-y-0">
-        {testimonials.map((testimonial) => (
-          <div key={testimonial.author} className="flex flex-col">
-            <p className="font-archivo italic text-text-dark text-[17px] lg:text-[22px] leading-[23px] lg:leading-7 opacity-90" style={{ fontVariationSettings: "'wdth' 100" }}>
+        {testimonials.map((testimonial, index) => (
+          <div key={testimonial.author + index} className="flex flex-col">
+            <p className="font-archivo italic text-text-dark text-[17px] lg:text-[22px] leading-[23px] lg:leading-7 opacity-90 line-clamp-3" style={{ fontVariationSettings: "'wdth' 100" }}>
               {testimonial.quote}
             </p>
             <div className="flex items-center gap-4 mt-2 lg:mt-4">

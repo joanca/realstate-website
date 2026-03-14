@@ -29,6 +29,6 @@ describe('getShadowStylesheetHref', () => {
       baseUrl: 'https://example.com/src/getShadowStylesheetHref.ts',
     });
 
-    expect(href).toBe('https://esm.sh/gh/joanca/realstate-website@main/src/output.css');
+    expect(href).toBe('https://aravena.me/static/esm/gh/joanca/realstate-website@main/src/output.css');
   });
 });

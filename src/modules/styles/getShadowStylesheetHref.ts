@@ -1,4 +1,4 @@
-const PROD_SHADOW_STYLESHEET_HREF = 'https://esm.sh/gh/joanca/realstate-website@main/src/output.css'
+const PROD_SHADOW_STYLESHEET_HREF = 'https://aravena.me/static/esm/gh/joanca/realstate-website@main/src/output.css'
 
 interface GetShadowStylesheetHrefOptions {
   isViteDev?: boolean

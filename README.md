@@ -96,7 +96,7 @@ Use this snippet in WordPress to embed the app from esm.sh and keep the page hid
 
 <main id="emily-realestate"></main>
 <script type="module">
-  import "https://esm.sh/gh/joanca/realstate-website@main/src/main.tsx?jsx";
+  import "https://aravena.me/static/esm/gh/joanca/realstate-website@main/src/main.tsx?jsx";
 </script>
 ```
 

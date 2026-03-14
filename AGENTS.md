@@ -9,7 +9,7 @@ React single-page application for Emily B real estate website. Uses Vite for loc
 This project uses a hybrid workflow:
 - **Development**: Vite dev server with @vitejs/plugin-react-swc for TypeScript/TSX transformation and HMR
 - **CSS**: Tailwind CSS v4 via `@tailwindcss/vite` plugin
-- **Production**: esm.sh CDN serves files from GitHub (separate deployment)
+- **Production**: aravena.me proxy serves files from GitHub (separate deployment)
 - **Pre-commit hook**: Automatically builds CSS before commits
 
 ## 3. Project CLI Commands
@@ -49,7 +49,7 @@ index.html
             └─ imports react (from node_modules)
 ```
 
-### Production (esm.sh)
+### Production (aravena.me proxy)
 
 Production deployment uses HTML entrypoints that import `main.tsx` and serve compiled CSS from `src/output.css`.
 
@@ -115,7 +115,7 @@ import { useEffect } from "react"  // Vite resolves from node_modules
 ### Production Deployment
 
 1. Push to `main` branch: `git push origin main`
-2. esm.sh automatically serves latest from GitHub
+2. aravena.me proxy automatically serves latest from GitHub
 3. Pre-commit hook ensures CSS is always built before commit
 
 ### GitHub Repository
@@ -172,7 +172,7 @@ This runs `vite build` and extracts the CSS to `src/output.css`.
 
 ### Production Dependencies
 
-- None - React loaded via esm.sh CDN in production
+- None - React loaded via aravena.me proxy in production
 
 ## 10. Common Tasks
 

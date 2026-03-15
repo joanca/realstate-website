@@ -271,8 +271,19 @@ Description: Default template used for wordpress pages.
       }, 7000)
     </script>
     <main id="emily-realestate"></main><br />
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://aravena.me/static/esm/*react@19.2.4",
+    "react-dom": "https://aravena.me/static/esm/*react-dom@19.2.4",
+    "react-dom/": "https://aravena.me/static/esm/*react-dom@19.2.4/",
+    "react-dom/client": "https://aravena.me/static/esm/*react-dom@19.2.4/client",
+    "react/jsx-runtime": "https://aravena.me/static/esm/*react@19.2.4/jsx-runtime"
+  }
+}
+</script>
     <script type="module">
-    import './main.tsx'
+    import 'https://aravena.me/static/esm/gh/joanca/realstate-website@main/src/main.tsx?jsx'
   </script></p>
 
                         </div>

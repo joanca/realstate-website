@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm css:build && vite",
+    "start": "pnpm dlx serve src -p 3000",
     "build": "vite build",
     "css:build": "rm src/output.css || true && pnpm build && mv src/dist/assets/index-*.css src/output.css && rm -rf src/dist",
     "typecheck": "tsc --noEmit",

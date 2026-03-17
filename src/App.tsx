@@ -1,11 +1,10 @@
 import { useEffect, useLayoutEffect } from 'react'
-import { ExperienceBar } from './components/ExperienceBar'
 import { HeroSection } from './components/HeroSection'
 import { Listings } from './components/Listings'
 import { Separator } from './components/Separator'
 import { TestimonialsSection } from './components/TestimonialsSection'
 import { normalizeEmbeddedDom } from './modules/embed/normalizeEmbeddedDom'
-import { experienceContent, heroContent } from './modules/app/appContent'
+import { heroContent } from './modules/app/appContent'
 
 export default function App() {
   useLayoutEffect(() => {
@@ -23,7 +22,6 @@ export default function App() {
         <HeroSection imageUrl={heroContent.imageUrl} arrowUrl={heroContent.arrowUrl} ctaBackgroundUrl={heroContent.ctaBackgroundUrl} />
         <Separator />
       </div>
-      <ExperienceBar years={experienceContent.years} label={experienceContent.label} />
       <TestimonialsSection />
       <Listings />
     </div>

@@ -7,12 +7,12 @@ interface GetShadowStylesheetHrefOptions {
 
 export function getShadowStylesheetHref(options: GetShadowStylesheetHrefOptions = {}) {
   const {
-    isViteDev = Boolean(import.meta?.env?.DEV),
+    isViteDev = import.meta.env.DEV,
     baseUrl = import.meta.url,
   } = options
 
   if (isViteDev) {
-    return new URL('/output.css', baseUrl).href
+    return new URL('/styles.css', baseUrl).href
   }
 
   return PROD_SHADOW_STYLESHEET_HREF

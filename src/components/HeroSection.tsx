@@ -6,7 +6,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ imageUrl, arrowUrl, ctaBackgroundUrl }: HeroSectionProps) {
   return (
-    <section className="relative" style={{ background: 'radial-gradient(50% 50% at 50% 50%, #FFFAF3 0%, #FFEED4 100%)' }}>
+    <section className="relative">
       <div className="relative mx-auto px-4 lg:px-20 py-[2.2rem] max-w-[1440px]">
         <div className="flex flex-col lg:flex-row lg:items-start">
           <div className="w-full lg:w-2/3 lg:pr-16">

@@ -18,10 +18,8 @@ export default function App() {
 
   return (
     <div className="bg-white min-h-screen">
-      <div style={{ background: 'radial-gradient(50% 50% at 50% 50%, #FFFAF3 0%, #FFEED4 100%)' }}>
-        <HeroSection imageUrl={heroContent.imageUrl} arrowUrl={heroContent.arrowUrl} ctaBackgroundUrl={heroContent.ctaBackgroundUrl} />
-        <Separator />
-      </div>
+      <HeroSection imageUrl={heroContent.imageUrl} arrowUrl={heroContent.arrowUrl} ctaBackgroundUrl={heroContent.ctaBackgroundUrl} />
+      <Separator />
       <TestimonialsSection />
       <Listings />
     </div>

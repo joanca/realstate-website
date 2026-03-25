@@ -25,6 +25,20 @@
   --font-work-sans: "Work Sans", sans-serif;
 }
 
+:root {
+  --hero-bg: radial-gradient(50% 50% at 50% 50%, #fffaf3 0%, #ffeed4 100%);
+  --hero-bg-edge: var(--color-brand-cream-dark);
+  --testimonials-bg: #fff;
+}
+
+.hero-surface {
+  background: var(--hero-bg);
+}
+
+.testimonials-surface {
+  background: var(--testimonials-bg);
+}
+
 .house-dot-i {
   position: relative;
   display: inline-block;
@@ -54,30 +68,67 @@
 
 .separator--wave {
   --wave-size: 22px;
-  --wave-stroke: 7px;
-  --wave-curvature: 0.7;
+  --wave-stroke: 6px;
+  --wave-curvature: 1;
+  --separator-height: calc(var(--wave-size) + var(--wave-stroke));
+  --separator-top-bg: var(--hero-bg-edge);
+  --separator-bottom-bg: var(--testimonials-bg);
   --wave-offset: calc(var(--wave-curvature) * var(--wave-size));
   --wave-radius: calc(var(--wave-size) * sqrt(var(--wave-curvature) * var(--wave-curvature) + 1) + var(--wave-stroke) / 2);
   --wave-gradient: #0000 calc(99% - var(--wave-stroke)), #000 calc(101% - var(--wave-stroke)) 99%, #0000 101%;
 
   color: var(--color-brand-orange);
+  background: var(--separator-bottom-bg);
+  height: var(--separator-height);
+  margin-top: calc(var(--separator-height) / -2);
+  margin-bottom: calc(var(--separator-height) / -2);
+  pointer-events: none;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.separator--wave::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: currentColor;
-  height: calc(var(--wave-size) + var(--wave-stroke));
   -webkit-mask:
     radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), var(--wave-gradient)) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
     radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), var(--wave-gradient)) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
   mask:
     radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), var(--wave-gradient)) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
     radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), var(--wave-gradient)) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
+  z-index: 2;
+}
+
+.separator--wave::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--separator-top-bg);
+  -webkit-mask:
+    radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), #0000 99%, #000 101%) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
+    radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), #000 99%, #0000 101%) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
+  mask:
+    radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), #0000 99%, #000 101%) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
+    radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), #000 99%, #0000 101%) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
+  z-index: 1;
 }
 
 @supports not (mask: radial-gradient(10px at center, #000 98%, #0000 101%)) {
-  .separator--wave {
+  .separator--wave::before {
     background-image: url('./assets/images/squiggly.svg');
     background-repeat: repeat-x;
     background-size: auto 100%;
     background-color: transparent;
-    height: 20px;
+    -webkit-mask: none;
+    mask: none;
+  }
+
+  .separator--wave {
+    --separator-height: 20px;
+    height: var(--separator-height);
   }
 }
 

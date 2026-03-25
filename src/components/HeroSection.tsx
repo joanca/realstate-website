@@ -6,7 +6,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ imageUrl, arrowUrl, ctaBackgroundUrl }: HeroSectionProps) {
   return (
-    <section className="relative">
+    <section className="hero-surface relative">
       <div className="relative mx-auto px-4 lg:px-20 py-[2.2rem] max-w-[1440px]">
         <div className="flex flex-col lg:flex-row lg:items-start">
           <div className="w-full lg:w-2/3 lg:pr-16">

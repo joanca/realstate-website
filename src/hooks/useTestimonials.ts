@@ -6,9 +6,40 @@ const API_URL = 'https://aravena.me/api/proxy/testimonials'
 
 interface ApiResponse {
   testimonials: Array<{
+    DateTimeStamp: string
+    Rating: number
     Testimonial: string
     Signature: string
     TestimonialID: number
+    ThirdPartySitesData: {
+      SiteDataName: string | null
+      SiteID: number
+      ThirdPartySites: {
+        Image: string
+      }
+      URL: string
+    }
+    UserInfo: {
+      Address1: string
+      City: string
+      Country: string | null
+      EditDate: string | null
+      Name: string
+      ParentID: number
+      Phone: string
+      State: string
+      UserInfoSettings: {
+        enforceHippa: boolean
+      }
+      Zip: string
+      parentUserInfo: {
+        UserInfoSettings: {
+          enforceHippa: boolean
+        }
+        Username: string
+      }
+      vanity_url_slug: string
+    }
   }>
 }
 
@@ -24,7 +55,7 @@ function pickRandomThree<T>(items: T[]): T[] {
 function mapToTestimonials(data: ApiResponse): Testimonial[] {
   return pickRandomThree(data.testimonials).map((item) => ({
     quote: item.Testimonial,
-    author: item.Signature,
+    publicationDate: item.DateTimeStamp,
   }))
 }
 

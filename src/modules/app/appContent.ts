@@ -1,6 +1,6 @@
 export interface Testimonial {
   quote: string
-  author: string
+  publicationDate: string
 }
 
 export const heroContent = {
@@ -17,15 +17,15 @@ export const experienceContent = {
 export const testimonials: Testimonial[] = [
   {
     quote: 'What sets Emily apart is her unique blend of calm and determination.',
-    author: 'Philip O.',
+    publicationDate: '2025-09-24T00:00:00.000Z',
   },
   {
     quote: "I've worked with a number of realtors. Emily is by far the most superior.",
-    author: 'Kris P.',
+    publicationDate: '2024-11-19T00:00:00.000Z',
   },
   {
     quote: 'Emily has your back, is totally on your side. I cannot recommend her enough.',
-    author: 'Nicole E.',
+    publicationDate: '2024-10-20T00:00:00.000Z',
   },
 ]
 

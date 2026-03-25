@@ -4,10 +4,150 @@ import { useTestimonials } from './useTestimonials'
 import { testimonials as fallbackTestimonials } from '../modules/app/appContent'
 
 const mockTestimonials = [
-  { Testimonial: 'Quote one', Signature: 'Author One', TestimonialID: 1 },
-  { Testimonial: 'Quote two', Signature: 'Author Two', TestimonialID: 2 },
-  { Testimonial: 'Quote three', Signature: 'Author Three', TestimonialID: 3 },
-  { Testimonial: 'Quote four', Signature: 'Author Four', TestimonialID: 4 },
+  {
+    DateTimeStamp: '2025-09-24T00:00:00.000Z',
+    Rating: 5,
+    Signature: 'Author One',
+    Testimonial: 'Quote one',
+    TestimonialID: 1,
+    ThirdPartySitesData: {
+      SiteDataName: null,
+      SiteID: 2,
+      ThirdPartySites: {
+        Image: 'Google__G__Logo_1.png',
+      },
+      URL: 'https://search.google.com/local/writereview?placeid=abc',
+    },
+    UserInfo: {
+      Address1: '1610 SE Bybee Blvd.',
+      City: 'Portland',
+      Country: null,
+      EditDate: null,
+      Name: 'Emily Bartolme',
+      ParentID: 479421,
+      Phone: '(503) 997-0579',
+      State: 'OR',
+      UserInfoSettings: {
+        enforceHippa: false,
+      },
+      Zip: '97202',
+      parentUserInfo: {
+        UserInfoSettings: {
+          enforceHippa: true,
+        },
+        Username: 'WindermereRealtyTrust',
+      },
+      vanity_url_slug: '5F81F04B-9637-43AB-A0D0-16E0F0E238A4',
+    },
+  },
+  {
+    DateTimeStamp: '2024-11-19T00:00:00.000Z',
+    Rating: 5,
+    Signature: 'Author Two',
+    Testimonial: 'Quote two',
+    TestimonialID: 2,
+    ThirdPartySitesData: {
+      SiteDataName: null,
+      SiteID: 2,
+      ThirdPartySites: {
+        Image: 'Google__G__Logo_1.png',
+      },
+      URL: 'https://search.google.com/local/writereview?placeid=abc',
+    },
+    UserInfo: {
+      Address1: '1610 SE Bybee Blvd.',
+      City: 'Portland',
+      Country: null,
+      EditDate: null,
+      Name: 'Emily Bartolme',
+      ParentID: 479421,
+      Phone: '(503) 997-0579',
+      State: 'OR',
+      UserInfoSettings: {
+        enforceHippa: false,
+      },
+      Zip: '97202',
+      parentUserInfo: {
+        UserInfoSettings: {
+          enforceHippa: true,
+        },
+        Username: 'WindermereRealtyTrust',
+      },
+      vanity_url_slug: '5F81F04B-9637-43AB-A0D0-16E0F0E238A4',
+    },
+  },
+  {
+    DateTimeStamp: '2024-10-20T00:00:00.000Z',
+    Rating: 5,
+    Signature: 'Author Three',
+    Testimonial: 'Quote three',
+    TestimonialID: 3,
+    ThirdPartySitesData: {
+      SiteDataName: null,
+      SiteID: 2,
+      ThirdPartySites: {
+        Image: 'Google__G__Logo_1.png',
+      },
+      URL: 'https://search.google.com/local/writereview?placeid=abc',
+    },
+    UserInfo: {
+      Address1: '1610 SE Bybee Blvd.',
+      City: 'Portland',
+      Country: null,
+      EditDate: null,
+      Name: 'Emily Bartolme',
+      ParentID: 479421,
+      Phone: '(503) 997-0579',
+      State: 'OR',
+      UserInfoSettings: {
+        enforceHippa: false,
+      },
+      Zip: '97202',
+      parentUserInfo: {
+        UserInfoSettings: {
+          enforceHippa: true,
+        },
+        Username: 'WindermereRealtyTrust',
+      },
+      vanity_url_slug: '5F81F04B-9637-43AB-A0D0-16E0F0E238A4',
+    },
+  },
+  {
+    DateTimeStamp: '2024-09-15T00:00:00.000Z',
+    Rating: 5,
+    Signature: 'Author Four',
+    Testimonial: 'Quote four',
+    TestimonialID: 4,
+    ThirdPartySitesData: {
+      SiteDataName: null,
+      SiteID: 2,
+      ThirdPartySites: {
+        Image: 'Google__G__Logo_1.png',
+      },
+      URL: 'https://search.google.com/local/writereview?placeid=abc',
+    },
+    UserInfo: {
+      Address1: '1610 SE Bybee Blvd.',
+      City: 'Portland',
+      Country: null,
+      EditDate: null,
+      Name: 'Emily Bartolme',
+      ParentID: 479421,
+      Phone: '(503) 997-0579',
+      State: 'OR',
+      UserInfoSettings: {
+        enforceHippa: false,
+      },
+      Zip: '97202',
+      parentUserInfo: {
+        UserInfoSettings: {
+          enforceHippa: true,
+        },
+        Username: 'WindermereRealtyTrust',
+      },
+      vanity_url_slug: '5F81F04B-9637-43AB-A0D0-16E0F0E238A4',
+    },
+  },
 ]
 
 const API_URL = 'https://aravena.me/api/proxy/testimonials'
@@ -49,7 +189,8 @@ describe('useTestimonials', () => {
 
     expect(fetch).toHaveBeenCalledWith(API_URL)
     expect(result.current.testimonials).toHaveLength(3)
-    expect(result.current.testimonials.every((t) => 'quote' in t && 'author' in t)).toBe(true)
+    expect(result.current.testimonials.every((t) => 'quote' in t && 'publicationDate' in t)).toBe(true)
+    expect(result.current.testimonials.every((t) => mockTestimonials.some((m) => m.DateTimeStamp === t.publicationDate))).toBe(true)
   })
 
   it('falls back to static testimonials on fetch error', async () => {

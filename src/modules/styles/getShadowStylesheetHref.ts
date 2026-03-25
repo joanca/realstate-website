@@ -5,9 +5,13 @@ interface GetShadowStylesheetHrefOptions {
   baseUrl?: string
 }
 
+export function resolveIsViteDev(viteEnv?: { DEV?: unknown }) {
+  return Boolean(viteEnv?.DEV)
+}
+
 export function getShadowStylesheetHref(options: GetShadowStylesheetHrefOptions = {}) {
   const {
-    isViteDev = import.meta.env.DEV,
+    isViteDev = resolveIsViteDev(import.meta.env),
     baseUrl = import.meta.url,
   } = options
 

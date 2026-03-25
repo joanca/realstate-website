@@ -1,14 +1,24 @@
 import { describe, expect, it } from 'vitest';
-import { getShadowStylesheetHref } from './getShadowStylesheetHref';
+import { getShadowStylesheetHref, resolveIsViteDev } from './getShadowStylesheetHref';
+
+describe('resolveIsViteDev', () => {
+  it('returns true when vite env DEV is true', () => {
+    expect(resolveIsViteDev({ DEV: true })).toBe(true);
+  });
+
+  it('returns false when vite env is unavailable', () => {
+    expect(resolveIsViteDev(undefined)).toBe(false);
+  });
+});
 
 describe('getShadowStylesheetHref', () => {
-  it('returns local output.css URL in vite dev mode', () => {
+  it('returns local styles.css URL in vite dev mode', () => {
     const href = getShadowStylesheetHref({
       isViteDev: true,
       baseUrl: 'https://example.com/src/getShadowStylesheetHref.ts',
     });
 
-    expect(href).toBe('https://example.com/output.css');
+    expect(href).toBe('https://example.com/styles.css');
   });
 
   it('returns ESM proxy URL when isViteDev is false (start script)', () => {
@@ -29,12 +39,12 @@ describe('getShadowStylesheetHref', () => {
     expect(href).toBe('https://aravena.me/static/esm/gh/joanca/realstate-website@main/src/output.css');
   });
 
-  it('returns local output.css URL with relative path resolution', () => {
+  it('returns local styles.css URL with relative path resolution', () => {
     const href = getShadowStylesheetHref({
       isViteDev: true,
       baseUrl: 'http://localhost:3000/src/modules/styles/getShadowStylesheetHref.ts',
     });
 
-    expect(href).toBe('http://localhost:3000/output.css');
+    expect(href).toBe('http://localhost:3000/styles.css');
   });
 });

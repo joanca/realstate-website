@@ -1,1 +1,1 @@
-export { getShadowStylesheetHref } from './modules/styles/getShadowStylesheetHref'
+export { getShadowStylesheetHref, resolveIsViteDev } from './modules/styles/getShadowStylesheetHref'

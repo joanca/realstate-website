@@ -25,7 +25,8 @@
   --font-work-sans: "Work Sans", sans-serif;
 }
 
-:root {
+:root,
+:host {
   --hero-bg: radial-gradient(50% 50% at 50% 50%, #fffaf3 0%, #ffeed4 100%);
   --hero-bg-edge: var(--color-brand-cream-dark);
   --testimonials-bg: #fff;

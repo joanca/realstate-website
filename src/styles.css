@@ -79,13 +79,12 @@
   --wave-gradient: #0000 calc(99% - var(--wave-stroke)), #000 calc(101% - var(--wave-stroke)) 99%, #0000 101%;
 
   color: var(--color-brand-orange);
-  background: var(--separator-bottom-bg);
   height: var(--separator-height);
-  margin-top: calc(var(--separator-height) / -2);
-  margin-bottom: calc(var(--separator-height) / -2);
+  margin-top: -20px;
   pointer-events: none;
   overflow: hidden;
   position: relative;
+  transform: scaleY(-1);
   z-index: 1;
 }
 
@@ -107,7 +106,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--separator-top-bg);
+  background: var(--separator-bottom-bg);
   -webkit-mask:
     radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), #0000 99%, #000 101%) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
     radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), #000 99%, #0000 101%) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;

@@ -76,6 +76,9 @@ package.json
 
 ## WordPress Embed
 
+This SPA script is currently imported from the WordPress dashboard page
+`https://emilybrealty.com/wp-admin/options-general.php?page=mx-meta-tags`.
+
 Use this snippet in WordPress to embed the app from esm.sh and keep the page hidden until React finishes first mount:
 
 ```html

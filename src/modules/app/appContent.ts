@@ -1,12 +1,13 @@
+import { getImageUrl } from '../assets/getImageUrl'
+
 export interface Testimonial {
   quote: string
   publicationDate: string
 }
 
 export const heroContent = {
-  imageUrl: 'https://aravena.me/img?src=https://emilybrealty.com/files/2026/03/emily-no-background.png&w=800&q=75',
-  arrowUrl: 'https://aravena.me/img?src=https://emilybrealty.com/files/2026/03/arrow.png',
-  ctaBackgroundUrl: 'https://aravena.me/img?src=https://emilybrealty.com/files/2026/03/button-large.png',
+  imageUrl: getImageUrl('emily-no-background.png'),
+  houseIconUrl: getImageUrl('house-icon.png'),
 }
 
 export const experienceContent = {
@@ -30,6 +31,6 @@ export const testimonials: Testimonial[] = [
 ]
 
 export const testimonialsContent = {
-  starsImageUrl: 'https://aravena.me/img?src=https://emilybrealty.com/files/2026/03/stars-group.png',
+  starsImageUrl: getImageUrl('stars-group.png'),
   allTestimonialsHref: 'https://directory.testimonialtree.com/profiles/5F81F04B-9637-43AB-A0D0-16E0F0E238A4',
 }

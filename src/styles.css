@@ -45,7 +45,7 @@
   transform: translateX(-50%);
   width: 0.2em;
   height: 0.2em;
-  background-image: url('https://emilybrealty.com/files/2026/03/house-icon.png');
+  background-image: var(--house-dot-image);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

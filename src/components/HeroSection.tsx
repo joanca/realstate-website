@@ -1,8 +1,9 @@
 interface HeroSectionProps {
   imageUrl: string
+  houseIconUrl: string
 }
 
-export function HeroSection({ imageUrl }: HeroSectionProps) {
+export function HeroSection({ imageUrl, houseIconUrl }: HeroSectionProps) {
   return (
     <section className="hero-surface relative overflow-hidden">
       <div className="relative mx-auto max-w-[1440px] lg:px-20 lg:pt-10">
@@ -14,13 +15,21 @@ export function HeroSection({ imageUrl }: HeroSectionProps) {
                   I'm EMILY,
                 </h1>
               </div>
-              <h1 className="font-archivo-condensed text-[35px] leading-[0.9] font-extrabold tracking-[-0.175px] text-text-dark sm:text-[46px] sm:tracking-normal md:text-[62px] md:leading-[0.9] lg:max-w-[760px] lg:text-[82px] lg:leading-[0.9] mb-8">
-                your real estate{' '}
-                <span className="whitespace-nowrap" aria-label="advisor">
-                  adv<span className="house-dot-i" aria-hidden="true">i</span>sor
-                </span>{' '}
-                and Portland <br /> know-it-all.
-              </h1>
+                <h1 className="font-archivo-condensed text-[35px] leading-[0.9] font-extrabold tracking-[-0.175px] text-text-dark sm:text-[46px] sm:tracking-normal md:text-[62px] md:leading-[0.9] lg:max-w-[760px] lg:text-[82px] lg:leading-[0.9] mb-8">
+                  your real estate{' '}
+                  <span className="whitespace-nowrap" aria-label="advisor">
+                  adv
+                  <span
+                    className="house-dot-i"
+                    aria-hidden="true"
+                    style={{ ['--house-dot-image' as string]: `url("${houseIconUrl}")` }}
+                  >
+                    i
+                  </span>
+                  sor
+                  </span>{' '}
+                  and Portland <br /> know-it-all.
+                </h1>
 
               <p className="mb-8 font-work-sans text-base leading-[1.2] text-text-green opacity-90 sm:my-6 sm:text-lg max-w-[250px] md:max-w-[470px] md:text-xl lg:my-10 lg:max-w-[610px] lg:text-2xl lg:leading-[1.2] lg:text-text-dark">
               Whether you're selling or buying, my expertise and genuine interest in your goals drives my process.

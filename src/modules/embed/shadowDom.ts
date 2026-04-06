@@ -10,7 +10,7 @@ const SHADOW_BASE_CSS = `
     isolation: isolate;
     contain: layout style paint;
     font-family: "Work Sans", sans-serif;
-    color: #3a3a3a;
+    color: #2f2f2f;
     font-weight: 400;
     font-style: normal;
     line-height: 1.5;

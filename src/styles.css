@@ -12,13 +12,6 @@
   --text-2xl: 24px;
   --text-2xl--line-height: 1.3333;
 
-  --color-brand-orange: #bd760c;
-  --color-brand-blue: #b6cce4;
-  --color-brand-cream-light: #fffaf3;
-  --color-brand-cream-dark: #ffeed4;
-  --color-text-dark: #3a3a3a;
-  --color-text-green: #032b21;
-
   --font-archivo: "Archivo", sans-serif;
   --font-archivo-condensed: "Archivo Condensed", sans-serif;
   --font-archivo-semi-expanded: "Archivo SemiExpanded", sans-serif;
@@ -27,8 +20,8 @@
 
 :root,
 :host {
-  --hero-bg: radial-gradient(50% 50% at 50% 50%, #fffaf3 0%, #ffeed4 100%);
-  --hero-bg-edge: var(--color-brand-cream-dark);
+  --hero-bg: #e59585;
+  --hero-bg-edge: #ffeed4;
   --testimonials-bg: #fff;
 }
 
@@ -78,7 +71,7 @@
   --wave-radius: calc(var(--wave-size) * sqrt(var(--wave-curvature) * var(--wave-curvature) + 1) + var(--wave-stroke) / 2);
   --wave-gradient: #0000 calc(99% - var(--wave-stroke)), #000 calc(101% - var(--wave-stroke)) 99%, #0000 101%;
 
-  color: var(--color-brand-orange);
+  color: #c43d2f;
   height: var(--separator-height);
   margin-top: -20px;
   pointer-events: none;

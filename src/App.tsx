@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <div className="bg-white min-h-screen">
-      <HeroSection imageUrl={heroContent.imageUrl} arrowUrl={heroContent.arrowUrl} ctaBackgroundUrl={heroContent.ctaBackgroundUrl} />
+      <HeroSection imageUrl={heroContent.imageUrl} />
       <Separator />
       <TestimonialsSection />
       <Listings />

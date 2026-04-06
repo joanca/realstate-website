@@ -1,57 +1,60 @@
 interface HeroSectionProps {
   imageUrl: string
-  arrowUrl: string
-  ctaBackgroundUrl: string
 }
 
-export function HeroSection({ imageUrl, arrowUrl, ctaBackgroundUrl }: HeroSectionProps) {
+export function HeroSection({ imageUrl }: HeroSectionProps) {
   return (
-    <section className="hero-surface relative">
-      <div className="relative mx-auto px-4 lg:px-20 pt-[2.2rem] max-w-[1440px]">
-        <div className="flex flex-col lg:flex-row lg:items-start">
-          <div className="w-full lg:w-2/3 lg:pr-16">
-            <div className="flex flex-row lg:flex-col items-center lg:items-start">
-              <div className="flex-[0.8] lg:flex-1">
-                <div className="flex items-center gap-2">
-                  <h1 className="font-archivo-condensed font-bold text-text-dark text-xl md:text-[50px] lg:text-[50px] lg:leading-none">
-                    I'm EMILY,
-                  </h1>
-                </div>
-                <h1 className="font-archivo-condensed font-extrabold text-text-dark text-[35px] leading-[30px] md:text-[80px] md:leading-[65px] lg:text-[80px] lg:leading-[65px] tracking-[-0.175px] lg:tracking-none lg:max-w-none">
-                  your real estate{' '}
-                  <span className="whitespace-nowrap" aria-label="advisor">
-                    adv<span className="house-dot-i" aria-hidden="true">i</span>sor
-                  </span>{' '}
-                  and Portland area expert.
+    <section className="hero-surface relative overflow-hidden">
+      <div className="relative mx-auto max-w-[1440px] lg:px-20 lg:pt-10">
+        <div className="relative overflow-hidden rounded-none px-4 py-8 sm:py-10 lg:min-h-[640px] lg:px-0 lg:pt-0 lg:pb-0">
+          <div className="relative z-10 flex h-full flex-col lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.72fr)] lg:items-end lg:gap-10">
+            <div className="max-w-[60vw] md:max-w-[560px] lg:max-w-[760px] lg:self-center">
+              <div className="flex items-center gap-2">
+                <h1 className="font-archivo-condensed text-[26px] leading-[0.95] font-bold text-text-dark sm:text-[34px] md:text-[42px] lg:text-[50px]">
+                  I'm EMILY,
                 </h1>
               </div>
-              <div className="flex-[1.2] lg:flex-1 flex-shrink-0 lg:hidden ml-4">
-                <img src={imageUrl} alt="Emily B" className="object-cover" />
-              </div>
-            </div>
-            <p className="font-work-sans text-text-green lg:text-text-dark text-lg lg:text-2xl mt-6 lg:mt-10 max-w-[520px] opacity-90">
-              I provide a custom approach based on <span className="font-work-sans font-medium">your unique</span> needs and goals.
-            </p>
-            <div className="my-6 lg:my-8">
-              <a href="#" className="flex items-center gap-3 font-work-sans font-medium text-brand-orange text-lg lg:text-2xl">
-                My Philosophy &amp; Methods
-                <img src={arrowUrl} alt="" className="w-[9px] h-4 mt-[1px]" />
+              <h1 className="font-archivo-condensed text-[35px] leading-[0.9] font-extrabold tracking-[-0.175px] text-text-dark sm:text-[46px] sm:tracking-normal md:text-[62px] md:leading-[0.9] lg:max-w-[760px] lg:text-[82px] lg:leading-[0.9] mb-8">
+                your real estate{' '}
+                <span className="whitespace-nowrap" aria-label="advisor">
+                  adv<span className="house-dot-i" aria-hidden="true">i</span>sor
+                </span>{' '}
+                and Portland <br /> know-it-all.
+              </h1>
+
+              <p className="mb-8 font-work-sans text-base leading-[1.2] text-text-green opacity-90 sm:my-6 sm:text-lg max-w-[250px] md:max-w-[470px] md:text-xl lg:my-10 lg:max-w-[610px] lg:text-2xl lg:leading-[1.2] lg:text-text-dark">
+              Whether you're selling or buying, my expertise and genuine interest in your goals drives my process.
+              </p>
+
+              <a
+                href="#"
+                className="inline-block rounded-[32px] border-text-dark px-5 py-3 px-4 lg:px-8 mb-8 md:my-0"
+                style={{
+                  backgroundColor: '#c44d2f',
+                  backgroundRepeat: 'round',
+                }}
+              >
+                <span className="font-work-sans text-lg font-medium text-white text-[15px] lg:text-[28px]">
+                  Book a Free Consultation
+                </span>
               </a>
             </div>
-            <a
-              href="#"
-              className="inline-block border-2 border-text-dark border-solid rounded-[36px] px-8 lg:px-8 py-3"
-              style={{
-                backgroundColor: '#bd760c',
-                backgroundImage: `url('${ctaBackgroundUrl}')`,
-                backgroundRepeat: 'round',
-              }}
-            >
-              <span className="font-work-sans font-medium text-white text-xl lg:text-[28px]">CONTACT ME</span>
-            </a>
+
+            <div className="relative hidden h-full lg:flex lg:items-end lg:justify-end">
+              <img
+                src={imageUrl}
+                alt="Emily B"
+                className="h-auto w-[380px] max-w-none object-cover xl:w-[430px]"
+              />
+            </div>
           </div>
-          <div className="hidden lg:flex justify-end w-1/3">
-            <img src={imageUrl} alt="Emily B" className="object-cover" />
+
+          <div className="pointer-events-none absolute right-[-50px] bottom-0 z-0 lg:hidden">
+            <img
+              src={imageUrl}
+              alt="Emily B"
+              className="h-auto max-w-none object-cover w-[230px]"
+            />
           </div>
         </div>
       </div>

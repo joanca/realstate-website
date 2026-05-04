@@ -38,7 +38,8 @@ export function HeroSection({ imageUrl, houseIconUrl }: HeroSectionProps) {
                 </h1>
 
               <p className="mb-8 font-work-sans text-base leading-[1.2] text-text-green opacity-90 sm:my-6 sm:text-lg max-w-[250px] md:max-w-[470px] md:text-xl lg:my-10 lg:max-w-[610px] lg:text-2xl lg:leading-[1.2] lg:text-text-dark">
-              Whether you're selling or buying, my expertise and genuine interest in your goals drives my process.
+              I’m so happy you’re here.<br />
+Tell me your goals — we’ll build up from there. 
               </p>
 
               <a
@@ -50,7 +51,7 @@ export function HeroSection({ imageUrl, houseIconUrl }: HeroSectionProps) {
                 }}
               >
                 <span className="font-work-sans text-lg font-medium text-white text-[15px] lg:text-[28px]">
-                  Book a Free Consultation
+                  Let's Connect
                 </span>
               </a>
             </div>

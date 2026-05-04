@@ -98,7 +98,7 @@
   overflow: hidden;
   position: relative;
   transform: scaleY(-1);
-  z-index: 1;
+  z-index: 10;
 }
 
 .separator--wave::before {

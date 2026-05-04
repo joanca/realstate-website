@@ -6,6 +6,7 @@ export interface Testimonial {
 }
 
 export const heroContent = {
+  backgroundImageUrl: getImageUrl('hero-bg-waves.png'),
   imageUrl: getImageUrl('emily-no-background.png'),
   houseIconUrl: getImageUrl('house-icon.png'),
 }
@@ -33,4 +34,10 @@ export const testimonials: Testimonial[] = [
 export const testimonialsContent = {
   starsImageUrl: getImageUrl('stars-group.png'),
   allTestimonialsHref: 'https://directory.testimonialtree.com/profiles/5F81F04B-9637-43AB-A0D0-16E0F0E238A4',
+}
+
+export const testimonialsSummaryContent = {
+  rating: '5.0',
+  reviewCountLabel: '(57) Reviews',
+  reviewsHref: testimonialsContent.allTestimonialsHref,
 }

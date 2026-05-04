@@ -35,4 +35,11 @@ describe('TestimonialsSection', () => {
 
     expect(date.compareDocumentPosition(quote) & Node.DOCUMENT_POSITION_FOLLOWING).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
   })
+
+  it('renders the hardcoded review summary above the testimonials', () => {
+    render(<TestimonialsSection />)
+
+    expect(screen.getByText('5.0')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: '(57) Reviews' })).toBeInTheDocument()
+  })
 })

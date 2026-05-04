@@ -33,6 +33,26 @@
   background: var(--testimonials-bg);
 }
 
+.carousel-track {
+  display: flex;
+  gap: 32px;
+}
+
+.carousel-slide {
+  min-width: 0;
+  flex: 0 0 100%;
+}
+
+@media (min-width: 1024px) {
+  .carousel-track {
+    gap: 48px;
+  }
+
+  .carousel-slide {
+    flex: 0 0 calc((100% - 96px) / 3);
+  }
+}
+
 .house-dot-i {
   position: relative;
   display: inline-block;

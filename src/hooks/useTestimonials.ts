@@ -3,6 +3,7 @@ import type { Testimonial } from '../modules/app/appContent'
 import { testimonials as fallbackTestimonials } from '../modules/app/appContent'
 
 const API_URL = 'https://aravena.me/api/proxy/testimonials'
+const MAX_TESTIMONIALS = 21
 
 interface ApiResponse {
   testimonials: Array<{
@@ -43,17 +44,17 @@ interface ApiResponse {
   }>
 }
 
-function pickRandomThree<T>(items: T[]): T[] {
+function pickRandomTestimonials<T>(items: T[], limit: number): T[] {
   const shuffled = [...items]
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
-  return shuffled.slice(0, 3)
+  return shuffled.slice(0, limit)
 }
 
 function mapToTestimonials(data: ApiResponse): Testimonial[] {
-  return pickRandomThree(data.testimonials).map((item) => ({
+  return pickRandomTestimonials(data.testimonials, MAX_TESTIMONIALS).map((item) => ({
     quote: item.Testimonial,
     publicationDate: item.DateTimeStamp,
   }))

@@ -173,7 +173,7 @@ describe('useTestimonials', () => {
     expect(result.current.testimonials).toEqual(fallbackTestimonials)
   })
 
-  it('fetches testimonials and returns 3 random ones', async () => {
+  it('fetches testimonials and returns up to 21 randomized testimonials', async () => {
     vi.mocked(fetch).mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve({ testimonials: mockTestimonials }),
@@ -188,7 +188,7 @@ describe('useTestimonials', () => {
     })
 
     expect(fetch).toHaveBeenCalledWith(API_URL)
-    expect(result.current.testimonials).toHaveLength(3)
+    expect(result.current.testimonials).toHaveLength(mockTestimonials.length)
     expect(result.current.testimonials.every((t) => 'quote' in t && 'publicationDate' in t)).toBe(true)
     expect(result.current.testimonials.every((t) => mockTestimonials.some((m) => m.DateTimeStamp === t.publicationDate))).toBe(true)
   })

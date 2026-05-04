@@ -5,7 +5,13 @@ interface HeroSectionProps {
 
 export function HeroSection({ imageUrl, houseIconUrl }: HeroSectionProps) {
   return (
-    <section className="hero-surface relative overflow-hidden">
+    <section
+      className="hero-surface relative overflow-hidden"
+      style={{
+        backgroundImage:
+          'radial-gradient(circle at 50% 50%, #eeab9e, #eda89a, #eca597, #eaa293, #e99e90, #e89b8c, #e69889, #e59585)',
+      }}
+    >
       <div className="relative mx-auto max-w-[1440px] lg:px-20 lg:pt-10">
         <div className="relative overflow-hidden rounded-none px-4 py-8 sm:py-10 lg:min-h-[640px] lg:px-0 lg:pt-0 lg:pb-0">
           <div className="relative z-10 flex h-full flex-col lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.72fr)] lg:items-end lg:gap-10">

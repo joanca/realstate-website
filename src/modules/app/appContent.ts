@@ -6,7 +6,6 @@ export interface Testimonial {
 }
 
 export const heroContent = {
-  backgroundImageUrl: getImageUrl('hero-bg-waves.png'),
   imageUrl: getImageUrl('emily-no-background.png'),
   houseIconUrl: getImageUrl('house-icon.png'),
 }

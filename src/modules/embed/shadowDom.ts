@@ -39,7 +39,6 @@ const SHADOW_BASE_CSS = `
   :host textarea,
   :host select {
     font: inherit;
-    color: inherit;
   }
 `
 

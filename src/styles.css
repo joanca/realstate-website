@@ -43,6 +43,18 @@
   flex: 0 0 100%;
 }
 
+.carousel-dots-track {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dots-slide {
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  flex: 0 0 10px;
+}
+
 @media (min-width: 1024px) {
   .carousel-track {
     gap: 48px;

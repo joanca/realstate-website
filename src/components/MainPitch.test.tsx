@@ -9,7 +9,7 @@ describe('MainPitch', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: /i’m your guide,\s+but your goals and practical\s+needs drive the process\./i,
+        name: /i'm your guide,\s+but your goals and practical\s+needs drive the process\./i,
       }),
     ).toBeInTheDocument()
 

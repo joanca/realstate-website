@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect } from 'react'
 import { HeroSection } from './components/HeroSection'
-import { Listings } from './components/Listings'
 import { Separator } from './components/Separator'
 import { TestimonialsSection } from './components/TestimonialsSection'
 import { normalizeEmbeddedDom } from './modules/embed/normalizeEmbeddedDom'
@@ -24,7 +23,6 @@ export default function App() {
       />
       <Separator />
       <TestimonialsSection />
-      <Listings />
     </div>
   )
 }

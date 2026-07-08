@@ -40,3 +40,14 @@ export const testimonialsSummaryContent = {
   reviewCountLabel: '(57) Reviews',
   reviewsHref: testimonialsContent.allTestimonialsHref,
 }
+
+export const mainPitchContent = {
+  plantImageUrl: getImageUrl('main-pitch-plant.png'),
+  cupImageUrl: getImageUrl('main-pitch-cup.png'),
+  headline: <>I'm your guide,<br /> but <span className="text-[#c43d2f]">your goals</span> and practical needs drive the process.</>,
+  paragraphs: [
+    'Most of my business comes from referrals, so I work hard for my clients. You can always count me to be honest, strategic and an ally.',
+    'I understand that buying or selling a home is a big investment, both financially and emotionally. I have a tried and true process to help you through it.',
+    'But I also believe that every sale is unique, because every person is unique. Just like Portland houses.',
+  ],
+}

@@ -33,6 +33,34 @@
   background: var(--testimonials-bg);
 }
 
+.main-pitch-surface {
+  background-color: #eee7e1;
+}
+
+.main-pitch-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.7;
+  background-image: var(--main-pitch-plant-image), var(--main-pitch-cup-image);
+  background-position: left bottom, right bottom;
+  background-repeat: no-repeat;
+  background-size: 220px auto, 250px auto;
+}
+
+@media (min-width: 640px) {
+  .main-pitch-surface::before {
+    background-size: 320px auto, 380px auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-pitch-surface::before {
+    background-size: min(28vw, 500px) auto, min(31vw, 560px) auto;
+  }
+}
+
 .carousel-track {
   display: flex;
   gap: 32px;

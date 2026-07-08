@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import styles from './Separator.module.scss'
 
 interface SeparatorProps {
   className?: string
@@ -10,7 +11,9 @@ export function Separator({ className, bottomBackground }: SeparatorProps) {
     ? ({ '--separator-bottom-bg': bottomBackground } as CSSProperties)
     : undefined
 
-  const combinedClassName = `separator separator--wave w-full ${className ?? ''}`
+  const combinedClassName = [styles.root, styles.wave, className]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <div

@@ -16,7 +16,7 @@ export function getShadowStylesheetHref(options: GetShadowStylesheetHrefOptions 
   } = options
 
   if (isViteDev) {
-    return new URL('/styles.css', baseUrl).href
+    return new URL('/output.css', baseUrl).href
   }
 
   return PROD_SHADOW_STYLESHEET_HREF

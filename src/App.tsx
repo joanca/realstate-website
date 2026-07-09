@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect } from 'react'
 import { HeroSection } from './components/HeroSection'
 import { MainPitch } from './components/MainPitch'
-import { Separator } from './components/Separator'
+import { Separator } from './components/Separator/Separator'
 import { TestimonialsSection } from './components/TestimonialsSection'
 import { normalizeEmbeddedDom } from './modules/embed/normalizeEmbeddedDom'
 import { heroContent } from './modules/app/appContent'

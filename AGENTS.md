@@ -65,6 +65,9 @@ Production deployment uses HTML entrypoints that import `main.tsx` and serve com
 - Prefer separating non-visual and side-effect logic into custom hooks
 - Keep React components focused on JSX composition and props wiring
 - When component behavior grows beyond simple rendering, extract functional code into `use*` hooks
+- Every component should live in its own folder under `src/components/Component/`
+- Use CSS Modules for component-scoped styles with colocated `Component.module.css` files
+- Colocate component tests and support files in the same component folder, for example `Component.test.tsx`
 
 ## 5. File Structure
 
@@ -75,6 +78,7 @@ src/
 ├── App.tsx           # Main component (all content)
 ├── styles.css        # Tailwind v4 config + @font-face declarations
 ├── output.css        # Compiled Tailwind CSS (generated, tracked in git)
+├── components/       # Component folders with TSX, CSS Modules, and tests
 ├── test/             # Vitest setup + fixtures
 ├── *.test.ts(x)      # Test files
 └── assets/
@@ -148,6 +152,7 @@ import { useEffect } from "react"  // Vite resolves from node_modules
 
 - `styles.css` contains @font-face declarations and custom classes
 - `.house-dot-i` class for special house icon dot in "advisor"
+- Component-specific styles should live in colocated `Component.module.css` files
 - CSS is compiled into `output.css`
 
 ### CSS Build Process
@@ -178,11 +183,13 @@ This runs `vite build` and extracts the CSS to `src/output.css`.
 
 ### Add New Component
 
-1. Create `src/components/NewComponent.tsx`
-2. Import in `App.tsx`: `import NewComponent from "./components/NewComponent"`
-3. Use Tailwind classes as needed
-4. Commit changes (CSS auto-rebuilds via pre-commit hook)
-5. Push to GitHub
+1. Create `src/components/NewComponent/NewComponent.tsx`
+2. Add component-scoped styles in `src/components/NewComponent/NewComponent.module.css`
+3. Add tests in `src/components/NewComponent/NewComponent.test.tsx` when applicable
+4. Import in `App.tsx`: `import { NewComponent } from "./components/NewComponent/NewComponent"`
+5. Use Tailwind utilities for layout and CSS Modules for component-specific styling
+6. Commit changes (CSS auto-rebuilds via pre-commit hook)
+7. Push to GitHub
 
 ### Add New Tailwind Color/Font
 

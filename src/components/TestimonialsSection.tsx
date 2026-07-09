@@ -1,7 +1,7 @@
 import { useTestimonials } from '../hooks/useTestimonials'
 import { testimonialsContent, testimonialsSummaryContent } from '../modules/app/appContent'
 import { Carousel } from './Carousel'
-import { TestimonialCard } from './TestimonialCard'
+import { TestimonialCard } from './TestimonialCard/TestimonialCard'
 import { TestimonialsLoading } from './TestimonialsLoading'
 import { TestimonialsSummary } from './TestimonialsSummary'
 

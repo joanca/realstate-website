@@ -2,8 +2,8 @@ import { useTestimonials } from '../hooks/useTestimonials'
 import { testimonialsContent, testimonialsSummaryContent } from '../modules/app/appContent'
 import { Carousel } from './Carousel'
 import { TestimonialCard } from './TestimonialCard/TestimonialCard'
-import { TestimonialsLoading } from './TestimonialsLoading'
-import { TestimonialsSummary } from './TestimonialsSummary'
+import { TestimonialsLoading } from './TestimonialsLoading/TestimonialsLoading'
+import { TestimonialsSummary } from './TestimonialsSummary/TestimonialsSummary'
 
 export function TestimonialsSection() {
   const { testimonials, loading } = useTestimonials()

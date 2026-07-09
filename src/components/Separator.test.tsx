@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { Separator } from './Separator'
-import styles from './Separator.module.scss'
+import styles from './Separator.module.css'
 
 describe('Separator', () => {
   it('renders the default wave separator', () => {

@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import styles from './Separator.module.scss'
+import styles from './Separator.module.css'
 
 interface SeparatorProps {
   className?: string

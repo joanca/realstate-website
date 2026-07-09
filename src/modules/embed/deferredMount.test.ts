@@ -1,9 +1,11 @@
 import { describe, expect, it, vi, afterEach } from 'vitest'
 import {
+  areStylesheetsReady,
   createDeferredRenderController,
   hasMountedContent,
   isStylesheetReady,
   waitForStylesheet,
+  waitForStylesheets,
 } from './deferredMount'
 
 afterEach(() => {
@@ -26,6 +28,17 @@ describe('deferredMount', () => {
     })
 
     expect(isStylesheetReady(stylesheet)).toBe(true)
+  })
+
+  it('detects readiness for multiple stylesheets', () => {
+    const readyStylesheet = document.createElement('link')
+    const pendingStylesheet = document.createElement('link')
+    readyStylesheet.dataset.loaded = 'true'
+
+    expect(areStylesheetsReady([readyStylesheet, pendingStylesheet])).toBe(false)
+
+    pendingStylesheet.dataset.loaded = 'true'
+    expect(areStylesheetsReady([readyStylesheet, pendingStylesheet])).toBe(true)
   })
 
   it('reports mounted content based on child elements', () => {
@@ -61,17 +74,31 @@ describe('deferredMount', () => {
     expect(scheduleRender).toHaveBeenCalledTimes(1)
   })
 
+  it('waits for all stylesheet load events before rendering', () => {
+    const firstStylesheet = document.createElement('link')
+    const secondStylesheet = document.createElement('link')
+    const scheduleRender = vi.fn()
+    const startFallbackTimer = vi.fn()
+
+    waitForStylesheets([firstStylesheet, secondStylesheet], scheduleRender, startFallbackTimer)
+    expect(startFallbackTimer).toHaveBeenCalledTimes(1)
+
+    firstStylesheet.dispatchEvent(new Event('load'))
+    expect(scheduleRender).not.toHaveBeenCalled()
+
+    secondStylesheet.dispatchEvent(new Event('load'))
+    expect(scheduleRender).toHaveBeenCalledTimes(1)
+  })
+
   it('renders once after settle delay and reveals mount node', () => {
     vi.useFakeTimers()
 
     const mountNode = document.createElement('div')
     mountNode.style.visibility = 'hidden'
-    const stylesheet = document.createElement('link')
     const render = vi.fn()
 
     const { scheduleRender } = createDeferredRenderController({
       mountNode,
-      stylesheet,
       render,
       settleDelayMs: 10,
       fallbackTimeoutMs: 20,
@@ -92,12 +119,10 @@ describe('deferredMount', () => {
     vi.useFakeTimers()
 
     const mountNode = document.createElement('div')
-    const stylesheet = document.createElement('link')
     const render = vi.fn()
 
     const { scheduleRender, startFallbackTimer } = createDeferredRenderController({
       mountNode,
-      stylesheet,
       render,
       settleDelayMs: 10,
       fallbackTimeoutMs: 20,

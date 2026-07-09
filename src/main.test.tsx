@@ -17,10 +17,10 @@ describe('main shadow mount', () => {
     expect(globalFonts?.textContent).toContain("font-family: 'Work Sans'");
 
     expect(shadowRoot.querySelector('#emily-shadow-base')).toBeInTheDocument();
-    expect(shadowRoot.querySelector('#emily-shadow-stylesheet')).toBeInTheDocument();
+    expect(shadowRoot.querySelector('#emily-shadow-stylesheet-0')).toBeInTheDocument();
     expect(shadowRoot.querySelector('#emily-shadow-app')).toBeInTheDocument();
 
-    const stylesheet = shadowRoot.querySelector<HTMLLinkElement>('#emily-shadow-stylesheet');
+    const stylesheet = shadowRoot.querySelector<HTMLLinkElement>('#emily-shadow-stylesheet-0');
     expect(stylesheet).toBeInTheDocument();
     stylesheet?.dispatchEvent(new Event('load'));
 

@@ -56,20 +56,32 @@ export function ensureShadowBaseStyles(shadowRoot: ShadowRoot) {
 }
 
 export function ensureShadowStylesheet(shadowRoot: ShadowRoot, href: string) {
-  const existingStylesheet = shadowRoot.querySelector<HTMLLinkElement>(`#${SHADOW_STYLESHEET_ID}`)
+  return ensureShadowStylesheets(shadowRoot, [href])[0]
+}
 
-  if (existingStylesheet) {
-    return existingStylesheet
-  }
+export function ensureShadowStylesheets(shadowRoot: ShadowRoot, hrefs: string[]) {
+  return hrefs.map((href, index) => {
+    const stylesheetId = `${SHADOW_STYLESHEET_ID}-${index}`
+    const existingStylesheet = shadowRoot.querySelector<HTMLLinkElement>(`#${stylesheetId}`)
 
-  const appStylesheet = document.createElement('link')
-  appStylesheet.id = SHADOW_STYLESHEET_ID
-  appStylesheet.rel = 'stylesheet'
-  appStylesheet.setAttribute('data-keep-stylesheet', '')
-  appStylesheet.href = href
-  shadowRoot.append(appStylesheet)
+    if (existingStylesheet) {
+      if (existingStylesheet.href !== href) {
+        existingStylesheet.href = href
+        delete existingStylesheet.dataset.loaded
+      }
 
-  return appStylesheet
+      return existingStylesheet
+    }
+
+    const appStylesheet = document.createElement('link')
+    appStylesheet.id = stylesheetId
+    appStylesheet.rel = 'stylesheet'
+    appStylesheet.setAttribute('data-keep-stylesheet', '')
+    appStylesheet.href = href
+    shadowRoot.append(appStylesheet)
+
+    return appStylesheet
+  })
 }
 
 export function ensureShadowMountNode(shadowRoot: ShadowRoot) {

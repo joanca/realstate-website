@@ -5,13 +5,16 @@ export function isStylesheetReady(stylesheet: HTMLLinkElement) {
   return stylesheet.dataset.loaded === 'true' || Boolean(stylesheet.sheet)
 }
 
+export function areStylesheetsReady(stylesheets: HTMLLinkElement[]) {
+  return stylesheets.every(isStylesheetReady)
+}
+
 export function hasMountedContent(mountNode: HTMLElement) {
   return mountNode.childElementCount > 0
 }
 
 interface DeferredRenderControllerOptions {
   mountNode: HTMLElement
-  stylesheet: HTMLLinkElement
   render: () => void
   settleDelayMs?: number
   fallbackTimeoutMs?: number
@@ -19,7 +22,6 @@ interface DeferredRenderControllerOptions {
 
 export function createDeferredRenderController({
   mountNode,
-  stylesheet,
   render,
   settleDelayMs = RENDER_SETTLE_DELAY_MS,
   fallbackTimeoutMs = STYLESHEET_FALLBACK_TIMEOUT_MS,
@@ -74,12 +76,33 @@ export function createDeferredRenderController({
 }
 
 export function waitForStylesheet(stylesheet: HTMLLinkElement, scheduleRender: () => void, startFallbackTimer: () => void) {
-  if (isStylesheetReady(stylesheet)) {
+  waitForStylesheets([stylesheet], scheduleRender, startFallbackTimer)
+}
+
+export function waitForStylesheets(
+  stylesheets: HTMLLinkElement[],
+  scheduleRender: () => void,
+  startFallbackTimer: () => void,
+) {
+  if (areStylesheetsReady(stylesheets)) {
     scheduleRender()
     return
   }
 
-  stylesheet.addEventListener('load', scheduleRender, { once: true })
-  stylesheet.addEventListener('error', scheduleRender, { once: true })
+  const pendingStylesheets = new Set(stylesheets.filter((stylesheet) => !isStylesheetReady(stylesheet)))
+  const markStylesheetReady = (stylesheet: HTMLLinkElement) => {
+    stylesheet.dataset.loaded = 'true'
+    pendingStylesheets.delete(stylesheet)
+
+    if (pendingStylesheets.size === 0) {
+      scheduleRender()
+    }
+  }
+
+  for (const stylesheet of pendingStylesheets) {
+    stylesheet.addEventListener('load', () => markStylesheetReady(stylesheet), { once: true })
+    stylesheet.addEventListener('error', () => markStylesheetReady(stylesheet), { once: true })
+  }
+
   startFallbackTimer()
 }

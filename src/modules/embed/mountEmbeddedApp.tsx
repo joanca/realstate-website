@@ -1,8 +1,8 @@
 import { createRoot, type Root } from 'react-dom/client'
 import type { ComponentType } from 'react'
-import { getShadowStylesheetHref } from '../styles/getShadowStylesheetHref'
-import { createDeferredRenderController, hasMountedContent, isStylesheetReady, waitForStylesheet } from './deferredMount'
-import { ensureShadowBaseStyles, ensureShadowMountNode, ensureShadowStylesheet, getOrCreateShadowRoot } from './shadowDom'
+import { getShadowStylesheetHrefs } from '../styles/getShadowStylesheetHref'
+import { areStylesheetsReady, createDeferredRenderController, hasMountedContent, waitForStylesheets } from './deferredMount'
+import { ensureShadowBaseStyles, ensureShadowMountNode, ensureShadowStylesheets, getOrCreateShadowRoot } from './shadowDom'
 
 const HOST_ID = 'emily-realestate'
 const rootsByMountNode = new WeakMap<HTMLElement, Root>()
@@ -32,11 +32,11 @@ export function mountEmbeddedApp(AppComponent: ComponentType) {
   const host = getEmbeddedHost()
   const shadowRoot = getOrCreateShadowRoot(host)
   ensureShadowBaseStyles(shadowRoot)
-  const stylesheet = ensureShadowStylesheet(shadowRoot, getShadowStylesheetHref())
+  const stylesheets = ensureShadowStylesheets(shadowRoot, getShadowStylesheetHrefs())
   const mountNode = ensureShadowMountNode(shadowRoot)
   const root = getOrCreateRoot(mountNode)
 
-  if (isStylesheetReady(stylesheet) && hasMountedContent(mountNode)) {
+  if (areStylesheetsReady(stylesheets) && hasMountedContent(mountNode)) {
     root.render(<AppComponent />)
     return
   }
@@ -44,11 +44,13 @@ export function mountEmbeddedApp(AppComponent: ComponentType) {
   mountNode.style.visibility = 'hidden'
   const { scheduleRender, startFallbackTimer } = createDeferredRenderController({
     mountNode,
-    stylesheet,
     render: () => {
-      stylesheet.dataset.loaded = 'true'
+      for (const stylesheet of stylesheets) {
+        stylesheet.dataset.loaded = 'true'
+      }
+
       root.render(<AppComponent />)
     },
   })
-  waitForStylesheet(stylesheet, scheduleRender, startFallbackTimer)
+  waitForStylesheets(stylesheets, scheduleRender, startFallbackTimer)
 }

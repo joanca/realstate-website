@@ -5,6 +5,7 @@ import { Separator } from './components/Separator/Separator'
 import { TestimonialsSection } from './components/TestimonialsSection'
 import { normalizeEmbeddedDom } from './modules/embed/normalizeEmbeddedDom'
 import { heroContent } from './modules/app/appContent'
+import styles from './App.module.css'
 
 export default function App() {
   useLayoutEffect(() => {
@@ -17,7 +18,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className={styles.root}>
       <HeroSection
         imageUrl={heroContent.imageUrl}
         houseIconUrl={heroContent.houseIconUrl}

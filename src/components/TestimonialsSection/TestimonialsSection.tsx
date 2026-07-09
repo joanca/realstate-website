@@ -1,9 +1,10 @@
-import { useTestimonials } from '../hooks/useTestimonials'
-import { testimonialsContent, testimonialsSummaryContent } from '../modules/app/appContent'
-import { Carousel } from './Carousel'
-import { TestimonialCard } from './TestimonialCard/TestimonialCard'
-import { TestimonialsLoading } from './TestimonialsLoading/TestimonialsLoading'
-import { TestimonialsSummary } from './TestimonialsSummary/TestimonialsSummary'
+import { useTestimonials } from '../../hooks/useTestimonials'
+import { testimonialsContent, testimonialsSummaryContent } from '../../modules/app/appContent'
+import { Carousel } from '../Carousel'
+import { TestimonialCard } from '../TestimonialCard/TestimonialCard'
+import { TestimonialsLoading } from '../TestimonialsLoading/TestimonialsLoading'
+import { TestimonialsSummary } from '../TestimonialsSummary/TestimonialsSummary'
+import styles from './TestimonialsSection.module.css'
 
 export function TestimonialsSection() {
   const { testimonials, loading } = useTestimonials()
@@ -15,8 +16,8 @@ export function TestimonialsSection() {
   }
 
   return (
-    <div className="testimonials-surface">
-      <section className="py-8 lg:py-12 px-4 lg:px-20 max-w-[1440px] mx-auto">
+    <div className={styles.surface}>
+      <section className={styles.section}>
         <TestimonialsSummary
           rating={rating}
           reviewCountLabel={reviewCountLabel}
@@ -32,8 +33,8 @@ export function TestimonialsSection() {
           )}
         />
 
-        <div className="text-center lg:text-right mt-8">
-          <a href={allTestimonialsHref} className="font-work-sans font-medium text-text-dark text-lg lg:text-[22px] underline opacity-80">
+        <div className={styles.footer}>
+          <a href={allTestimonialsHref} className={styles.allTestimonialsLink}>
             All Testimonials
           </a>
         </div>

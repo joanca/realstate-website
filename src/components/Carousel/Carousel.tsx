@@ -1,5 +1,6 @@
 import { type ReactNode, useEffect, useRef } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import styles from './Carousel.module.css'
 
 interface CarouselProps<T> {
   items: T[]
@@ -56,23 +57,23 @@ export function Carousel<T>({ items, renderItem, ariaLabel }: CarouselProps<T>) 
   }
 
   return (
-    <div className="relative" aria-label={ariaLabel} role="region">
-      <div className="relative px-6 lg:px-12">
+    <div className={styles.root} aria-label={ariaLabel} role="region">
+      <div className={styles.frame}>
         <button
           type="button"
           onClick={() => emblaApi?.scrollPrev()}
           aria-label="Previous testimonial"
-          className="absolute left-0 top-1/2 z-10 flex h-6 w-6 -translate-x-1/4 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(170,166,166,1)] text-white lg:h-12 lg:w-12 lg:-translate-x-1/2"
+          className={`${styles.arrowButton} ${styles.previousArrow}`}
         >
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="w-[32px]" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg aria-hidden="true" viewBox="0 0 24 24" className={styles.arrowIcon} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M14.5 6.5L9 12l5.5 5.5" />
           </svg>
         </button>
 
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="carousel-track">
+        <div className={styles.viewport} ref={emblaRef}>
+          <div className={styles['carousel-track']}>
             {items.map((item, index) => (
-              <div key={index} className="carousel-slide">
+              <div key={index} className={styles['carousel-slide']}>
                 {renderItem(item, index)}
               </div>
             ))}
@@ -83,27 +84,27 @@ export function Carousel<T>({ items, renderItem, ariaLabel }: CarouselProps<T>) 
           type="button"
           onClick={() => emblaApi?.scrollNext()}
           aria-label="Next testimonial"
-          className="absolute right-0 top-1/2 z-10 flex h-6 w-6 translate-x-1/4 -translate-y-1/2 items-center justify-center rounded-full bg-[rgba(170,166,166,1)] text-white lg:h-12 lg:w-12 lg:translate-x-1/2"
+          className={`${styles.arrowButton} ${styles.nextArrow}`}
         >
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="w-[32px]" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg aria-hidden="true" viewBox="0 0 24 24" className={styles.arrowIcon} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9.5 6.5L15 12l-5.5 5.5" />
           </svg>
         </button>
       </div>
 
-      <div className="mt-8 flex justify-center" aria-hidden="true">
-        <div className="relative w-[78px] overflow-hidden">
-          <div className="overflow-hidden" ref={dotsEmblaRef}>
-            <div className="carousel-dots-track">
+      <div className={styles.dotsWrapper} aria-hidden="true">
+        <div className={styles.dotsWindow}>
+          <div className={styles.viewport} ref={dotsEmblaRef}>
+            <div className={styles['carousel-dots-track']}>
               {DOT_SLIDES.map((dot) => (
-                <div key={dot} className="carousel-dots-slide">
-                  <span className="block h-2.5 w-2.5 rounded-full bg-[#d9d9d9]" />
+                <div key={dot} className={styles['carousel-dots-slide']}>
+                  <span className={styles.dot} />
                 </div>
               ))}
             </div>
           </div>
 
-          <span className="pointer-events-none absolute left-1/2 top-1/2 block h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5b1f10]" />
+          <span className={styles.selectedDot} />
         </div>
       </div>
     </div>

@@ -42,4 +42,13 @@ describe('TestimonialsSection', () => {
     expect(screen.getByText('5.0')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: '(57) Reviews' })).toBeInTheDocument()
   })
+
+  it('renders Carousel without global carousel class selectors', () => {
+    const { container } = render(<TestimonialsSection />)
+
+    expect(container.querySelector('.carousel-track')).not.toBeInTheDocument()
+    expect(container.querySelector('.carousel-slide')).not.toBeInTheDocument()
+    expect(container.querySelector('.carousel-dots-track')).not.toBeInTheDocument()
+    expect(container.querySelector('.carousel-dots-slide')).not.toBeInTheDocument()
+  })
 })

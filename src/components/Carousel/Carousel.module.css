@@ -1,0 +1,123 @@
+.root {
+  position: relative;
+}
+
+.frame {
+  position: relative;
+  padding: 0 24px;
+}
+
+.arrowButton {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: rgb(170 166 166);
+  color: #fff;
+  transform: translateY(-50%);
+}
+
+.previousArrow {
+  left: 0;
+  transform: translate(-25%, -50%);
+}
+
+.nextArrow {
+  right: 0;
+  transform: translate(25%, -50%);
+}
+
+.arrowIcon {
+  width: 32px;
+}
+
+.viewport {
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 32px;
+}
+
+.carousel-slide {
+  min-width: 0;
+  flex: 0 0 100%;
+}
+
+.dotsWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.dotsWindow {
+  position: relative;
+  width: 78px;
+  overflow: hidden;
+}
+
+.carousel-dots-track {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dots-slide {
+  display: flex;
+  min-width: 0;
+  flex: 0 0 10px;
+  justify-content: center;
+}
+
+.dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background-color: #d9d9d9;
+}
+
+.selectedDot {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background-color: #5b1f10;
+  transform: translate(-50%, -50%);
+}
+
+@media (min-width: 1024px) {
+  .frame {
+    padding: 0 48px;
+  }
+
+  .arrowButton {
+    width: 48px;
+    height: 48px;
+  }
+
+  .previousArrow {
+    transform: translate(-50%, -50%);
+  }
+
+  .nextArrow {
+    transform: translate(50%, -50%);
+  }
+
+  .carousel-track {
+    gap: 48px;
+  }
+
+  .carousel-slide {
+    flex: 0 0 calc((100% - 96px) / 3);
+  }
+}

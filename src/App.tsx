@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect } from 'react'
-import { HeroSection } from './components/HeroSection'
+import { HeroSection } from './components/HeroSection/HeroSection'
 import { MainPitch } from './components/MainPitch'
 import { Separator } from './components/Separator/Separator'
 import { TestimonialsSection } from './components/TestimonialsSection/TestimonialsSection'

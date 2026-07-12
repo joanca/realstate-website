@@ -25,10 +25,6 @@
   --testimonials-bg: #fff;
 }
 
-.hero-surface {
-  background: var(--hero-bg);
-}
-
 .testimonials-surface {
   background: var(--testimonials-bg);
 }
@@ -93,28 +89,6 @@
   }
 }
 
-.house-dot-i {
-  position: relative;
-  display: inline-block;
-}
-.house-dot-i::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50.36%;
-  transform: translateX(-50%);
-  width: 0.2em;
-  height: 0.2em;
-  background-image: var(--house-dot-image);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-@media (min-width: 1024px) {
-  .house-dot-i::before {
-    top: -0.1rem;
-  }
-}
 main#emily-realestate {
   font-size: 16px !important;
 }

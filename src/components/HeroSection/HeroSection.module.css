@@ -1,0 +1,251 @@
+.root {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--hero-bg, #e59585);
+  background-image: radial-gradient(circle at 50% 50%, #eeab9e, #eda89a, #eca597, #eaa293, #e99e90, #e89b8c, #e69889, #e59585);
+}
+
+.container {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.surface {
+  position: relative;
+  overflow: hidden;
+  padding: 32px 16px;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.copy {
+  max-width: 60vw;
+}
+
+.introRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.introHeading,
+.heading {
+  color: #3a3a3a;
+  font-family: "Archivo Condensed", sans-serif;
+}
+
+.introHeading {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 0.95;
+}
+
+.heading {
+  max-width: 760px;
+  margin-bottom: 32px;
+  font-size: 35px;
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.175px;
+}
+
+.advisorWord {
+  white-space: nowrap;
+}
+
+.houseDotI {
+  position: relative;
+  display: inline-block;
+}
+
+.houseDotI::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50.36%;
+  width: 0.2em;
+  height: 0.2em;
+  transform: translateX(-50%);
+  background-image: var(--house-dot-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.bodyCopy {
+  max-width: 250px;
+  margin-bottom: 32px;
+  color: #032b21;
+  font-family: "Work Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+  opacity: 0.9;
+}
+
+.cta {
+  display: inline-block;
+  margin-bottom: 32px;
+  padding: 12px 16px;
+  border-radius: 32px;
+  background-color: #c44d2f;
+  background-repeat: round;
+}
+
+.ctaText {
+  color: #fff;
+  font-family: "Work Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.desktopImageWrapper {
+  display: none;
+}
+
+.desktopImage,
+.mobileImage {
+  width: 230px;
+  max-width: none;
+  height: auto;
+  object-fit: cover;
+}
+
+.mobileImageWrapper {
+  pointer-events: none;
+  position: absolute;
+  right: -50px;
+  bottom: 0;
+  z-index: 0;
+}
+
+@media (min-width: 640px) {
+  .surface {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .introHeading {
+    font-size: 34px;
+  }
+
+  .heading {
+    font-size: 46px;
+    letter-spacing: normal;
+  }
+
+  .bodyCopy {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 768px) {
+  .copy {
+    max-width: 560px;
+  }
+
+  .introHeading {
+    font-size: 42px;
+  }
+
+  .heading {
+    font-size: 62px;
+    line-height: 0.9;
+  }
+
+  .bodyCopy {
+    max-width: 470px;
+    font-size: 20px;
+  }
+
+  .cta {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-top: 40px;
+    padding-right: 80px;
+    padding-left: 80px;
+  }
+
+  .surface {
+    min-height: 640px;
+    padding: 0;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.72fr);
+    align-items: end;
+    gap: 40px;
+  }
+
+  .copy {
+    max-width: 760px;
+    align-self: center;
+  }
+
+  .introHeading {
+    font-size: 50px;
+  }
+
+  .heading {
+    font-size: 82px;
+    line-height: 0.9;
+  }
+
+  .houseDotI::before {
+    top: -0.1rem;
+  }
+
+  .bodyCopy {
+    max-width: 610px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: #3a3a3a;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .cta {
+    padding-right: 32px;
+    padding-left: 32px;
+  }
+
+  .ctaText {
+    font-size: 28px;
+  }
+
+  .desktopImageWrapper {
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: end;
+    justify-content: end;
+  }
+
+  .desktopImage {
+    width: 380px;
+  }
+
+  .mobileImageWrapper {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .desktopImage {
+    width: 430px;
+  }
+}

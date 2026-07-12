@@ -13,7 +13,7 @@ The listings block is not a React-native data source. It is a legacy Moxi/WordPr
 
 ## Runtime Flow in This Repo
 
-Component: `src/components/Listings.tsx`
+Component: `src/components/Listings/Listings.tsx`
 
 1. `Listings` creates a light-DOM portal node right after `#emily-realestate`.
 2. It renders a legacy-compatible container + placeholder:
@@ -79,7 +79,7 @@ Production includes inline `quicktags-js-extra` before that bundle. Local did no
 
 ## Current Runtime Robustness (Now Implemented)
 
-`Listings.tsx` now includes dependency-driven fallback behavior in all environments:
+`Listings/Listings.tsx` now includes dependency-driven fallback behavior in all environments:
 
 1. Readiness gate before triggering
    - `flbuilder-render-updated` fires only when all are ready:
@@ -158,7 +158,7 @@ On real host (`https://emilybrealty.com`):
 
 ## Related Files
 
-- `src/components/Listings.tsx`
+- `src/components/Listings/Listings.tsx`
 - `src/App.tsx`
 - `vite.config.ts`
 - `src/App.test.tsx`

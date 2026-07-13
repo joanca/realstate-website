@@ -29,7 +29,7 @@ export function TestimonialsSection() {
           items={testimonials}
           ariaLabel="Testimonials carousel"
           renderItem={(testimonial, index) => (
-            <TestimonialCard key={testimonial.quote + index} testimonial={testimonial} starsImageUrl={starsImageUrl} />
+            <TestimonialCard key={testimonial.quote + index} testimonial={testimonial} />
           )}
         />
 

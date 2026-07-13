@@ -20,25 +20,22 @@ describe('TestimonialsSection', () => {
     })
   })
 
-  it('renders publication date formatted as month and year', () => {
+  it('renders the testimonial quote in a card', () => {
     render(<TestimonialsSection />)
 
-    expect(screen.getByText('Mar 2025')).toBeInTheDocument()
-    expect(screen.queryByText('Author One')).not.toBeInTheDocument()
+    expect(screen.getByText('Emily helped us navigate a competitive market with confidence.')).toBeInTheDocument()
   })
 
-  it('renders stars and date above testimonial body', () => {
+  it('does not render per-card publication dates', () => {
     render(<TestimonialsSection />)
 
-    const date = screen.getByText('Mar 2025')
-    const quote = screen.getByText('Emily helped us navigate a competitive market with confidence.')
-
-    expect(date.compareDocumentPosition(quote) & Node.DOCUMENT_POSITION_FOLLOWING).toBe(Node.DOCUMENT_POSITION_FOLLOWING)
+    expect(screen.queryByText('Mar 2025')).not.toBeInTheDocument()
   })
 
   it('renders the hardcoded review summary above the testimonials', () => {
     render(<TestimonialsSection />)
 
+    expect(screen.getByRole('heading', { name: "I'm here to guide you." })).toBeInTheDocument()
     expect(screen.getByText('5.0')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: '(57) Reviews' })).toBeInTheDocument()
   })

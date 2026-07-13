@@ -4,7 +4,7 @@
 
 .frame {
   position: relative;
-  padding: 0 24px;
+  padding: 0 28px;
 }
 
 .arrowButton {
@@ -53,7 +53,7 @@
 .dotsWrapper {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 44px;
 }
 
 .dotsWindow {
@@ -97,7 +97,7 @@
 
 @media (min-width: 1024px) {
   .frame {
-    padding: 0 48px;
+    padding: 0 52px;
   }
 
   .arrowButton {
@@ -114,10 +114,10 @@
   }
 
   .carousel-track {
-    gap: 48px;
+    gap: 44px;
   }
 
   .carousel-slide {
-    flex: 0 0 calc((100% - 96px) / 3);
+    flex: 0 0 calc((100% - 88px) / 3);
   }
 }

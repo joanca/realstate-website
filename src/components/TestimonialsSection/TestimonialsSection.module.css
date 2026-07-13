@@ -5,12 +5,13 @@
 .section {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 32px 16px;
+  padding: 36px 16px 40px;
 }
 
 .footer {
-  margin-top: 32px;
-  text-align: center;
+  margin-top: 28px;
+  margin-right: 28px;
+  text-align: right;
 }
 
 .allTestimonialsLink {
@@ -24,11 +25,7 @@
 
 @media (min-width: 1024px) {
   .section {
-    padding: 48px 80px;
-  }
-
-  .footer {
-    text-align: right;
+    padding: 64px 80px 72px;
   }
 
   .allTestimonialsLink {

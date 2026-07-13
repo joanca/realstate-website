@@ -9,9 +9,9 @@
 .surface::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -2.5rem;
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 0.6;
   background-image: var(--main-pitch-plant-image), var(--main-pitch-cup-image);
   background-position: left bottom, right bottom;
   background-repeat: no-repeat;

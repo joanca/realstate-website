@@ -24,7 +24,7 @@ export function MainPitch() {
 
           <div className={styles.paragraphs}>
             {mainPitchContent.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+              <p key={paragraph} dangerouslySetInnerHTML={{ __html: paragraph }} />
             ))}
           </div>
 

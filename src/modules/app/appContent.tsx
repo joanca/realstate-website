@@ -48,6 +48,6 @@ export const mainPitchContent = {
   paragraphs: [
     'Most of my business comes from referrals, so I work hard for my clients. You can always count me to be honest, strategic and an ally.',
     'I understand that buying or selling a home is a big investment, both financially and emotionally. I have a tried and true process to help you through it.',
-    'But I also believe that every sale is unique, because every person is unique. Just like Portland houses.',
+    'But I also believe that every sale is unique,<br /> because every person is unique.<br /> Just like Portland houses.',
   ],
 }

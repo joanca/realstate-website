@@ -4,6 +4,10 @@ import { mainPitchContent } from '../../modules/app/appContent'
 import { MainPitch } from './MainPitch'
 import styles from './MainPitch.module.css'
 
+function textContent(content: string) {
+  return content.replace(/<br \/>/g, ' ').replace(/\s+/g, ' ').trim()
+}
+
 describe('MainPitch', () => {
   it('renders the main pitch copy from app content', () => {
     render(<MainPitch />)
@@ -14,8 +18,12 @@ describe('MainPitch', () => {
       }),
     ).toBeInTheDocument()
 
-    for (const paragraph of mainPitchContent.paragraphs) {
-      expect(screen.getByText(paragraph)).toBeInTheDocument()
+    const paragraphs = screen.getAllByText((_, element) => element?.tagName === 'P')
+
+    expect(paragraphs).toHaveLength(mainPitchContent.paragraphs.length)
+
+    for (const [index, paragraph] of mainPitchContent.paragraphs.entries()) {
+      expect(paragraphs[index]).toHaveTextContent(textContent(paragraph))
     }
   })
 

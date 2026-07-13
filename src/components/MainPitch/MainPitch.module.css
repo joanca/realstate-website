@@ -12,7 +12,6 @@
   inset: -2.5rem;
   pointer-events: none;
   opacity: 0.6;
-  background-image: var(--main-pitch-plant-image), var(--main-pitch-cup-image);
   background-position: left bottom, right bottom;
   background-repeat: no-repeat;
   background-size: 220px auto, 250px auto;
@@ -22,7 +21,6 @@
   position: relative;
   z-index: 10;
   display: flex;
-  min-height: 720px;
   max-width: 1440px;
   margin: 0 auto;
   flex-direction: column;
@@ -76,6 +74,7 @@
   }
 
   .surface::before {
+    background-image: var(--main-pitch-plant-image), var(--main-pitch-cup-image);
     background-size: 320px auto, 380px auto;
   }
 

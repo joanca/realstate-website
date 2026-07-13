@@ -13,7 +13,7 @@ export function Services() {
         <div className={styles.body}>
           <div className={styles.header}>
             <h2 className={styles.heading}>{servicesContent.headline}</h2>
-            <DividerLine width={182} className={styles.divider} />
+            <DividerLine width={94} className={styles.divider} />
           </div>
 
           <div className={styles.cards}>

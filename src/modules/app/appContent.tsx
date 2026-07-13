@@ -51,3 +51,27 @@ export const mainPitchContent = {
     'But I also believe that every sale is unique,<br /> because every person is unique.<br /> Just like Portland houses.',
   ],
 }
+
+export const servicesContent = {
+  imageUrl: getImageUrl('services-emily.jpg'),
+  headline: 'What are you in the market for?',
+  items: [
+    {
+      label: 'BUYING',
+      href: '#',
+      iconUrl: getImageUrl('services-home.png'),
+    },
+    {
+      label: 'SELLING',
+      href: '#',
+      iconUrl: getImageUrl('services-selling.png'),
+    },
+    {
+      label: 'REFERRALS',
+      href: '#',
+      iconUrl: getImageUrl('services-referral.png'),
+      note: 'Thanks!',
+      featured: true,
+    },
+  ],
+}

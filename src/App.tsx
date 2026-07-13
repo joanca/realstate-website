@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect } from 'react'
 import { HeroSection } from './components/HeroSection/HeroSection'
 import { MainPitch } from './components/MainPitch/MainPitch'
 import { Separator } from './components/shared/Separator/Separator'
+import { Services } from './components/Services/Services'
 import { TestimonialsSection } from './components/TestimonialsSection/TestimonialsSection'
 import { normalizeEmbeddedDom } from './modules/embed/normalizeEmbeddedDom'
 import { heroContent } from './modules/app/appContent'
@@ -27,6 +28,7 @@ export default function App() {
       <TestimonialsSection />
       <Separator bottomBackground="#eee7e1" />
       <MainPitch />
+      <Services />
     </div>
   )
 }

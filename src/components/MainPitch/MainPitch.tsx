@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { heroContent, mainPitchContent } from '../../modules/app/appContent'
+import { DividerLine } from '../shared/DividerLine/DividerLine'
 import styles from './MainPitch.module.css'
 
 export function MainPitch() {
@@ -20,7 +21,7 @@ export function MainPitch() {
             {mainPitchContent.headline}
           </h2>
 
-          <div className={styles.divider} aria-hidden="true" />
+          <DividerLine width={144} className={styles.divider} />
 
           <div className={styles.paragraphs}>
             {mainPitchContent.paragraphs.map((paragraph) => (

@@ -49,10 +49,7 @@
 }
 
 .divider {
-  width: 112px;
-  height: 4px;
   margin: 42px;
-  background-color: #dd1f3a;
 }
 
 .paragraphs {
@@ -109,7 +106,6 @@
   }
 
   .divider {
-    width: 144px;
     margin: 56px;
   }
 

@@ -17,7 +17,7 @@ This project uses a hybrid workflow:
 ### Development
 
 ```bash
-pnpm dev           # Start Vite dev server (port 3000, HMR enabled)
+pnpm dev           # Start Vite dev server (port 3010, HMR enabled)
 pnpm css:build     # Build Tailwind CSS to src/output.css
 pnpm typecheck     # Run TypeScript compiler checks (no emit)
 pnpm test          # Run Vitest test suite
@@ -111,7 +111,7 @@ import { useEffect } from "react"  // Vite resolves from node_modules
 ### Local Development
 
 1. Run `pnpm dev` to start Vite dev server
-2. View at http://localhost:3000
+2. View at http://localhost:3010
 3. Edit files - Vite provides hot module replacement (HMR)
 4. CSS is compiled on-the-fly by `@tailwindcss/vite`
 5. Commit changes - pre-commit hook auto-builds CSS
@@ -154,6 +154,16 @@ import { useEffect } from "react"  // Vite resolves from node_modules
 - `.house-dot-i` class for special house icon dot in "advisor"
 - Component-specific styles should live in colocated `Component.module.css` files
 - CSS is compiled into `output.css`
+
+### Native CSS Nesting in CSS Modules
+
+- Use native CSS nesting in `*.module.css` files to improve readability and keep related rules together.
+- Prefer nesting pseudo-classes, pseudo-elements, modifier selectors, child selectors, and responsive at-rules inside the owning class.
+- Prefer colocated breakpoint overrides, for example `.card { @media (min-width: 1024px) { ... } }`, instead of collecting all responsive overrides at the bottom of the file.
+- Use `&` for compound selectors and states, for example `&:hover`, `&:focus-visible`, `&::before`, and `&.featuredCard`.
+- Do not use Sass-style concatenation such as `&--primary`; native CSS nesting does not support it.
+- Avoid nesting unrelated module classes purely because of DOM structure. Only use descendant nesting when the parent-child relationship is intentional and improves clarity.
+- Be aware that modifier nesting such as `.card { &.featuredCard { ... } }` increases specificity compared with a standalone `.featuredCard` rule.
 
 ### CSS Build Process
 

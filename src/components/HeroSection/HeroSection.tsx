@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { CtaButton } from '../shared/CtaButton/CtaButton'
 import styles from './HeroSection.module.css'
 
 interface HeroSectionProps {
@@ -43,14 +44,9 @@ export function HeroSection({ imageUrl, houseIconUrl }: HeroSectionProps) {
                 Tell me your goals — we’ll build up from there.
               </p>
 
-              <a
-                href="#"
-                className={styles.cta}
-              >
-                <span className={styles.ctaText}>
-                  Let's Connect
-                </span>
-              </a>
+              <CtaButton href="#" className={styles.cta}>
+                Let's Connect
+              </CtaButton>
             </div>
 
             <div className={styles.desktopImageWrapper}>

@@ -1,0 +1,40 @@
+<svg width="246" height="183" viewBox="0 0 246 183" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M244.114 22.2843L238.978 19.0697L231.642 11.2057L170.607 13.3546L160.06 17.9716L152.477 16.2103L146.729 19.721L135.745 24.4984L122.34 23.9745L115.567 27.4045L109.332 28.8917L104.66 26.6469L94.0506 24.746L87.297 26.0308L75.7242 30.3554L68.4001 30.3534L61.5516 28.5994L59.4767 22.604L58.8577 15.4702L53.5564 7.23173L45.0484 4.57154L37.9984 0.502625L29.0123 0L22.8919 0.375736L15.1992 64.1517L11.2439 111.733L0 156.604L9.13041 180.663L141.701 183L235.109 180.56L235.115 180.443L232.489 104.603L234.665 92.4873L231.98 87.0669L226.18 84.4423L225.989 77.671L229.858 67.8982L236.01 59.2628L239.701 45.3947L243.242 34.3061L246 28.6408L244.114 22.2843Z" fill="#C1ABA6"/>
+<line x1="37.4113" y1="24.0379" x2="50.0964" y2="24.0379" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="37.4113" y1="35.7254" x2="66.6536" y2="35.7254" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="149.419" y1="35.7254" x2="207.88" y2="35.7254" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="33.5246" y1="47.4129" x2="62.7669" y2="47.4129" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="79.298" y1="47.4139" x2="99.7748" y2="47.4139" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="108.513" y1="48.4129" x2="215.671" y2="48.4129" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="33.5246" y1="61.1004" x2="211.782" y2="61.1004" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="33.5246" y1="73.7889" x2="207.886" y2="73.7888" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="29.6223" y1="85.5008" x2="203.984" y2="85.5008" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="29.6223" y1="98.1883" x2="211.775" y2="98.1883" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="25.7238" y1="110.877" x2="207.877" y2="110.877" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="21.8293" y1="123.562" x2="207.878" y2="123.562" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="16.9621" y1="136.251" x2="207.881" y2="136.251" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="21.8293" y1="148.938" x2="207.878" y2="148.938" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<line x1="21.8293" y1="161.626" x2="207.878" y2="161.626" stroke="white" stroke-width="1.92422" stroke-linecap="round"/>
+<g filter="url(#filter0_n_482_311)">
+<path d="M78 37.5662C78 37.2149 78.1843 36.8894 78.4855 36.7087L87.4855 31.3087C87.8022 31.1187 88.1978 31.1187 88.5145 31.3087L97.5145 36.7087C97.8157 36.8894 98 37.2149 98 37.5662V51C98 51.5523 97.5523 52 97 52H79C78.4477 52 78 51.5523 78 51V37.5662Z" fill="#C43D2F"/>
+</g>
+<circle cx="88" cy="42" r="3" fill="white"/>
+<defs>
+<filter id="filter0_n_482_311" x="78" y="31.166" width="20" height="20.834" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="2 2" stitchTiles="stitch" numOctaves="3" result="noise" seed="4746" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+<feFlood flood-color="rgba(254, 247, 236, 0.5)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feMerge result="effect1_noise_482_311">
+<feMergeNode in="shape" />
+<feMergeNode in="color1" />
+</feMerge>
+</filter>
+</defs>
+</svg>

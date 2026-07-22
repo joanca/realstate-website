@@ -5,10 +5,11 @@ interface CtaButtonProps {
   href: string
   children: ReactNode
   className?: string
+  variant?: 'primary' | 'secondary'
 }
 
-export function CtaButton({ href, children, className }: CtaButtonProps) {
-  const combinedClassName = [styles.root, className]
+export function CtaButton({ href, children, className, variant = 'primary' }: CtaButtonProps) {
+  const combinedClassName = [styles.root, styles[variant], className]
     .filter(Boolean)
     .join(' ')
 

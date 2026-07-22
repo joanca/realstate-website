@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect } from 'react'
+import { Contact } from './components/Contact/Contact'
 import { HeroSection } from './components/HeroSection/HeroSection'
 import { MainPitch } from './components/MainPitch/MainPitch'
 import { Separator } from './components/shared/Separator/Separator'
@@ -29,6 +30,8 @@ export default function App() {
       <Separator bottomBackground="#eee7e1" />
       <MainPitch />
       <Services />
+      <Separator />
+      <Contact />
     </div>
   )
 }

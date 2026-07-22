@@ -6,12 +6,22 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 32px 16px;
+
+  @media (min-width: 1024px) {
+    padding: 48px 80px;
+  }
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 48px;
+    row-gap: 0;
+  }
 }
 
 .card {
@@ -23,6 +33,11 @@
   background-color: #fcf7f2;
   padding: 28px 24px;
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @media (min-width: 1024px) {
+    min-height: 300px;
+    padding: 32px 36px;
+  }
 }
 
 .header {
@@ -37,22 +52,38 @@
   height: 20px;
   border-radius: 9999px;
   background-color: rgb(234 216 200 / 70%);
+
+  @media (min-width: 1024px) {
+    height: 24px;
+  }
 }
 
 .titleBar {
   width: 112px;
+
+  @media (min-width: 1024px) {
+    width: 128px;
+  }
 }
 
 .dateBar {
   width: 80px;
+
+  @media (min-width: 1024px) {
+    width: 112px;
+  }
 }
 
 .lines {
   margin-top: 20px;
-}
 
-.lines > * + * {
-  margin-top: 12px;
+  & > * + * {
+    margin-top: 12px;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 28px;
+  }
 }
 
 .fullLine {
@@ -74,6 +105,10 @@
 .footer {
   margin-top: 32px;
   text-align: center;
+
+  @media (min-width: 1024px) {
+    text-align: right;
+  }
 }
 
 .footerPlaceholder {
@@ -87,43 +122,5 @@
 @keyframes pulse {
   50% {
     opacity: 0.5;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section {
-    padding: 48px 80px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 48px;
-    row-gap: 0;
-  }
-
-  .card {
-    min-height: 300px;
-    padding: 32px 36px;
-  }
-
-  .bar,
-  .line {
-    height: 24px;
-  }
-
-  .titleBar {
-    width: 128px;
-  }
-
-  .dateBar {
-    width: 112px;
-  }
-
-  .lines {
-    margin-top: 28px;
-  }
-
-  .footer {
-    text-align: right;
   }
 }

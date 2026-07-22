@@ -8,6 +8,11 @@
   border-radius: 20px;
   background-color: #F5DFD8;
   padding: 28px 24px;
+
+  @media (min-width: 1024px) {
+    min-height: 248px;
+    padding: 34px 34px;
+  }
 }
 
 .quote {
@@ -22,15 +27,8 @@
   opacity: 0.9;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 6;
-}
 
-@media (min-width: 1024px) {
-  .card {
-    min-height: 248px;
-    padding: 34px 34px;
-  }
-
-  .quote {
+  @media (min-width: 1024px) {
     font-size: 25px;
     line-height: 1.2;
   }

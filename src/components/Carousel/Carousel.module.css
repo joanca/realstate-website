@@ -5,6 +5,10 @@
 .frame {
   position: relative;
   padding: 0 28px;
+
+  @media (min-width: 1024px) {
+    padding: 0 52px;
+  }
 }
 
 .arrowButton {
@@ -20,16 +24,29 @@
   background-color: rgb(170 166 166);
   color: #fff;
   transform: translateY(-50%);
+
+  @media (min-width: 1024px) {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .previousArrow {
   left: 0;
   transform: translate(-25%, -50%);
+
+  @media (min-width: 1024px) {
+    transform: translate(-50%, -50%);
+  }
 }
 
 .nextArrow {
   right: 0;
   transform: translate(25%, -50%);
+
+  @media (min-width: 1024px) {
+    transform: translate(50%, -50%);
+  }
 }
 
 .arrowIcon {
@@ -43,11 +60,19 @@
 .carousel-track {
   display: flex;
   gap: 32px;
+
+  @media (min-width: 1024px) {
+    gap: 44px;
+  }
 }
 
 .carousel-slide {
   min-width: 0;
   flex: 0 0 100%;
+
+  @media (min-width: 1024px) {
+    flex: 0 0 calc((100% - 88px) / 3);
+  }
 }
 
 .dotsWrapper {
@@ -93,31 +118,4 @@
   border-radius: 9999px;
   background-color: #5b1f10;
   transform: translate(-50%, -50%);
-}
-
-@media (min-width: 1024px) {
-  .frame {
-    padding: 0 52px;
-  }
-
-  .arrowButton {
-    width: 48px;
-    height: 48px;
-  }
-
-  .previousArrow {
-    transform: translate(-50%, -50%);
-  }
-
-  .nextArrow {
-    transform: translate(50%, -50%);
-  }
-
-  .carousel-track {
-    gap: 44px;
-  }
-
-  .carousel-slide {
-    flex: 0 0 calc((100% - 88px) / 3);
-  }
 }

@@ -6,6 +6,10 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 36px 16px 40px;
+
+  @media (min-width: 1024px) {
+    padding: 64px 80px 72px;
+  }
 }
 
 .footer {
@@ -21,14 +25,8 @@
   font-weight: 500;
   text-decoration-line: underline;
   opacity: 0.8;
-}
 
-@media (min-width: 1024px) {
-  .section {
-    padding: 64px 80px 72px;
-  }
-
-  .allTestimonialsLink {
+  @media (min-width: 1024px) {
     font-size: 22px;
   }
 }

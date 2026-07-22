@@ -3,6 +3,10 @@
   margin-bottom: 32px;
   padding: 0;
   color: #2f2f2f;
+
+  @media (min-width: 1024px) {
+    margin-bottom: 52px;
+  }
 }
 
 .heading {
@@ -13,10 +17,15 @@
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.02em;
-}
 
-.heading span {
-  color: #c43d2f;
+  span {
+    color: #c43d2f;
+  }
+
+  @media (min-width: 1024px) {
+    margin-bottom: 44px;
+    font-size: 49px;
+  }
 }
 
 .ratingRow {
@@ -25,6 +34,11 @@
   gap: clamp(6px, 2vw, 10px);
   font-size: clamp(20px, 5.6vw, 26px);
   white-space: nowrap;
+
+  @media (min-width: 1024px) {
+    gap: 16px;
+    font-size: 36px;
+  }
 }
 
 .rating {
@@ -38,6 +52,10 @@
   width: clamp(112px, 32vw, 145px);
   height: auto;
   flex-shrink: 0;
+
+  @media (min-width: 1024px) {
+    height: 24px;
+  }
 }
 
 .divider {
@@ -45,6 +63,10 @@
   font-family: "Work Sans", sans-serif;
   font-size: clamp(20px, 5.4vw, 25px);
   line-height: 1;
+
+  @media (min-width: 1024px) {
+    font-size: 35px;
+  }
 }
 
 .reviewsLink {
@@ -54,28 +76,4 @@
   color: #2f2f2f;
   text-decoration-line: underline;
   text-underline-offset: 4px;
-}
-
-@media (min-width: 1024px) {
-  .root {
-    margin-bottom: 52px;
-  }
-
-  .heading {
-    margin-bottom: 44px;
-    font-size: 49px;
-  }
-
-  .ratingRow {
-    gap: 16px;
-    font-size: 36px;
-  }
-
-  .stars {
-    height: 24px;
-  }
-
-  .divider {
-    font-size: 35px;
-  }
 }

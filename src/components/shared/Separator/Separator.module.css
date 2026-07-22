@@ -22,48 +22,46 @@
   position: relative;
   transform: scaleY(-1);
   z-index: 10;
-}
 
-.wave::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: currentColor;
-  -webkit-mask:
-    radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), var(--wave-gradient)) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
-    radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), var(--wave-gradient)) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
-  mask:
-    radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), var(--wave-gradient)) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
-    radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), var(--wave-gradient)) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
-  z-index: 2;
-}
-
-.wave::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--separator-bottom-bg);
-  -webkit-mask:
-    radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), #0000 99%, #000 101%) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
-    radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), #000 99%, #0000 101%) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
-  mask:
-    radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), #0000 99%, #000 101%) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
-    radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), #000 99%, #0000 101%) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
-  z-index: 1;
-}
-
-@supports not (mask: radial-gradient(10px at center, #000 98%, #0000 101%)) {
-  .wave::before {
-    background-image: url('../../../assets/images/squiggly.svg');
-    background-repeat: repeat-x;
-    background-size: auto 100%;
-    background-color: transparent;
-    -webkit-mask: none;
-    mask: none;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    -webkit-mask:
+      radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), var(--wave-gradient)) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
+      radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), var(--wave-gradient)) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
+    mask:
+      radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), var(--wave-gradient)) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
+      radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), var(--wave-gradient)) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
+    z-index: 2;
   }
 
-  .wave {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--separator-bottom-bg);
+    -webkit-mask:
+      radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), #0000 99%, #000 101%) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
+      radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), #000 99%, #0000 101%) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
+    mask:
+      radial-gradient(var(--wave-radius) at left 50% bottom calc(-1 * var(--wave-offset)), #0000 99%, #000 101%) calc(50% - 2 * var(--wave-size)) calc(50% - var(--wave-size) / 2 - var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x,
+      radial-gradient(var(--wave-radius) at left 50% top calc(-1 * var(--wave-offset)), #000 99%, #0000 101%) 50% calc(50% + var(--wave-size) / 2 + var(--wave-stroke) / 2) / calc(4 * var(--wave-size)) calc(var(--wave-size) + var(--wave-stroke)) repeat-x;
+    z-index: 1;
+  }
+
+  @supports not (mask: radial-gradient(10px at center, #000 98%, #0000 101%)) {
     --separator-height: 20px;
     height: var(--separator-height);
+
+    &::before {
+      background-image: url('../../../assets/images/squiggly.svg');
+      background-repeat: repeat-x;
+      background-size: auto 100%;
+      background-color: transparent;
+      -webkit-mask: none;
+      mask: none;
+    }
   }
 }

@@ -1,39 +1,22 @@
-import { useEffect, useLayoutEffect } from 'react'
-import { Contact } from './components/Contact/Contact'
-import { HeroSection } from './components/HeroSection/HeroSection'
-import { MainPitch } from './components/MainPitch/MainPitch'
-import { OutOfTowners } from './components/OutOfTowners/OutOfTowners'
-import { Separator } from './components/shared/Separator/Separator'
-import { Services } from './components/Services/Services'
-import { TestimonialsSection } from './components/TestimonialsSection/TestimonialsSection'
-import { normalizeEmbeddedDom } from './modules/embed/normalizeEmbeddedDom'
-import { heroContent } from './modules/app/appContent'
-import styles from './App.module.css'
+import { useEffect, useLayoutEffect } from "react";
+import { RouterProvider } from "@tanstack/react-router";
+import { normalizeEmbeddedDom } from "./modules/embed/normalizeEmbeddedDom";
+import { router } from "./routes/router";
+import styles from "./App.module.css";
 
 export default function App() {
   useLayoutEffect(() => {
-    document.documentElement.removeAttribute('data-emily-loading')
-    document.getElementById('emily-preload-hide')?.remove()
-  }, [])
+    document.documentElement.removeAttribute("data-emily-loading");
+    document.getElementById("emily-preload-hide")?.remove();
+  }, []);
 
   useEffect(() => {
-    normalizeEmbeddedDom()
-  }, [])
+    normalizeEmbeddedDom();
+  }, []);
 
   return (
     <div className={styles.root}>
-      <HeroSection
-        imageUrl={heroContent.imageUrl}
-        houseIconUrl={heroContent.houseIconUrl}
-      />
-      <Separator />
-      <TestimonialsSection />
-      <Separator bottomBackground="#eee7e1" />
-      <MainPitch />
-      <Services />
-      <OutOfTowners />
-      <Separator bottomBackground="#f8f4f1" />
-      <Contact />
+      <RouterProvider router={router} />
     </div>
-  )
+  );
 }

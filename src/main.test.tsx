@@ -11,6 +11,10 @@ describe('main shadow mount', () => {
     const shadowRoot = mountNode.shadowRoot;
     expect(shadowRoot).toBeTruthy();
 
+    if (!shadowRoot) {
+      throw new Error('Expected embedded mount node to have a shadow root');
+    }
+
     const globalFonts = document.getElementById('emily-global-fonts');
     expect(globalFonts).toBeInTheDocument();
     expect(globalFonts?.textContent).toContain('@font-face');

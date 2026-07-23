@@ -10,8 +10,11 @@ export function injectGlobalFonts(doc: Document = document) {
     doc.head.append(globalFonts)
   }
 
-  if (doc.fonts && typeof doc.fonts.ready?.then === 'function') {
-    doc.fonts.ready.then(() => {
+  if (doc.fonts && typeof doc.fonts.load === 'function') {
+    Promise.allSettled([
+      doc.fonts.load('400 16px "Work Sans"'),
+      doc.fonts.load('400 16px "Archivo"'),
+    ]).then(() => {
       const hasWorkSans = doc.fonts.check('16px "Work Sans"')
       const hasArchivo = doc.fonts.check('16px "Archivo"')
 

@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect } from "react";
 import { RouterProvider } from "@tanstack/react-router";
 import { normalizeEmbeddedDom } from "./modules/embed/normalizeEmbeddedDom";
-import { router } from "./routes/router";
+import { router } from "./router";
 import styles from "./App.module.css";
 
 export default function App() {

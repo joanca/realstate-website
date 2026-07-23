@@ -1,3 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router'
 import { Contact } from '../components/Contact/Contact'
 import { HeroSection } from '../components/HeroSection/HeroSection'
 import { MainPitch } from '../components/MainPitch/MainPitch'
@@ -7,7 +8,7 @@ import { Services } from '../components/Services/Services'
 import { TestimonialsSection } from '../components/TestimonialsSection/TestimonialsSection'
 import { heroContent } from '../modules/app/appContent'
 
-export function HomeRoute() {
+function HomeRoute() {
   return (
     <>
       <HeroSection
@@ -25,3 +26,7 @@ export function HomeRoute() {
     </>
   )
 }
+
+export const Route = createFileRoute('/')({
+  component: HomeRoute,
+})

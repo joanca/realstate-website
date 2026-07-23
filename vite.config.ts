@@ -23,12 +23,13 @@ export default defineConfig({
     },
   },
   build: {
+    cssCodeSplit: false,
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
-          if (assetInfo.extension === 'css') {
+          if (assetInfo.names.some((name) => name.endsWith('.css'))) {
             return 'output.css'
           }
           return 'assets/[name]-[hash][extname]'

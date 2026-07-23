@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "pnpm css:build && vite",
     "start": "pnpm dlx serve src -p 3000",
-    "build": "vite build",
+    "build": "pnpm importmap:build && vite build",
+    "importmap:build": "rm -rf .generated/importmap && tsc -p tsconfig.importmap.json && node .generated/importmap/buildImportmap.js && rm -rf .generated/importmap",
     "css:build": "rm -f src/output.css && pnpm build && mv src/dist/output.css src/output.css && rm -rf src/dist",
     "check": "pnpm typecheck && pnpm test",
     "typecheck": "tsc --noEmit",
@@ -13,9 +14,14 @@
     "test:watch": "vitest",
     "prepare": "node -e \"if(require('fs').existsSync('.git/hooks')){require('fs').chmodSync('.git/hooks/pre-commit', '755')}\""
   },
+  "dependencies": {
+    "@tanstack/react-router": "^1.170.18",
+    "embla-carousel-react": "8.6.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
   "devDependencies": {
     "@tailwindcss/vite": "4.2.1",
-    "@tanstack/react-router": "^1.170.18",
     "@tanstack/router-plugin": "^1.168.23",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
@@ -23,10 +29,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react-swc": "4.2.3",
-    "embla-carousel-react": "8.6.0",
     "jsdom": "28.1.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",
     "vite": "7.3.1",

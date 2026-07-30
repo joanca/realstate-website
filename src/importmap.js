@@ -1,14 +1,16 @@
 ;(function () {
   var importMap = {
     "imports": {
-      "@tanstack/react-router": "https://aravena.me/static/esm/*@tanstack/react-router@1.170.18",
-      "@tanstack/react-router/": "https://aravena.me/static/esm/*@tanstack/react-router@1.170.18/",
+      "@tanstack/react-router": "https://aravena.me/static/esm/*@tanstack/react-router@1.170.18?standalone",
+      "@tanstack/react-router/": "https://aravena.me/static/esm/*@tanstack/react-router@1.170.18?standalone/",
       "embla-carousel-react": "https://aravena.me/static/esm/*embla-carousel-react@8.6.0?standalone",
+      "embla-carousel-react/": "https://aravena.me/static/esm/*embla-carousel-react@8.6.0?standalone/",
       "react": "https://aravena.me/static/esm/*react@19.2.4",
       "react/": "https://aravena.me/static/esm/*react@19.2.4/",
       "react-dom": "https://aravena.me/static/esm/*react-dom@19.2.4",
       "react-dom/": "https://aravena.me/static/esm/*react-dom@19.2.4/",
-      "scheduler": "https://aravena.me/static/esm/*scheduler@0.27.0"
+      "scheduler": "https://aravena.me/static/esm/*scheduler@0.27.0",
+      "scheduler/": "https://aravena.me/static/esm/*scheduler@0.27.0/"
     }
   }
 

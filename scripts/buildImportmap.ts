@@ -1,57 +1,75 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { readFile, writeFile } from "node:fs/promises";
 
 type PackageJson = {
-  dependencies?: Record<string, string>
-}
+  dependencies?: Record<string, string>;
+};
 
 type ImportMap = {
-  imports: Record<string, string>
-}
+  imports: Record<string, string>;
+};
 
-const ARAVENA_ESM_BASE = 'https://aravena.me/static/esm'
-const APP_MODULE_URL = `${ARAVENA_ESM_BASE}/*gh/joanca/realstate-website@main/src/main.tsx?jsx&v=`
-const EMBLA_CAROUSEL_PACKAGE = 'embla-carousel-react'
-const SCHEDULER_VERSION = '0.27.0'
+const ARAVENA_ESM_BASE = "https://aravena.me/static/esm";
+const APP_MODULE_URL = `${ARAVENA_ESM_BASE}/*gh/joanca/realstate-website@main/src/main.tsx?jsx&v=`;
+
+const REQUIRED_PACKAGES = [{ name: "scheduler", version: "0.27.0" }];
+const STANDALONE_PACKAGES = ["embla-carousel-react", "@tanstack/react-router"];
 
 const packageJson = JSON.parse(
-  await readFile('package.json', 'utf8')
-) as PackageJson
+  await readFile("package.json", "utf8"),
+) as PackageJson;
 
 function versionFromSpecifier(packageName: string, specifier: string) {
-  const version = specifier.match(/\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?/)?.[0]
+  const version = specifier.match(/\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?/)?.[0];
   if (!version) {
-    throw new Error(`Unsupported version specifier for ${packageName}: ${specifier}`)
+    throw new Error(
+      `Unsupported version specifier for ${packageName}: ${specifier}`,
+    );
   }
 
-  return version
+  return version;
+}
+
+function addToImportMap(
+  imports: Record<string, string>,
+  packageName: string,
+  version: string,
+  standalone: boolean = false,
+) {
+  const importPath = standalone
+    ? `${ARAVENA_ESM_BASE}/*${packageName}@${version}?standalone`
+    : `${ARAVENA_ESM_BASE}/*${packageName}@${version}`;
+
+  imports[packageName] = importPath;
+  imports[`${packageName}/`] = `${importPath}/`;
 }
 
 function buildDependencyImportMap(dependencies: Record<string, string>) {
-  const imports: Record<string, string> = {}
+  const imports: Record<string, string> = {};
 
   for (const [packageName, specifier] of Object.entries(dependencies)) {
-    const version = versionFromSpecifier(packageName, specifier)
+    const version = versionFromSpecifier(packageName, specifier);
 
-    if (packageName === EMBLA_CAROUSEL_PACKAGE) {
-      imports[packageName] = `${ARAVENA_ESM_BASE}/*${packageName}@${version}?standalone`
-      continue
+    if (STANDALONE_PACKAGES.includes(packageName)) {
+      addToImportMap(imports, packageName, version, true);
+      continue;
     }
 
-    imports[packageName] = `${ARAVENA_ESM_BASE}/*${packageName}@${version}`
-    imports[`${packageName}/`] = `${ARAVENA_ESM_BASE}/*${packageName}@${version}/`
+    addToImportMap(imports, packageName, version);
   }
 
-  imports.scheduler = `${ARAVENA_ESM_BASE}/*scheduler@${SCHEDULER_VERSION}`
+  REQUIRED_PACKAGES.forEach(({ name, version }) => {
+    addToImportMap(imports, name, version);
+  });
 
-  return { imports } satisfies ImportMap
+  return { imports } satisfies ImportMap;
 }
 
-const importMap = buildDependencyImportMap(packageJson.dependencies ?? {})
+const importMap = buildDependencyImportMap(packageJson.dependencies ?? {});
 
 const importMapSource = JSON.stringify(importMap, null, 2)
-  .split('\n')
+  .split("\n")
   .map((line, index) => (index === 0 ? line : `  ${line}`))
-  .join('\n')
+  .join("\n");
 
 const output = `;(function () {
   var importMap = ${importMapSource}
@@ -76,6 +94,6 @@ const output = `;(function () {
     revealPageOnFailure()
   })
 })()
-`
+`;
 
-await writeFile('src/importmap.js', output)
+await writeFile("src/importmap.js", output);

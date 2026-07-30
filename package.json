@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm css:build && vite",
-    "start": "pnpm dlx serve src -p 3000",
+    "start": "pnpm dlx serve src -p 3010",
     "build": "pnpm importmap:build && vite build",
     "importmap:build": "rm -rf .generated/importmap && tsc -p tsconfig.importmap.json && node .generated/importmap/buildImportmap.js && rm -rf .generated/importmap",
     "css:build": "rm -f src/output.css && pnpm build && mv src/dist/output.css src/output.css && rm -rf src/dist",

@@ -16,6 +16,7 @@ export default defineConfig({
     react()
   ],
   test: {
+    include: ['**/*.test.ts', '**/*.test.tsx', '../scripts/**/*.test.ts'],
     environment: 'jsdom',
     setupFiles: './test/setup.js'
   },

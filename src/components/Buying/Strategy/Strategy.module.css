@@ -1,0 +1,173 @@
+.section {
+  --buying-surface: #f8f5f2;
+  --buying-warm-surface: #eee7e1;
+  --buying-red: #c43d2f;
+  color: #263244;
+  background-color: var(--buying-warm-surface);
+}
+
+.inner {
+  display: grid;
+  max-width: 90rem;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr;
+}
+
+.media {
+  display: flex;
+  align-items: flex-start;
+  padding: 5rem 0 0;
+}
+
+.image {
+  width: calc(100% - 2rem);
+  max-width: 41.25rem;
+  aspect-ratio: 1;
+  border-radius: 0 0.5rem 0.5rem 0;
+  object-fit: cover;
+}
+
+.copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding-top: 5rem;
+}
+
+.intro,
+.body {
+  padding-right: 7rem;
+  padding-left: 7rem;
+}
+
+.heading {
+  max-width: 28rem;
+  margin: 0;
+  font-family: "Archivo Condensed", sans-serif;
+  font-size: 3rem;
+  font-weight: 650;
+  line-height: 0.98;
+}
+
+.divider {
+  display: none;
+}
+
+.body,
+.insight {
+  font-family: "Work Sans", sans-serif;
+}
+
+.body {
+  max-width: 34rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  box-sizing: border-box;
+
+  & p {
+    margin: 0;
+  }
+
+  & p + p {
+    margin-top: 2.25rem;
+  }
+}
+
+.insight {
+  margin: auto 0 0;
+  padding: 3.25rem 7rem;
+  background-color: var(--buying-surface);
+  font-size: 1.125rem;
+  line-height: 1.5;
+
+  & span {
+    color: var(--buying-red);
+  }
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    grid-template-columns: 1.12fr 0.88fr;
+  }
+
+  .media {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 2.75rem 0 0;
+  }
+
+  .image {
+    width: 100%;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  .copy {
+    display: contents;
+  }
+
+  .intro {
+    display: flex;
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2.75rem 1.25rem 1.25rem;
+    background-color: var(--buying-warm-surface);
+  }
+
+  .heading {
+    font-size: 1.7rem;
+  }
+
+  .divider {
+    display: block;
+    width: 3rem !important;
+    height: 3px;
+    margin-top: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .body {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    max-width: none;
+    padding: 3rem 1.25rem 1.5rem;
+    background-color: var(--buying-surface);
+    font-size: 0.9rem;
+    line-height: 1.55;
+
+    & p + p {
+      margin-top: 2.5rem;
+    }
+  }
+
+  .insight {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin: 0;
+    padding: 1rem 1.25rem 3rem;
+    background-color: var(--buying-surface);
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1023px) {
+  .heading {
+    font-size: 2.5rem;
+  }
+
+  .body {
+    padding-right: 3rem;
+    padding-left: 3rem;
+    font-size: 1.05rem;
+  }
+
+  .intro,
+  .insight {
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
+}

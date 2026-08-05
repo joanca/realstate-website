@@ -13,17 +13,18 @@ describe('Services', () => {
     expect(screen.getByRole('img', { name: 'Emily in a home kitchen' })).toHaveAttribute('src', servicesContent.imageUrl)
   })
 
-  it('renders service placeholder links and decorative icons', () => {
+  it('renders service links and decorative icons', () => {
     render(<Services />)
 
     for (const item of servicesContent.items) {
       const link = screen.getByRole('link', { name: new RegExp(item.label, 'i') })
 
-      expect(link).toHaveAttribute('href', '#')
+      expect(link).toHaveAttribute('href', item.href)
       expect(link.querySelector('img')).toHaveAttribute('src', item.iconUrl)
     }
 
     expect(screen.getByText('Thanks!')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /buying/i })).toHaveAttribute('href', '/buying')
     expect(screen.queryByText(/moving to portland/i)).not.toBeInTheDocument()
   })
 })

@@ -20,6 +20,15 @@ describe('router', () => {
     })
   })
 
+  it('renders the buying page on the buying route', async () => {
+    renderRouter('/buying')
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: 'BUYING', level: 1 })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: /buy the right house/i })).toBeInTheDocument()
+    })
+  })
+
   it('renders the not-found route for unknown paths', async () => {
     const { container } = renderRouter('/missing')
 

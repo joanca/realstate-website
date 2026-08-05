@@ -58,7 +58,7 @@ export const servicesContent = {
   items: [
     {
       label: 'BUYING',
-      href: '#',
+      href: '/buying',
       iconUrl: getImageUrl('services-home.png'),
     },
     {

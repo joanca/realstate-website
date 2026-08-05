@@ -1,0 +1,6 @@
+.page {
+  --buying-surface: #f8f5f2;
+  --buying-text: #263244;
+  color: var(--buying-text);
+  background-color: var(--buying-surface);
+}

@@ -1,10 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
+import { pageContainerClassName } from '../shared/PageLayout/PageLayout'
+import separatorStyles from '../shared/Separator/Separator.module.css'
 import { Buying } from './Buying'
 
 describe('Buying', () => {
   it('renders the buying page content and images', () => {
-    render(<Buying />)
+    const { container } = render(<Buying />)
 
     expect(screen.getByRole('heading', { name: 'BUYING', level: 1 })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /nobody likes a salesperson/i })).toBeInTheDocument()
@@ -12,6 +14,10 @@ describe('Buying', () => {
     expect(screen.getByRole('img', { name: /craftsman house/i })).toHaveAttribute('src', expect.stringContaining('buying-hero.png'))
     expect(screen.getByRole('img', { name: /victorian house/i })).toHaveAttribute('src', expect.stringContaining('buying-hero-bottom.png'))
     expect(screen.getByText(/a hardcoded quote/i)).toBeInTheDocument()
+
+    for (const separator of container.querySelectorAll(`.${separatorStyles.root}`)) {
+      expect(separator).not.toHaveClass(pageContainerClassName)
+    }
   })
 
   it('ends with the shared contact call to action', () => {

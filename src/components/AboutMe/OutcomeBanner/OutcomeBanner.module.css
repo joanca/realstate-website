@@ -1,7 +1,10 @@
 .banner {
-  padding: 5rem 1.5rem 0;
   color: var(--about-text, #263244);
   background-color: var(--about-surface, #f8f5f2);
+}
+
+.inner {
+  padding: 5rem 1.5rem 0;
   text-align: center;
 
   & p {

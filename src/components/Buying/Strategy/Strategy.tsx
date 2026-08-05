@@ -1,5 +1,6 @@
 import { getImageUrl } from '../../../modules/assets/getImageUrl'
 import { DividerLine } from '../../shared/DividerLine/DividerLine'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import styles from './Strategy.module.css'
 
 const imageUrl = getImageUrl('buying-hero-bottom.png')
@@ -7,7 +8,7 @@ const imageUrl = getImageUrl('buying-hero-bottom.png')
 export function BuyingStrategy() {
   return (
     <section className={styles.section} aria-label="Buying strategy">
-      <div className={styles.inner}>
+      <div className={`${styles.inner} ${pageContainerClassName}`}>
         <div className={styles.media}>
           <img
             src={imageUrl}

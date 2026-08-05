@@ -1,6 +1,7 @@
 import { useTestimonials } from './hooks/useTestimonials'
 import { testimonialsContent, testimonialsSummaryContent } from '../../../modules/app/appContent'
 import { Carousel } from '../../shared/Carousel/Carousel'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import { TestimonialCard } from './TestimonialCard/TestimonialCard'
 import { TestimonialsLoading } from './TestimonialsLoading/TestimonialsLoading'
 import { TestimonialsSummary } from './TestimonialsSummary/TestimonialsSummary'
@@ -17,7 +18,7 @@ export function TestimonialsSection() {
 
   return (
     <div className={styles.surface}>
-      <section className={styles.section}>
+      <section className={`${styles.section} ${pageContainerClassName}`}>
         <TestimonialsSummary
           rating={rating}
           reviewCountLabel={reviewCountLabel}

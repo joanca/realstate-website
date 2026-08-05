@@ -1,4 +1,5 @@
 import { getImageUrl } from '../../../modules/assets/getImageUrl'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import { Quote } from '../../shared/Quote/Quote'
 import styles from './Story.module.css'
 
@@ -7,7 +8,7 @@ const comingHomeImageUrl = getImageUrl('about-coming-home.jpg')
 export function AboutStory() {
   return (
     <section className={styles.section} aria-label="About Emily">
-      <div className={styles.inner}>
+      <div className={`${styles.inner} ${pageContainerClassName}`}>
         <div className={styles.feature}>
           <h2 className={styles.featureHeading}>
             There is something so comfortable and primal about

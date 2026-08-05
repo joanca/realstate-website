@@ -7,8 +7,6 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(150px, 0.82fr);
   align-items: center;
-  max-width: 1440px;
-  margin: 0 auto;
   padding: 68px 38px 96px;
   gap: 52px;
 

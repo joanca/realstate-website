@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import { heroContent, mainPitchContent } from '../../../modules/app/appContent'
 import { DividerLine } from '../../shared/DividerLine/DividerLine'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import styles from './MainPitch.module.css'
 
 export function MainPitch() {
@@ -15,7 +16,7 @@ export function MainPitch() {
       className={styles.surface}
       style={backgroundImages}
     >
-      <div className={styles.content}>
+      <div className={`${styles.content} ${pageContainerClassName}`}>
         <div className={styles.copy}>
           <h2 className={styles.heading}>
             {mainPitchContent.headline}

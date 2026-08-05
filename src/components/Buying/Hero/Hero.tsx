@@ -1,5 +1,6 @@
 import { getImageUrl } from '../../../modules/assets/getImageUrl'
 import { DividerLine } from '../../shared/DividerLine/DividerLine'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import styles from './Hero.module.css'
 
 const heroImageUrl = getImageUrl('buying-hero.png')
@@ -7,7 +8,7 @@ const heroImageUrl = getImageUrl('buying-hero.png')
 export function BuyingHero() {
   return (
     <section className={styles.hero} aria-labelledby="buying-title">
-      <div className={styles.inner}>
+      <div className={`${styles.inner} ${pageContainerClassName}`}>
         <h1 id="buying-title" className={styles.pageTitle}>BUYING</h1>
 
         <img

@@ -1,9 +1,10 @@
+import { pageContainerClassName } from '../../../shared/PageLayout/PageLayout'
 import styles from './TestimonialsLoading.module.css'
 
 export function TestimonialsLoading() {
   return (
     <div className={styles.surface}>
-      <section className={styles.section}>
+      <section className={`${styles.section} ${pageContainerClassName}`}>
         <div className={styles.grid}>
           {[1, 2, 3].map((i) => (
             <div key={i} className={styles.card}>

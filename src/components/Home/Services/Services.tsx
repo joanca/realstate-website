@@ -1,11 +1,12 @@
 import { servicesContent } from '../../../modules/app/appContent'
 import { DividerLine } from '../../shared/DividerLine/DividerLine'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import styles from './Services.module.css'
 
 export function Services() {
   return (
     <section className={styles.surface} aria-label="Services">
-      <div className={styles.content}>
+      <div className={`${styles.content} ${pageContainerClassName}`}>
         <div className={styles.imageFrame}>
           <img src={servicesContent.imageUrl} alt="Emily in a home kitchen" className={styles.image} />
         </div>

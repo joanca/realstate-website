@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react'
 import { CtaButton } from '../../shared/CtaButton/CtaButton'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import styles from './HeroSection.module.css'
 
 interface HeroSectionProps {
@@ -14,7 +15,7 @@ export function HeroSection({ imageUrl, houseIconUrl }: HeroSectionProps) {
 
   return (
     <section className={styles.root}>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${pageContainerClassName}`}>
         <div className={styles.surface}>
           <div className={styles.content}>
             <div className={styles.copy}>

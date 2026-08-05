@@ -1,12 +1,13 @@
 import { outOfTownersContent } from '../../../modules/app/appContent'
 import { CtaButton } from '../../shared/CtaButton/CtaButton'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import { OutOfTownersEyebrowSvg } from './OutOfTownersEyebrowSvg'
 import styles from './OutOfTowners.module.css'
 
 export function OutOfTowners() {
   return (
     <section className={styles.surface} aria-label="Out of towners">
-      <div className={styles.content}>
+      <div className={`${styles.content} ${pageContainerClassName}`}>
         <div className={styles.eyebrow}>
           <OutOfTownersEyebrowSvg className={styles.eyebrowShape} />
           <span className={styles.eyebrowText}>{outOfTownersContent.eyebrow}</span>

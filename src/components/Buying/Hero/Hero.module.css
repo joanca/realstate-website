@@ -14,9 +14,7 @@
 
 .inner {
   position: relative;
-  max-width: 90rem;
   min-height: 61.5rem;
-  margin: 0 auto;
 }
 
 .pageTitle,

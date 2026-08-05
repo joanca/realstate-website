@@ -1,5 +1,6 @@
 import { getImageUrl } from '../../../modules/assets/getImageUrl'
 import { DividerLine } from '../../shared/DividerLine/DividerLine'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import { Separator } from '../../shared/Separator/Separator'
 import styles from './Hero.module.css'
 
@@ -8,7 +9,7 @@ const heroImageUrl = getImageUrl('about-hero.jpg')
 export function AboutHero() {
   return (
     <section className={styles.hero} aria-labelledby="about-title">
-      <div className={styles.inner}>
+      <div className={`${styles.inner} ${pageContainerClassName}`}>
         <header className={styles.identity}>
           <h1 id="about-title" className={styles.pageTitle}>ABOUT ME</h1>
           <p className={styles.name}>EMILY BARTOLME</p>

@@ -1,4 +1,5 @@
 import { getImageUrl } from '../../../modules/assets/getImageUrl'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import styles from './Credentials.module.css'
 
 const badges = [
@@ -19,7 +20,7 @@ const badges = [
 export function AboutCredentials() {
   return (
     <section className={styles.section} aria-labelledby="credentials-title">
-      <div className={styles.inner}>
+      <div className={`${styles.inner} ${pageContainerClassName}`}>
         <h2 id="credentials-title" className={styles.heading}>
           <span>I live what I preach.</span>
           I own 5 properties across Portland Metropolitan.

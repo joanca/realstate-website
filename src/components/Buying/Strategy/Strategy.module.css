@@ -8,8 +8,6 @@
 
 .inner {
   display: grid;
-  max-width: 90rem;
-  margin: 0 auto;
   grid-template-columns: 1fr 1fr;
 }
 

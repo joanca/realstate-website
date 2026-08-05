@@ -6,9 +6,7 @@
 
 .inner {
   position: relative;
-  max-width: 90rem;
   min-height: 58rem;
-  margin: 0 auto;
 }
 
 .identity,

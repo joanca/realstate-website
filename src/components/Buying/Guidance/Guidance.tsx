@@ -1,10 +1,11 @@
 import { Quote } from '../../shared/Quote/Quote'
+import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import styles from './Guidance.module.css'
 
 export function BuyingGuidance() {
   return (
     <section className={styles.section} aria-label="Buying guidance">
-      <div className={styles.inner}>
+      <div className={`${styles.inner} ${pageContainerClassName}`}>
         <div className={styles.grid}>
           <div className={styles.headings}>
             <h2 className={styles.heading}>

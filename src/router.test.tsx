@@ -29,6 +29,15 @@ describe('router', () => {
     })
   })
 
+  it('renders the about page on the about-me route', async () => {
+    renderRouter('/about-me')
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: 'ABOUT ME', level: 1 })).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: /i live what i preach/i })).toBeInTheDocument()
+    })
+  })
+
   it('renders the not-found route for unknown paths', async () => {
     const { container } = renderRouter('/missing')
 

@@ -1,0 +1,186 @@
+.hero {
+  overflow: hidden;
+  color: var(--about-text, #263244);
+  background-color: var(--about-surface, #f8f5f2);
+}
+
+.inner {
+  position: relative;
+  max-width: 90rem;
+  min-height: 58rem;
+  margin: 0 auto;
+}
+
+.identity,
+.intro,
+.image,
+.separator {
+  position: absolute;
+}
+
+.identity {
+  top: 10.5rem;
+  left: 8.75rem;
+}
+
+.pageTitle,
+.name,
+.heading,
+.emphasis {
+  font-family: "Archivo Condensed", sans-serif;
+}
+
+.pageTitle,
+.name {
+  margin: 0;
+  font-weight: 800;
+  line-height: 0.9;
+}
+
+.pageTitle {
+  font-size: 3.75rem;
+}
+
+.name {
+  margin-top: 0.35rem;
+  font-size: 2rem;
+}
+
+.image {
+  top: 1.5rem;
+  right: 0;
+  width: min(46vw, 41.25rem);
+  height: 55.5rem;
+  border: 0.4rem solid #e59585;
+  border-bottom: 0;
+  border-radius: 0.5rem 0 0;
+  object-fit: cover;
+  object-position: center 42%;
+  box-sizing: border-box;
+}
+
+.intro {
+  top: 26rem;
+  left: 8.75rem;
+  width: 31rem;
+}
+
+.divider {
+  margin-bottom: 5rem;
+}
+
+.heading,
+.emphasis {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.emphasis {
+  margin-top: 2.5rem;
+  color: var(--about-red, #c43d2f);
+}
+
+.separator {
+  display: none;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .identity,
+  .intro,
+  .image,
+  .separator {
+    position: static;
+  }
+
+  .identity {
+    order: 1;
+    padding: 4.5rem 1.25rem 2rem;
+    text-align: center;
+  }
+
+  .pageTitle {
+    font-size: 2.125rem;
+  }
+
+  .name {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .image {
+    order: 2;
+    width: calc(100% - 0.5rem);
+    height: auto;
+    aspect-ratio: 0.78;
+    margin: 0 0.25rem;
+    border-width: 0.25rem;
+    border-bottom: 0.25rem solid #e59585;
+    border-radius: 0.25rem;
+    object-position: center 38%;
+  }
+
+  .separator {
+    display: block;
+    order: 3;
+    margin-top: -1.25rem;
+  }
+
+  .intro {
+    order: 4;
+    width: auto;
+    padding: 2.75rem 1.25rem 3.25rem;
+    text-align: center;
+  }
+
+  .divider {
+    width: 3rem !important;
+    height: 3px;
+    margin: 0 auto 2rem;
+  }
+
+  .heading,
+  .emphasis {
+    font-size: 1.55rem;
+    line-height: 1.05;
+  }
+
+  .emphasis {
+    margin-top: 0.35rem;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1023px) {
+  .identity {
+    padding-top: 5.5rem;
+  }
+
+  .pageTitle {
+    font-size: 3rem;
+  }
+
+  .name {
+    font-size: 1.25rem;
+  }
+
+  .image {
+    width: min(100% - 6rem, 42rem);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .heading,
+  .emphasis {
+    font-size: 2.25rem;
+  }
+}

@@ -1,0 +1,239 @@
+.section {
+  color: var(--about-text, #263244);
+  background-color: var(--about-surface, #f8f5f2);
+}
+
+.inner {
+  display: grid;
+  max-width: 90rem;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr;
+}
+
+.feature {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 7rem 8.75rem 4.5rem;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 68%;
+    border-radius: 0 0.75rem 0.75rem 0;
+    background-color: var(--about-blush, #f4e7e2);
+  }
+}
+
+.featureHeading,
+.featureImage {
+  position: relative;
+}
+
+.featureHeading {
+  max-width: 24rem;
+  margin: 0;
+  font-family: "Archivo Condensed", sans-serif;
+  font-size: 3rem;
+  font-weight: 650;
+  line-height: 0.98;
+
+  & span {
+    display: block;
+    color: var(--about-red, #c43d2f);
+  }
+}
+
+.featureImage {
+  width: 23rem;
+  max-width: 100%;
+  aspect-ratio: 0.667;
+  margin-top: 4rem;
+  border: 0.2rem solid #554d43;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.legacy,
+.continuation {
+  max-width: 31rem;
+  margin-right: 8.75rem;
+  margin-left: 4.5rem;
+  font-family: "Work Sans", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+}
+
+.legacy {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 5rem;
+  margin-bottom: 0;
+}
+
+.continuation {
+  grid-column: 2;
+  grid-row: 2;
+  margin-top: 2.25rem;
+
+  & p {
+    margin: 0;
+  }
+
+  & p + p {
+    margin-top: 2.25rem;
+  }
+}
+
+.quote {
+  display: flex;
+  width: min(31rem, calc(100% - 13.25rem));
+  min-height: 10rem;
+  grid-column: 2;
+  grid-row: 3;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin: 4rem 8.75rem 5rem 4.5rem;
+  padding: 2.25rem 2.5rem;
+  border-radius: 0.75rem;
+  background-color: var(--about-blush, #f4e7e2);
+  font-family: "Work Sans", sans-serif;
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.4;
+  box-sizing: border-box;
+
+  & p {
+    margin: 0;
+  }
+}
+
+.quoteMark {
+  flex: none;
+  color: var(--about-red, #c43d2f);
+  font-family: Georgia, serif;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+.attribution {
+  white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .legacy,
+  .continuation {
+    max-width: none;
+    margin-right: 1.25rem;
+    margin-left: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .legacy {
+    order: 1;
+    margin-top: 0;
+  }
+
+  .feature {
+    display: grid;
+    order: 2;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: stretch;
+    margin: 3rem 1.25rem 0;
+    padding: 0;
+    overflow: visible;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .featureImage {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 20rem;
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+    border-width: 0.15rem;
+    border-radius: 0.35rem;
+  }
+
+  .featureHeading {
+    display: flex;
+    max-width: none;
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem 1.25rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: var(--about-blush, #f4e7e2);
+    font-size: 1.65rem;
+    box-sizing: border-box;
+  }
+
+  .continuation {
+    order: 3;
+    margin-top: 3rem;
+
+    & p + p {
+      margin-top: 2.5rem;
+    }
+  }
+
+  .quote {
+    width: auto;
+    min-height: 0;
+    order: 4;
+    gap: 1rem;
+    margin: 3rem 1.25rem 4rem;
+    padding: 1.75rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .quoteMark {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1023px) {
+  .legacy,
+  .continuation {
+    margin-right: 3rem;
+    margin-left: 3rem;
+    font-size: 1.05rem;
+  }
+
+  .feature {
+    margin-right: 3rem;
+    margin-left: 3rem;
+  }
+
+  .featureHeading {
+    font-size: 2.5rem;
+  }
+
+  .quote {
+    margin-right: 3rem;
+    margin-left: 3rem;
+    font-size: 1rem;
+  }
+}

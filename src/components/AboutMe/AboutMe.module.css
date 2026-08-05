@@ -1,0 +1,15 @@
+.page {
+  --about-surface: #f8f5f2;
+  --about-warm-surface: #eee7e1;
+  --about-blush: #f4e7e2;
+  --about-red: #c43d2f;
+  --about-text: #263244;
+  color: var(--about-text);
+  background-color: var(--about-surface);
+}
+
+.separator {
+  @media (max-width: 1023px) {
+    display: none;
+  }
+}

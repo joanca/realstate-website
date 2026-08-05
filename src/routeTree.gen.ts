@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutMeRouteImport } from './routes/about-me'
 import { Route as BuyingRouteImport } from './routes/buying'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutMeRoute = AboutMeRouteImport.update({
+  id: '/about-me',
+  path: '/about-me',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BuyingRoute = BuyingRouteImport.update({
@@ -25,27 +31,31 @@ const BuyingRoute = BuyingRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about-me': typeof AboutMeRoute
   '/buying': typeof BuyingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about-me': typeof AboutMeRoute
   '/buying': typeof BuyingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about-me': typeof AboutMeRoute
   '/buying': typeof BuyingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/buying'
+  fullPaths: '/' | '/about-me' | '/buying'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/buying'
-  id: '__root__' | '/' | '/buying'
+  to: '/' | '/about-me' | '/buying'
+  id: '__root__' | '/' | '/about-me' | '/buying'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutMeRoute: typeof AboutMeRoute
   BuyingRoute: typeof BuyingRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-me': {
+      id: '/about-me'
+      path: '/about-me'
+      fullPath: '/about-me'
+      preLoaderRoute: typeof AboutMeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/buying': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutMeRoute: AboutMeRoute,
   BuyingRoute: BuyingRoute,
 }
 export const routeTree = rootRouteImport

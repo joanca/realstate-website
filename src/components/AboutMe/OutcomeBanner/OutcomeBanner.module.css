@@ -1,0 +1,22 @@
+.banner {
+  padding: 5rem 1.5rem 0;
+  color: var(--about-text, #263244);
+  background-color: var(--about-surface, #f8f5f2);
+  text-align: center;
+
+  & p {
+    margin: 0;
+    font-family: "Archivo Condensed", sans-serif;
+    font-size: 2rem;
+    font-weight: 650;
+    line-height: 1.1;
+  }
+
+  @media (max-width: 1023px) {
+    padding: 2.5rem 1rem 0;
+
+    & p {
+      font-size: 1rem;
+    }
+  }
+}

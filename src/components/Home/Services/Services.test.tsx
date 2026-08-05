@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { servicesContent } from '../../modules/app/appContent'
+import { servicesContent } from '../../../modules/app/appContent'
 import { Services } from './Services'
 import styles from './Services.module.css'
 

@@ -2,7 +2,7 @@ import { BuyingGuidance } from './Guidance/Guidance'
 import { BuyingHero } from './Hero/Hero'
 import { BuyingOutcomeBanner } from './OutcomeBanner/OutcomeBanner'
 import { BuyingStrategy } from './Strategy/Strategy'
-import { Contact } from '../Contact/Contact'
+import { Contact } from '../shared/Contact/Contact'
 import { Separator } from '../shared/Separator/Separator'
 import styles from './Buying.module.css'
 

@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { CtaButton } from '../shared/CtaButton/CtaButton'
+import { CtaButton } from '../../shared/CtaButton/CtaButton'
 import styles from './HeroSection.module.css'
 
 interface HeroSectionProps {

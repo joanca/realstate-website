@@ -1,4 +1,4 @@
-import type { Testimonial } from '../../modules/app/appContent'
+import type { Testimonial } from '../../../../modules/app/appContent'
 import styles from './TestimonialCard.module.css'
 
 interface TestimonialCardProps {

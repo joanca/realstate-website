@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import type { Testimonial } from '../modules/app/appContent'
-import { testimonials as fallbackTestimonials } from '../modules/app/appContent'
+import type { Testimonial } from '../../../../modules/app/appContent'
+import { testimonials as fallbackTestimonials } from '../../../../modules/app/appContent'
 
 const API_URL = 'https://aravena.me/api/proxy/testimonials'
 const MAX_TESTIMONIALS = 21

@@ -1,4 +1,4 @@
-import { CtaButton } from '../shared/CtaButton/CtaButton'
+import { CtaButton } from '../CtaButton/CtaButton'
 import styles from './Contact.module.css'
 
 export function Contact() {

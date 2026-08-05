@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { mainPitchContent } from '../../modules/app/appContent'
+import { mainPitchContent } from '../../../modules/app/appContent'
 import { MainPitch } from './MainPitch'
 import styles from './MainPitch.module.css'
 

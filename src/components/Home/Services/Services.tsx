@@ -1,5 +1,5 @@
-import { servicesContent } from '../../modules/app/appContent'
-import { DividerLine } from '../shared/DividerLine/DividerLine'
+import { servicesContent } from '../../../modules/app/appContent'
+import { DividerLine } from '../../shared/DividerLine/DividerLine'
 import styles from './Services.module.css'
 
 export function Services() {

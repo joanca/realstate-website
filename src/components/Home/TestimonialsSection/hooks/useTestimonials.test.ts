@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { renderHook, waitFor } from '@testing-library/react'
 import { useTestimonials } from './useTestimonials'
-import { testimonials as fallbackTestimonials } from '../modules/app/appContent'
+import { testimonials as fallbackTestimonials } from '../../../../modules/app/appContent'
 
 const mockTestimonials = [
   {

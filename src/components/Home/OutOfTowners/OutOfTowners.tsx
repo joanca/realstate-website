@@ -1,5 +1,5 @@
-import { outOfTownersContent } from '../../modules/app/appContent'
-import { CtaButton } from '../shared/CtaButton/CtaButton'
+import { outOfTownersContent } from '../../../modules/app/appContent'
+import { CtaButton } from '../../shared/CtaButton/CtaButton'
 import { OutOfTownersEyebrowSvg } from './OutOfTownersEyebrowSvg'
 import styles from './OutOfTowners.module.css'
 

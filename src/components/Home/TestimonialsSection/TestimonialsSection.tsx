@@ -1,9 +1,9 @@
-import { useTestimonials } from '../../hooks/useTestimonials'
-import { testimonialsContent, testimonialsSummaryContent } from '../../modules/app/appContent'
-import { Carousel } from '../Carousel/Carousel'
-import { TestimonialCard } from '../TestimonialCard/TestimonialCard'
-import { TestimonialsLoading } from '../TestimonialsLoading/TestimonialsLoading'
-import { TestimonialsSummary } from '../TestimonialsSummary/TestimonialsSummary'
+import { useTestimonials } from './hooks/useTestimonials'
+import { testimonialsContent, testimonialsSummaryContent } from '../../../modules/app/appContent'
+import { Carousel } from '../../shared/Carousel/Carousel'
+import { TestimonialCard } from './TestimonialCard/TestimonialCard'
+import { TestimonialsLoading } from './TestimonialsLoading/TestimonialsLoading'
+import { TestimonialsSummary } from './TestimonialsSummary/TestimonialsSummary'
 import styles from './TestimonialsSection.module.css'
 
 export function TestimonialsSection() {

@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
-import { heroContent, mainPitchContent } from '../../modules/app/appContent'
-import { DividerLine } from '../shared/DividerLine/DividerLine'
+import { heroContent, mainPitchContent } from '../../../modules/app/appContent'
+import { DividerLine } from '../../shared/DividerLine/DividerLine'
 import styles from './MainPitch.module.css'
 
 export function MainPitch() {

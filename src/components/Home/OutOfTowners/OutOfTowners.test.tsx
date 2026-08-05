@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { outOfTownersContent } from '../../modules/app/appContent'
+import { outOfTownersContent } from '../../../modules/app/appContent'
 import { OutOfTowners } from './OutOfTowners'
 import styles from './OutOfTowners.module.css'
 

@@ -1,4 +1,5 @@
 import { getImageUrl } from '../../../modules/assets/getImageUrl'
+import { Quote } from '../../shared/Quote/Quote'
 import styles from './Story.module.css'
 
 const comingHomeImageUrl = getImageUrl('about-coming-home.jpg')
@@ -32,13 +33,9 @@ export function AboutStory() {
           </p>
         </div>
 
-        <blockquote className={styles.quote}>
-          <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
-          <p>
-            This quote is going to be hard coded. Susan will find which quote we will use.
-            <span className={styles.attribution}> - Philip O.</span>
-          </p>
-        </blockquote>
+        <Quote attribution="Philip O." className={styles.quote}>
+          This quote is going to be hard coded. Susan will find which quote we will use.
+        </Quote>
       </div>
     </section>
   )

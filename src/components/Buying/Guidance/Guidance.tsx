@@ -1,3 +1,4 @@
+import { Quote } from '../../shared/Quote/Quote'
 import styles from './Guidance.module.css'
 
 export function BuyingGuidance() {
@@ -27,13 +28,9 @@ export function BuyingGuidance() {
           </div>
         </div>
 
-        <blockquote className={styles.quote}>
-          <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
-          <p>
-            A hardcoded quote that I will put here soon when I figure out which one it&rsquo;s going to be.
-            <span className={styles.quoteAttribution}> - Customer</span>
-          </p>
-        </blockquote>
+        <Quote attribution="Customer" className={styles.quote}>
+          A hardcoded quote that I will put here soon when I figure out which one it&rsquo;s going to be.
+        </Quote>
       </div>
     </section>
   )

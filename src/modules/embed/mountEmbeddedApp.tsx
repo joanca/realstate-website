@@ -4,7 +4,7 @@ import { getShadowStylesheetHrefs } from '../styles/getShadowStylesheetHref'
 import { areStylesheetsReady, createDeferredRenderController, hasMountedContent, waitForStylesheets } from './deferredMount'
 import { ensureShadowBaseStyles, ensureShadowMountNode, ensureShadowStylesheets, getOrCreateShadowRoot } from './shadowDom'
 
-const HOST_ID = 'emily-realestate'
+export const HOST_ID = 'emily-realestate'
 const rootsByMountNode = new WeakMap<HTMLElement, Root>()
 
 function getEmbeddedHost() {

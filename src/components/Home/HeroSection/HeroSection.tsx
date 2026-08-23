@@ -21,7 +21,7 @@ export function HeroSection({ imageUrl, houseIconUrl }: HeroSectionProps) {
             <div className={styles.copy}>
               <div className={styles.introRow}>
                 <h1 className={styles.introHeading}>
-                  I'm EMILY,
+                  Welcome, I'm EMILY
                 </h1>
               </div>
               <h1 className={styles.heading}>
@@ -37,12 +37,11 @@ export function HeroSection({ imageUrl, houseIconUrl }: HeroSectionProps) {
                   </span>
                   sor
                 </span>{' '}
-                and Portland <br /> know-it-all.
+                and Portland area expert.
               </h1>
 
               <p className={styles.bodyCopy}>
-                I’m so happy you’re here.<br />
-                Tell me your goals — we’ll build up from there.
+                I’m so glad you’re here. Tell me your goals and we’ll build up from there.
               </p>
 
               <CtaButton href="#" className={styles.cta}>

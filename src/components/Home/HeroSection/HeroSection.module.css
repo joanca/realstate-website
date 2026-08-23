@@ -26,7 +26,6 @@
   }
 
   @media (min-width: 1024px) {
-    min-height: 640px;
     padding: 0;
   }
 }
@@ -40,7 +39,7 @@
 
   @media (min-width: 1024px) {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.72fr);
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.70fr);
     align-items: end;
     gap: 40px;
   }
@@ -108,7 +107,7 @@
   }
 
   @media (min-width: 1024px) {
-    font-size: 82px;
+    font-size: 76px;
     line-height: 0.9;
   }
 }
@@ -143,7 +142,7 @@
 }
 
 .bodyCopy {
-  max-width: 250px;
+  max-width: 200px;
   margin-bottom: 32px;
   color: #032b21;
   font-family: "Work Sans", sans-serif;
@@ -188,7 +187,6 @@
   @media (min-width: 1024px) {
     position: relative;
     display: flex;
-    height: 100%;
     align-items: end;
     justify-content: end;
   }
@@ -208,7 +206,7 @@
   }
 
   @media (min-width: 1280px) {
-    width: 430px;
+    width: 410px;
   }
 }
 

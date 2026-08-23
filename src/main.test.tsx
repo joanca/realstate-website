@@ -34,7 +34,7 @@ describe('main shadow mount', () => {
     expect(baseStyleText).toContain('isolation: isolate;');
 
     await waitFor(() => {
-      expect(shadowRoot.textContent).toContain("I'm EMILY,");
+      expect(shadowRoot.textContent).toContain("Welcome, I'm EMILY");
     });
 
     expect(document.getElementById('dashicons-css')).toBeInTheDocument();

@@ -20,7 +20,7 @@ describe('router', () => {
     const { container } = renderRouter('/')
 
     await waitFor(() => {
-      expect(container.textContent).toContain("I'm EMILY,")
+      expect(container.textContent).toContain("Welcome, I'm EMILY")
     })
   })
 
@@ -47,12 +47,12 @@ describe('router', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { name: 'Page not found' })).toBeInTheDocument()
-      expect(container.textContent).not.toContain("I'm EMILY,")
+      expect(container.textContent).not.toContain("Welcome, I'm EMILY")
     })
   })
 
   it.each([
-    ['home', "I'm EMILY,"],
+    ['home', "Welcome, I'm EMILY"],
     ['buying', 'BUYING'],
     ['about-me', 'ABOUT ME'],
   ])('renders the %s route from the embedded host route ID', async (routeId, expectedText) => {
@@ -73,7 +73,7 @@ describe('router', () => {
     const { container } = render(<RouterProvider router={router} />)
 
     await waitFor(() => {
-      expect(container.textContent).toContain("I'm EMILY,")
+      expect(container.textContent).toContain("Welcome, I'm EMILY")
     })
   })
 

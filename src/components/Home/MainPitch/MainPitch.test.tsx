@@ -5,7 +5,7 @@ import { MainPitch } from './MainPitch'
 import styles from './MainPitch.module.css'
 
 function textContent(content: string) {
-  return content.replace(/<br \/>/g, ' ').replace(/\s+/g, ' ').trim()
+  return content.replace(/<br \/>/g, ' ').replace(/<strong>(.*?)<\/strong>/g, '$1').replace(/\s+/g, ' ').trim()
 }
 
 describe('MainPitch', () => {

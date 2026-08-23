@@ -46,7 +46,7 @@ export const mainPitchContent = {
   cupImageUrl: getImageUrl('main-pitch-cup.png'),
   headline: <>I'm your guide,<br /> but <span className="text-[#c43d2f]">your goals</span> and practical needs drive the process.</>,
   paragraphs: [
-    'Most of my business comes from referrals, so I work hard for my clients. You can always count me to be honest, strategic and an ally.',
+    '<strong>Most of my business comes from referrals</strong>, so I work hard for my clients. You can always count me to be honest, strategic and an ally.',
     'I understand that buying or selling a home is a big investment, both financially and emotionally. I have a tried and true process to help you through it.',
     'But I also believe that every sale is unique,<br /> because every person is unique.<br /> Just like Portland houses.',
   ],

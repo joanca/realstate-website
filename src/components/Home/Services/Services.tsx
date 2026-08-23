@@ -34,7 +34,7 @@ export function Services() {
                 <span className={styles.label}>
                   {item.label}
                 </span>
-                {item.note ? <span className={styles.note}>{item.note}</span> : null}
+                <span className={styles.note}>{item.note}</span>
                 </div>
                 <span className={styles.arrow} aria-hidden="true" />
               </a>

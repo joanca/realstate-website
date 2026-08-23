@@ -61,19 +61,16 @@
 
 .carousel-track {
   display: flex;
-  gap: 32px;
-
-  @media (min-width: 1024px) {
-    gap: 44px;
-  }
 }
 
 .carousel-slide {
   min-width: 0;
   flex: 0 0 100%;
+  margin-right: 32px;
 
   @media (min-width: 1024px) {
     flex: 0 0 calc((100% - 88px) / 3);
+    margin-right: 44px;
   }
 }
 

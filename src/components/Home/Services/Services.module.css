@@ -29,15 +29,26 @@
 }
 
 .imageFrame {
+  position: relative;
   width: 100%;
   max-width: 382px;
   justify-self: end;
   padding: 18px 0 0 18px;
-  border-radius: 8px;
-  background-color: #ebe4df;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 18px 18px 0;
+    border-radius: 8px;
+    background-color: #ebe4df;
+  }
 
   @media (max-width: 699px) {
     padding: 14px 0 0 14px;
+
+    &::before {
+      inset: 0 14px 14px 0;
+    }
   }
 
   @media (min-width: 1024px) {
@@ -45,10 +56,15 @@
     max-width: none;
     justify-self: start;
     padding: 22px 0 0 22px;
+
+    &::before {
+      inset: 0 22px 22px 0;
+    }
   }
 }
 
 .image {
+  position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 0.68;

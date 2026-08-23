@@ -1,0 +1,49 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+}
+
+.window {
+  position: relative;
+  width: 78px;
+  overflow: hidden;
+}
+
+.viewport {
+  overflow: hidden;
+  user-select: none;
+}
+
+.track {
+  display: flex;
+  gap: 8px;
+}
+
+.slide {
+  display: flex;
+  min-width: 0;
+  flex: 0 0 10px;
+  justify-content: center;
+}
+
+.dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background-color: #d9d9d9;
+}
+
+.selectedDot {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background-color: #5b1f10;
+  transform: translate(-50%, -50%);
+}

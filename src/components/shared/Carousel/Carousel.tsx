@@ -1,5 +1,6 @@
-import { type ReactNode, useEffect, useRef } from 'react'
+import { type ReactNode } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import { CarouselDots } from './CarouselDots/CarouselDots'
 import styles from './Carousel.module.css'
 
 interface CarouselProps<T> {
@@ -8,49 +9,8 @@ interface CarouselProps<T> {
   ariaLabel: string
 }
 
-const DOT_SLIDES = Array.from({ length: 9 }, (_, index) => index)
-
 export function Carousel<T>({ items, renderItem, ariaLabel }: CarouselProps<T>) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start', loop: true })
-  const [dotsEmblaRef, dotsEmblaApi] = useEmblaCarousel({ align: 'start', loop: true, watchDrag: false })
-  const previousSnapRef = useRef<number | null>(null)
-
-  useEffect(() => {
-    if (!emblaApi || !dotsEmblaApi) {
-      return
-    }
-
-    previousSnapRef.current = emblaApi.selectedScrollSnap()
-    dotsEmblaApi.scrollTo(2, true)
-
-    const syncDots = () => {
-      const previousSnap = previousSnapRef.current
-      const currentSnap = emblaApi.selectedScrollSnap()
-
-      if (previousSnap === null || previousSnap === currentSnap) {
-        previousSnapRef.current = currentSnap
-        return
-      }
-
-      const totalSnaps = emblaApi.scrollSnapList().length
-      const forwardDistance = (currentSnap - previousSnap + totalSnaps) % totalSnaps
-      const backwardDistance = (previousSnap - currentSnap + totalSnaps) % totalSnaps
-
-      if (forwardDistance < backwardDistance) {
-        dotsEmblaApi.scrollNext()
-      } else {
-        dotsEmblaApi.scrollPrev()
-      }
-
-      previousSnapRef.current = currentSnap
-    }
-
-    emblaApi.on('select', syncDots)
-
-    return () => {
-      emblaApi.off('select', syncDots)
-    }
-  }, [emblaApi, dotsEmblaApi])
 
   if (items.length === 0) {
     return null
@@ -92,21 +52,7 @@ export function Carousel<T>({ items, renderItem, ariaLabel }: CarouselProps<T>) 
         </button>
       </div>
 
-      <div className={styles.dotsWrapper} aria-hidden="true">
-        <div className={styles.dotsWindow}>
-          <div className={styles.viewport} ref={dotsEmblaRef}>
-            <div className={styles['carousel-dots-track']}>
-              {DOT_SLIDES.map((dot) => (
-                <div key={dot} className={styles['carousel-dots-slide']}>
-                  <span className={styles.dot} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <span className={styles.selectedDot} />
-        </div>
-      </div>
+      <CarouselDots carouselApi={emblaApi} />
     </div>
   )
 }

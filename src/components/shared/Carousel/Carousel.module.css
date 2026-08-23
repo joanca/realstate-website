@@ -24,6 +24,7 @@
   background-color: rgb(170 166 166);
   color: #fff;
   transform: translateY(-50%);
+  cursor: pointer;
 
   @media (min-width: 1024px) {
     width: 48px;
@@ -55,6 +56,7 @@
 
 .viewport {
   overflow: hidden;
+  user-select: none;
 }
 
 .carousel-track {

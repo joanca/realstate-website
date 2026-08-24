@@ -32,6 +32,25 @@
   line-height: 1;
 }
 
+.houseDotI {
+  position: relative;
+  display: inline-block;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -0.1em;
+    left: 50%;
+    width: 0.2em;
+    height: 0.2em;
+    transform: translateX(-50%);
+    background-image: var(--house-dot-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
 .image {
   position: absolute;
   top: 9rem;

@@ -1,6 +1,7 @@
 import { createRoot, type Root } from 'react-dom/client'
 import type { ComponentType } from 'react'
-import { getShadowStylesheetHrefs } from '../styles/getShadowStylesheetHref'
+import { bridgeViteStylesToShadowRoot } from '../styles/bridgeViteStylesToShadowRoot'
+import { getShadowStylesheetHrefs, resolveIsViteDev } from '../styles/getShadowStylesheetHref'
 import { areStylesheetsReady, createDeferredRenderController, hasMountedContent, waitForStylesheets } from './deferredMount'
 import { ensureShadowBaseStyles, ensureShadowMountNode, ensureShadowStylesheets, getOrCreateShadowRoot } from './shadowDom'
 
@@ -31,8 +32,14 @@ function getOrCreateRoot(mountNode: HTMLElement) {
 export function mountEmbeddedApp(AppComponent: ComponentType) {
   const host = getEmbeddedHost()
   const shadowRoot = getOrCreateShadowRoot(host)
+  const isViteDev = resolveIsViteDev(import.meta.env)
   ensureShadowBaseStyles(shadowRoot)
-  const stylesheets = ensureShadowStylesheets(shadowRoot, getShadowStylesheetHrefs())
+
+  if (isViteDev) {
+    bridgeViteStylesToShadowRoot(shadowRoot)
+  }
+
+  const stylesheets = ensureShadowStylesheets(shadowRoot, getShadowStylesheetHrefs({ isViteDev }))
   const mountNode = ensureShadowMountNode(shadowRoot)
   const root = getOrCreateRoot(mountNode)
 

@@ -12,13 +12,13 @@ describe('resolveIsViteDev', () => {
 });
 
 describe('getShadowStylesheetHref', () => {
-  it('returns local output.css URL in vite dev mode', () => {
+  it('does not return a static stylesheet in vite dev mode', () => {
     const href = getShadowStylesheetHref({
       isViteDev: true,
       baseUrl: 'https://example.com/src/getShadowStylesheetHref.ts',
     })
 
-    expect(href).toBe('https://example.com/output.css')
+    expect(href).toBeUndefined()
   })
 
   it('returns ESM proxy URL when isViteDev is false (start script)', () => {
@@ -39,24 +39,16 @@ describe('getShadowStylesheetHref', () => {
     expect(href).toBe('https://aravena.me/static/esm/gh/joanca/realstate-website@main/src/output.css')
   })
 
-  it('returns local output.css URL with relative path resolution', () => {
-    const href = getShadowStylesheetHref({
-      isViteDev: true,
-      baseUrl: 'http://localhost:3000/src/modules/styles/getShadowStylesheetHref.ts',
-    })
-
-    expect(href).toBe('http://localhost:3000/output.css')
-  })
 })
 
 describe('getShadowStylesheetHrefs', () => {
-  it('returns only local output.css URL in vite dev mode', () => {
+  it('does not return static stylesheets in vite dev mode', () => {
     const hrefs = getShadowStylesheetHrefs({
       isViteDev: true,
       baseUrl: 'http://localhost:3000/src/modules/styles/getShadowStylesheetHref.ts',
     })
 
-    expect(hrefs).toEqual(['http://localhost:3000/output.css'])
+    expect(hrefs).toEqual([])
   })
 
   it('returns only output.css when not running from an esm.sh bundle', () => {

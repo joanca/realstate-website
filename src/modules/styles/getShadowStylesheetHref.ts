@@ -34,7 +34,7 @@ export function getShadowStylesheetHrefs(options: GetShadowStylesheetHrefOptions
   } = options
 
   if (isViteDev) {
-    return [new URL('/output.css', baseUrl).href]
+    return []
   }
 
   const esmGeneratedStylesheetHref = getEsmGeneratedStylesheetHref(baseUrl)
@@ -45,5 +45,5 @@ export function getShadowStylesheetHrefs(options: GetShadowStylesheetHrefOptions
 }
 
 export function getShadowStylesheetHref(options: GetShadowStylesheetHrefOptions = {}) {
-  return getShadowStylesheetHrefs(options).at(-1) ?? PROD_SHADOW_STYLESHEET_HREF
+  return getShadowStylesheetHrefs(options).at(-1)
 }

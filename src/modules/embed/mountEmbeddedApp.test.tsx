@@ -18,12 +18,8 @@ describe('mountEmbeddedApp', () => {
     expect(shadowRoot).toBeTruthy()
 
     expect(shadowRoot?.querySelectorAll('#emily-shadow-base')).toHaveLength(1)
-    expect(shadowRoot?.querySelectorAll('[id^="emily-shadow-stylesheet-"]')).toHaveLength(1)
+    expect(shadowRoot?.querySelectorAll('[id^="emily-shadow-stylesheet-"]')).toHaveLength(0)
     expect(shadowRoot?.querySelectorAll('#emily-shadow-app')).toHaveLength(1)
-
-    const stylesheet = shadowRoot?.querySelector<HTMLLinkElement>('#emily-shadow-stylesheet-0')
-    expect(stylesheet).toBeTruthy()
-    stylesheet?.dispatchEvent(new Event('load'))
 
     await waitFor(() => {
       const appNode = shadowRoot?.querySelector('#emily-shadow-app')

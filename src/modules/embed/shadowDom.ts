@@ -60,6 +60,14 @@ export function ensureShadowStylesheet(shadowRoot: ShadowRoot, href: string) {
 }
 
 export function ensureShadowStylesheets(shadowRoot: ShadowRoot, hrefs: string[]) {
+  const stylesheetIds = new Set(hrefs.map((_, index) => `${SHADOW_STYLESHEET_ID}-${index}`))
+
+  for (const stylesheet of shadowRoot.querySelectorAll<HTMLLinkElement>(`[id^="${SHADOW_STYLESHEET_ID}-"]`)) {
+    if (!stylesheetIds.has(stylesheet.id)) {
+      stylesheet.remove()
+    }
+  }
+
   return hrefs.map((href, index) => {
     const stylesheetId = `${SHADOW_STYLESHEET_ID}-${index}`
     const existingStylesheet = shadowRoot.querySelector<HTMLLinkElement>(`#${stylesheetId}`)

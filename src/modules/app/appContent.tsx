@@ -78,7 +78,7 @@ export const servicesContent = {
 
 export const outOfTownersContent = {
   eyebrow: 'MOVING TO PORTLAND?',
-  headline: 'Let’s find you a home\nin the right neighborhood —\neven if you only have one weekend to visit.',
+  headline: 'Let’s find you a home in the right neighborhood — even if you only have one weekend to visit.',
   label: 'NEWCOMERS WELCOME',
   mapImageUrl: getImageUrl('oregon-map.svg'),
   mapAlt: 'Map of Oregon',

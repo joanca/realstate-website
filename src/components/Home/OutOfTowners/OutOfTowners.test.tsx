@@ -20,13 +20,17 @@ describe('OutOfTowners', () => {
   it('renders the Oregon map asset and secondary guide link', () => {
     render(<OutOfTowners />)
 
-    expect(screen.getByRole('img', { name: outOfTownersContent.mapAlt })).toHaveAttribute(
+    const map = screen.getByRole('img', { name: outOfTownersContent.mapAlt })
+    const guideLink = screen.getByRole('link', { name: outOfTownersContent.ctaLabel })
+    const cardPanel = map.parentElement
+
+    expect(map).toHaveAttribute(
       'src',
       outOfTownersContent.mapImageUrl,
     )
-    expect(screen.getByRole('link', { name: outOfTownersContent.ctaLabel })).toHaveAttribute(
-      'href',
-      outOfTownersContent.ctaHref,
-    )
+    expect(guideLink).toHaveAttribute('href', outOfTownersContent.ctaHref)
+    expect(cardPanel).toHaveClass(styles.cardPanel)
+    expect(cardPanel).toContainElement(screen.getByText(outOfTownersContent.body))
+    expect(cardPanel).not.toContainElement(guideLink)
   })
 })

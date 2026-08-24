@@ -18,22 +18,25 @@ export function OutOfTowners() {
         <p className={styles.label}>{outOfTownersContent.label}</p>
 
         <div className={styles.card}>
-          <img
-            src={outOfTownersContent.mapImageUrl}
-            alt={outOfTownersContent.mapAlt}
-            className={styles.map}
-          />
+          <div className={styles.cardPanel}>
+            <img
+              src={outOfTownersContent.mapImageUrl}
+              alt={outOfTownersContent.mapAlt}
+              className={styles.map}
+            />
 
-          <div className={styles.cardBody}>
-            <p className={styles.copy}>{outOfTownersContent.body}</p>
-            <CtaButton
-              href={outOfTownersContent.ctaHref}
-              variant="secondary"
-              className={styles.cta}
-            >
-              {outOfTownersContent.ctaLabel}
-            </CtaButton>
+            <div className={styles.cardBody}>
+              <p className={styles.copy}>{outOfTownersContent.body}</p>
+            </div>
           </div>
+
+          <CtaButton
+            href={outOfTownersContent.ctaHref}
+            variant="secondary"
+            className={styles.cta}
+          >
+            {outOfTownersContent.ctaLabel}
+          </CtaButton>
         </div>
       </div>
     </section>

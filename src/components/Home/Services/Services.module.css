@@ -250,6 +250,10 @@
   @media (max-width: 699px) {
     min-height: 24px;
     font-size: 14px;
+
+    &:empty {
+      display: none;
+    }
   }
 
   @media (min-width: 1024px) {

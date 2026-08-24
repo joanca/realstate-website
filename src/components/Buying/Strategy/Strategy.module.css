@@ -21,8 +21,9 @@
   width: calc(100% - 2rem);
   max-width: 41.25rem;
   aspect-ratio: 1;
-  border-radius: 0 0.5rem 0.5rem 0;
   object-fit: cover;
+  border: 3px solid var(--buying-image-border-color, #c43d2f);
+  border-radius: 10px;
 }
 
 .copy {
@@ -99,7 +100,6 @@
 
   .image {
     width: 100%;
-    border-radius: 0 0.5rem 0.5rem 0;
   }
 
   .copy {

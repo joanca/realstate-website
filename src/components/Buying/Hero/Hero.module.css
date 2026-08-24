@@ -58,7 +58,7 @@
   width: min(46vw, 41.25rem);
   aspect-ratio: 1;
   object-fit: cover;
-  border: 3px solid rgba(196, 61, 47, 1);
+  border: 3px solid var(--buying-image-border-color, #c43d2f);
   border-radius: 10px;
 }
 

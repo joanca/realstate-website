@@ -1,13 +1,17 @@
+import type { CSSProperties } from 'react'
 import { getImageUrl } from '../../../modules/assets/getImageUrl'
 import { DividerLine } from '../../shared/DividerLine/DividerLine'
 import { pageContainerClassName } from '../../shared/PageLayout/PageLayout'
 import styles from './Strategy.module.css'
 
 const imageUrl = getImageUrl('buying-hero-bottom.png')
+const sectionStyle = {
+  '--buying-image-border-color': 'rgba(61, 53, 46, 1)',
+} as CSSProperties
 
 export function BuyingStrategy() {
   return (
-    <section className={styles.section} aria-label="Buying strategy">
+    <section className={styles.section} aria-label="Buying strategy" style={sectionStyle}>
       <div className={`${styles.inner} ${pageContainerClassName}`}>
         <div className={styles.media}>
           <img

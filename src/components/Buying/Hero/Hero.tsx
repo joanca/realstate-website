@@ -34,10 +34,10 @@ export function BuyingHero() {
             Nobody likes a salesperson.<br />
             Neither do I!
           </h2>
-          <DividerLine width={128} className={styles.divider} />
           <p className={styles.body}>
             I&rsquo;m here to help you, not talk you into buying a house that isn&rsquo;t right for you.
           </p>
+          <DividerLine width={128} className={styles.divider} />
         </div>
       </div>
     </section>

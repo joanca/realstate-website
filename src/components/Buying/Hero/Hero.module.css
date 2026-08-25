@@ -10,6 +10,17 @@
       var(--hero-bg, #e59585) 19.5rem,
       var(--hero-bg, #e59585) 100%
     );
+
+  @media (max-width: 1023px) {
+    background:
+      linear-gradient(
+        to bottom,
+        var(--buying-surface) 0,
+        var(--buying-surface) 7.5rem,
+        var(--hero-bg, #e59585) 7.5rem,
+        var(--hero-bg, #e59585) 100%
+      );
+  }
 }
 
 .inner {

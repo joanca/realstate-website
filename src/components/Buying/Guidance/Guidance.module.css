@@ -7,12 +7,30 @@
 
 .inner {
   padding: 5.5rem 8.75rem 0;
+
+  @media (max-width: 1023px) {
+    padding: 4.5rem 1.25rem 3.75rem;
+  }
+
+  @media (min-width: 700px) and (max-width: 1023px) {
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
 }
 
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   gap: 7.5rem;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 700px) and (max-width: 1023px) {
+    gap: 4rem;
+  }
 }
 
 .headings {
@@ -26,6 +44,14 @@
   font-size: 3rem;
   font-weight: 650;
   line-height: 0.98;
+
+  @media (max-width: 1023px) {
+    font-size: 1.65rem;
+  }
+
+  @media (min-width: 700px) and (max-width: 1023px) {
+    font-size: 2.5rem;
+  }
 }
 
 .emphasis {
@@ -33,6 +59,10 @@
 
   & span {
     color: var(--buying-red);
+  }
+
+  @media (max-width: 1023px) {
+    margin-top: 3.5rem;
   }
 }
 
@@ -50,34 +80,8 @@
   & p + p {
     margin-top: 2.25rem;
   }
-}
 
-.quote {
-  width: min(31rem, 100%);
-  min-height: 10.5rem;
-  margin: 4rem 0 0;
-}
-
-@media (max-width: 1023px) {
-  .inner {
-    padding: 4.5rem 1.25rem 3.75rem;
-  }
-
-  .grid {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 1.5rem;
-  }
-
-  .heading,
-  .emphasis {
-    font-size: 1.65rem;
-  }
-
-  .emphasis {
-    margin-top: 3.5rem;
-  }
-
-  .body {
+  @media (max-width: 1023px) {
     font-size: 0.9rem;
     line-height: 1.55;
 
@@ -86,29 +90,19 @@
     }
   }
 
-  .quote {
-    width: 100%;
-    min-height: 0;
-    margin-top: 3.5rem;
+  @media (min-width: 700px) and (max-width: 1023px) {
+    font-size: 1.05rem;
   }
 }
 
-@media (min-width: 700px) and (max-width: 1023px) {
-  .inner {
-    padding-right: 3rem;
-    padding-left: 3rem;
-  }
+.quote {
+  width: min(31rem, 100%);
+  min-height: 10.5rem;
+  margin: 4rem 0 0;
 
-  .grid {
-    gap: 4rem;
-  }
-
-  .heading,
-  .emphasis {
-    font-size: 2.5rem;
-  }
-
-  .body {
-    font-size: 1.05rem;
+  @media (max-width: 1023px) {
+    width: 100%;
+    min-height: 0;
+    margin-top: 3.5rem;
   }
 }

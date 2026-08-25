@@ -4,22 +4,22 @@
 }
 
 .inner {
-  padding: 3rem 1.5rem;
+  padding: 32px 24px;
   text-align: center;
 
   & p {
     margin: 0;
     font-family: "Archivo Condensed", sans-serif;
-    font-size: 2rem;
-    font-weight: 650;
+    font-size: 40px;
+    font-weight: 600;
     line-height: 1.1;
   }
 
   @media (max-width: 1023px) {
-    padding: 2rem 1rem;
+    padding: 16px 8px;
 
     & p {
-      font-size: 1rem;
+      font-size: 16px;
     }
   }
 }

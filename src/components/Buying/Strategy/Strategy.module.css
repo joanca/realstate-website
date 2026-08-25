@@ -4,6 +4,17 @@
   --buying-red: #c43d2f;
   color: #263244;
   background-color: var(--buying-warm-surface);
+
+  @media (max-width: 699px) {
+    background:
+      linear-gradient(
+        to bottom,
+        var(--buying-warm-surface) 0,
+        var(--buying-warm-surface) 12.5rem,
+        var(--buying-surface) 12.5rem,
+        var(--buying-surface) 100%
+      );
+  }
 }
 
 .inner {
@@ -59,7 +70,6 @@
     flex-direction: column;
     justify-content: flex-start;
     padding: 2.75rem 1.25rem 1.25rem;
-    background-color: var(--buying-warm-surface);
   }
 
   @media (min-width: 700px) and (max-width: 1023px) {

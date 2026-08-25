@@ -15,6 +15,14 @@
 .inner {
   position: relative;
   min-height: 61.5rem;
+
+  @media (max-width: 1023px) {
+    min-height: 26.5rem;
+  }
+
+  @media (min-width: 700px) and (max-width: 1023px) {
+    min-height: 39rem;
+  }
 }
 
 .pageTitle,
@@ -30,6 +38,17 @@
   font-size: 3.75rem;
   font-weight: 800;
   line-height: 1;
+
+  @media (max-width: 1023px) {
+    top: 3.75rem;
+    left: 1.25rem;
+    font-size: 2.125rem;
+  }
+
+  @media (min-width: 700px) and (max-width: 1023px) {
+    left: 3rem;
+    font-size: 3rem;
+  }
 }
 
 .houseDotI {
@@ -60,6 +79,16 @@
   object-fit: cover;
   border: 3px solid var(--buying-image-border-color, #c43d2f);
   border-radius: 10px;
+
+  @media (max-width: 1023px) {
+    top: 3.75rem;
+    width: 55%;
+    max-width: 14rem;
+  }
+
+  @media (min-width: 700px) and (max-width: 1023px) {
+    max-width: 24rem;
+  }
 }
 
 .copy {
@@ -67,17 +96,44 @@
   top: 27.75rem;
   left: 8.75rem;
   width: 31rem;
+
+  @media (max-width: 1023px) {
+    top: 10rem;
+    left: 1.25rem;
+    width: 38%;
+    min-width: 8.5rem;
+  }
+
+  @media (min-width: 700px) and (max-width: 1023px) {
+    top: 13rem;
+    left: 3rem;
+  }
 }
 
 .heading {
   margin: 0;
-  font-size: 3rem;
+  font-size: 60px;
   font-weight: 650;
   line-height: 0.98;
+
+  @media (max-width: 1023px) {
+    font-size: 1.6rem;
+    line-height: 0.98;
+  }
+
+  @media (min-width: 700px) and (max-width: 1023px) {
+    font-size: 2.5rem;
+  }
 }
 
 .divider {
   margin-top: 4.5rem;
+
+  @media (max-width: 1023px) {
+    width: 3rem !important;
+    height: 3px;
+    margin-top: 2rem;
+  }
 }
 
 .body {
@@ -87,55 +143,8 @@
   font-size: 1.25rem;
   line-height: 1.35;
   letter-spacing: 0.01em;
-}
 
-@media (max-width: 1023px) {
-  .hero {
-    background:
-      linear-gradient(
-        to bottom,
-        var(--buying-surface) 0,
-        var(--buying-surface) 7.5rem,
-        var(--hero-bg, #e59585) 7.5rem,
-        var(--hero-bg, #e59585) 100%
-      );
-  }
-
-  .inner {
-    min-height: 26.5rem;
-  }
-
-  .pageTitle {
-    top: 3.75rem;
-    left: 1.25rem;
-    font-size: 2.125rem;
-  }
-
-  .image {
-    top: 3.75rem;
-    width: 55%;
-    max-width: 14rem;
-  }
-
-  .copy {
-    top: 10rem;
-    left: 1.25rem;
-    width: 38%;
-    min-width: 8.5rem;
-  }
-
-  .heading {
-    font-size: 1.6rem;
-    line-height: 0.98;
-  }
-
-  .divider {
-    width: 3rem !important;
-    height: 3px;
-    margin-top: 2rem;
-  }
-
-  .body {
+  @media (max-width: 1023px) {
     position: absolute;
     top: 11.5rem;
     left: 0;
@@ -144,32 +153,8 @@
     font-size: 0.9rem;
     line-height: 1.35;
   }
-}
 
-@media (min-width: 700px) and (max-width: 1023px) {
-  .inner {
-    min-height: 39rem;
-  }
-
-  .pageTitle {
-    left: 3rem;
-    font-size: 3rem;
-  }
-
-  .image {
-    max-width: 24rem;
-  }
-
-  .copy {
-    top: 13rem;
-    left: 3rem;
-  }
-
-  .heading {
-    font-size: 2.5rem;
-  }
-
-  .body {
+  @media (min-width: 700px) and (max-width: 1023px) {
     top: 15rem;
     width: 24rem;
     font-size: 1.125rem;
